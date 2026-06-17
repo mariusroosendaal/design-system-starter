@@ -1,0 +1,14 @@
+{
+  "$description": "EXAMPLE elevation. 'focus' is the focus ring — apply on :focus-visible.",
+  "shadow": {
+    "$type": "shadow",
+    "sm": {
+      "$value": { "color": "#0000000d", "offsetX": "0px", "offsetY": "1px", "blur": "2px", "spread": "0px" },
+      "$description": "Subtle resting lift."
+    },
+    "focus": {
+      "$value": { "color": "{color.accent.500}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" },
+      "$description": "2px focus ring. Use on :focus-visible."
+    }
+  }
+}

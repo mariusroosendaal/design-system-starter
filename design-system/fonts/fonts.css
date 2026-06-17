@@ -1,0 +1,18 @@
+/* ------------------------------------------------------------------ *
+ * Web fonts.
+ * The example design system uses a system font stack (no @font-face),
+ * so this file is intentionally empty. To self-host a brand font:
+ *   1. drop the WOFF2 files in ./files/
+ *   2. add an @font-face block whose `font-family` exactly matches the
+ *      first family in your --font-family-* token (see primitives.json)
+ *   3. import this file before tokens.css (already wired in src/styles.css)
+ *
+ * Example:
+ * @font-face {
+ *   font-family: "Your Brand Sans";
+ *   font-style: normal;
+ *   font-weight: 400;
+ *   font-display: swap;
+ *   src: url("files/YourBrandSans-Regular.woff2") format("woff2");
+ * }
+ * ------------------------------------------------------------------ */

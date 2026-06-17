@@ -1,0 +1,28 @@
+{
+  "$description": "EXAMPLE typography. 'fontWeight' maps names→numbers; 'ramp' is the composite type scale → generated .type-* classes (responsive .type-<role> + discrete .type-<role>-<bp>). Replace with your client's text styles.",
+  "fontWeight": {
+    "$type": "fontWeight",
+    "regular": { "$value": 400 },
+    "medium": { "$value": 500 },
+    "strong": { "$value": 600 }
+  },
+  "ramp": {
+    "$type": "typography",
+    "heading": {
+      "$description": "Section headings (responsive).",
+      "sm": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 600, "fontSize": "{fontSize.24}", "lineHeight": 1.2, "letterSpacing": "0" } },
+      "lg": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 600, "fontSize": "{fontSize.32}", "lineHeight": 1.2, "letterSpacing": "0" } }
+    },
+    "body": {
+      "sm-2xl": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 400, "fontSize": "{fontSize.16}", "lineHeight": 1.5, "letterSpacing": "0" } }
+    },
+    "ui": {
+      "$description": "In-component text (buttons, inputs).",
+      "sm-2xl": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 400, "fontSize": "{fontSize.14}", "lineHeight": 1.5, "letterSpacing": "0" } },
+      "sm-2xl-strong": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 500, "fontSize": "{fontSize.14}", "lineHeight": 1.5, "letterSpacing": "0" } }
+    },
+    "label": {
+      "sm-2xl": { "$value": { "fontFamily": "{fontFamily.mono}", "fontWeight": 400, "fontSize": "{fontSize.12}", "lineHeight": 1.4, "letterSpacing": "0.04em" }, "$extensions": { "ds.textTransform": "uppercase" }, "$description": "Mono, uppercase eyebrow/label." }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+/* Font faces + design tokens must load before Tailwind so utilities can
+ * reference the CSS custom properties. */
+@import '../design-system/fonts/fonts.css';
+@import '../design-system/dist/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App-level defaults sourced from tokens. */
+html {
+  background: var(--background-default);
+  color: var(--text-default);
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+}

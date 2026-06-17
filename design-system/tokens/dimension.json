@@ -1,0 +1,30 @@
+{
+  "$description": "EXAMPLE semantic dimensions. 'space/*' is the spacing scale (use for padding/gap/margin). Tokens may be responsive: top-level $value is the smallest breakpoint, others under $extensions['ds.modes']. Breakpoints are min-width. Replace/extend to match your grid.",
+  "$extensions": { "ds.modeType": "breakpoint", "ds.defaultMode": "sm", "ds.modes": ["sm", "md", "lg"] },
+  "breakpoint": {
+    "$type": "dimension",
+    "sm": { "$value": "0px" },
+    "md": { "$value": "600px" },
+    "lg": { "$value": "900px" }
+  },
+  "space": {
+    "$type": "dimension",
+    "1": { "$value": "{size.4}" },
+    "2": { "$value": "{size.8}" },
+    "3": { "$value": "{size.12}" },
+    "4": { "$value": "{size.16}" },
+    "5": { "$value": "{size.24}" },
+    "6": { "$value": "{size.32}", "$extensions": { "ds.modes": { "md": "{size.32}", "lg": "{size.48}" } } },
+    "7": { "$value": "{size.48}", "$extensions": { "ds.modes": { "md": "{size.48}", "lg": "{size.64}" } } }
+  },
+  "radius": {
+    "$type": "dimension",
+    "interactive": { "$value": "{radius.md}", "$description": "Buttons, inputs, chips." },
+    "container":   { "$value": "{radius.md}", "$description": "Cards, modals, sheets." }
+  },
+  "interactive": {
+    "$type": "dimension",
+    "height-sm": { "$value": "{size.36}" },
+    "height-md": { "$value": "{size.40}" }
+  }
+}

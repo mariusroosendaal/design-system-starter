@@ -1,0 +1,41 @@
+name: Component eval
+
+# Gates every PR/push that touches components, specs, or tokens against the
+# design-system style guide. Deterministic checks always run and block on
+# failure. The LLM judge runs only when an ANTHROPIC_API_KEY secret is set
+# (otherwise it's skipped — the deterministic gate still applies).
+
+on:
+  pull_request:
+    paths:
+      - 'src/components/**'
+      - 'design-system/components/**'
+      - 'design-system/tokens/**'
+      - 'design-system/dist/**'
+      - 'eval/**'
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/**'
+      - 'design-system/components/**'
+      - 'design-system/tokens/**'
+      - 'eval/**'
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Eval all components
+        env:
+          # Optional: add ANTHROPIC_API_KEY as a repo secret to enable the LLM judge.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npm run eval:all

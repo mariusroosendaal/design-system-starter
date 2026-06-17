@@ -1,0 +1,27 @@
+{
+  "$description": "EXAMPLE semantic color — themed light/dark. The top-level $value is the default (light) theme; other themes live under $extensions['ds.modes']. Components use ONLY these semantic tokens (never primitives), so theming works for free. Add/rename groups to match your brand; keep the Tailwind color map (tailwind.config.js) in sync.",
+  "$extensions": { "ds.modeType": "theme", "ds.defaultMode": "light", "ds.modes": ["light", "dark"] },
+  "background": {
+    "$type": "color",
+    "default":   { "$value": "{color.white.white}", "$extensions": { "ds.modes": { "dark": "{color.neutral.950}" } } },
+    "secondary": { "$value": "{color.neutral.50}",   "$extensions": { "ds.modes": { "dark": "{color.neutral.900}" } } },
+    "inverse":   { "$value": "{color.neutral.900}",  "$extensions": { "ds.modes": { "dark": "{color.white.white}" } } }
+  },
+  "text": {
+    "$type": "color",
+    "default":   { "$value": "{color.neutral.900}", "$extensions": { "ds.modes": { "dark": "{color.neutral.50}" } } },
+    "secondary": { "$value": "{color.neutral.500}", "$extensions": { "ds.modes": { "dark": "{color.neutral.300}" } } },
+    "inverse":   { "$value": "{color.white.white}", "$extensions": { "ds.modes": { "dark": "{color.neutral.900}" } } }
+  },
+  "border": {
+    "$type": "color",
+    "default": { "$value": "{color.neutral.100}", "$extensions": { "ds.modes": { "dark": "{color.neutral.700}" } } },
+    "input":   { "$value": "{color.neutral.300}", "$extensions": { "ds.modes": { "dark": "{color.neutral.700}" } } }
+  },
+  "interactive": {
+    "$type": "color",
+    "default": { "$value": "{color.accent.500}", "$extensions": { "ds.modes": { "dark": "{color.accent.400}" } }, "$description": "Accent for primary actions, links, focus." },
+    "hovered": { "$value": "{color.black.8}",   "$extensions": { "ds.modes": { "dark": "{color.white.8}" } }, "$description": "Hover state-layer (translucent overlay)." },
+    "pressed": { "$value": "{color.black.12}",  "$extensions": { "ds.modes": { "dark": "{color.white.12}" } }, "$description": "Pressed state-layer." }
+  }
+}
