@@ -5,7 +5,7 @@
  * ------------------------------------------------------------------ */
 
 :root {
-  --background-default: var(--color-gray-50);
+  --background-default: var(--color-gray-gray);
   --background-surface: var(--color-white-white);
   --background-inverse: var(--color-blue-impactful);
   --background-overlay: var(--color-ink-12);
@@ -43,11 +43,12 @@
   --text-disabled: var(--color-ink-60);
   --text-interactive-accent: var(--color-red-insightful);
   --text-interactive-accent-hovered: var(--color-red-impactful);
-  --breakpoint-sm: 0px;
-  --breakpoint-md: 600px;
-  --breakpoint-lg: 900px;
-  --breakpoint-xl: 1200px;
-  --breakpoint-2xl: 1500px;
+  --layout-breakpoint: 0px;
+  --layout-viewport-width: 400px;
+  --layout-viewport-height: 840px;
+  --layout-columns: 12;
+  --layout-gutter: 16px;
+  --layout-margin: 16px;
   --space-1: var(--size-4);
   --space-2: var(--size-8);
   --space-3: var(--size-12);
@@ -62,14 +63,11 @@
   --space-12: var(--size-80);
   --space-13: var(--size-96);
   --space-14: var(--size-128);
-  --interactive-height-sm: var(--size-40);
-  --interactive-height-md: var(--size-48);
-  --layout-columns: 12;
-  --layout-gutter: 16px;
-  --layout-margin: 16px;
   --content-width-narrow: 368px;
   --content-width-standard: 368px;
   --content-width-wide: 368px;
+  --interactive-height-sm: var(--size-40);
+  --interactive-height-md: var(--size-48);
   --color-ink-4: #0a152b0a;
   --color-ink-8: #0a152b14;
   --color-ink-12: #0a152b1f;
@@ -88,8 +86,8 @@
   --color-blue-optimistic: #dbf5ff;
   --color-blue-bright: #81eef3;
   --color-blue-bold: #313bfb;
-  --color-blue-insightful: #004f91;
   --color-blue-impactful: #001f5c;
+  --color-blue-insightful: #004f91;
   --color-red-optimistic: #ffebfa;
   --color-red-bright: #ffa3d2;
   --color-red-bold: #eb1600;
@@ -110,17 +108,7 @@
   --color-purple-bold: #ab91ff;
   --color-purple-insightful: #594570;
   --color-purple-impactful: #420a69;
-  --color-gray-50: #f5f5f5;
-  --color-gray-100: #e2e2e2;
-  --color-gray-200: #cccccc;
-  --color-gray-300: #acacac;
-  --color-gray-400: #8e8e8e;
-  --color-gray-500: #717171;
-  --color-gray-600: #545454;
-  --color-gray-700: #3e3e3e;
-  --color-gray-800: #282828;
-  --color-gray-900: #1d1d1d;
-  --color-gray-950: #171717;
+  --color-gray-gray: #f5f5f5;
   --color-transparent: #ffffff00;
   --size-4: 4px;
   --size-8: 8px;
@@ -177,6 +165,11 @@
 
 @media (min-width: 600px) {
   :root {
+    --layout-breakpoint: 600px;
+    --layout-viewport-width: 768px;
+    --layout-viewport-height: 1024px;
+    --layout-gutter: 24px;
+    --layout-margin: 24px;
     --space-7: var(--size-32);
     --space-8: var(--size-40);
     --space-9: var(--size-48);
@@ -185,8 +178,6 @@
     --space-12: var(--size-96);
     --space-13: var(--size-128);
     --space-14: var(--size-160);
-    --layout-gutter: 24px;
-    --layout-margin: 24px;
     --content-width-narrow: 596px;
     --content-width-standard: 720px;
     --content-width-wide: 720px;
@@ -195,6 +186,9 @@
 
 @media (min-width: 900px) {
   :root {
+    --layout-breakpoint: 900px;
+    --layout-viewport-width: 1024px;
+    --layout-viewport-height: 768px;
     --space-4: var(--size-16);
     --space-5: var(--size-24);
     --space-6: var(--size-32);
@@ -214,6 +208,9 @@
 
 @media (min-width: 1200px) {
   :root {
+    --layout-breakpoint: 1200px;
+    --layout-viewport-width: 1440px;
+    --layout-viewport-height: 850px;
     --content-width-narrow: 684px;
     --content-width-standard: 1156px;
     --content-width-wide: 1392px;
@@ -222,6 +219,11 @@
 
 @media (min-width: 1500px) {
   :root {
+    --layout-breakpoint: 1500px;
+    --layout-viewport-width: 1920px;
+    --layout-viewport-height: 1080px;
+    --layout-gutter: 32px;
+    --layout-margin: 32px;
     --space-3: var(--size-16);
     --space-4: var(--size-24);
     --space-5: var(--size-32);
@@ -234,8 +236,6 @@
     --space-12: var(--size-160);
     --space-13: var(--size-192);
     --space-14: var(--size-256);
-    --layout-gutter: 32px;
-    --layout-margin: 32px;
     --content-width-narrow: 910px;
     --content-width-standard: 1538px;
     --content-width-wide: 1852px;
@@ -243,6 +243,49 @@
 }
 
 /* ---- typography: responsive family classes (preferred) ---- */
+.type-caption {
+  font-family: var(--font-family-sans);
+  font-weight: 400;
+  font-size: var(--font-size-14);
+  line-height: 1.4;
+  letter-spacing: -0.006em;
+}
+
+.type-numeral {
+  font-family: var(--font-family-serif);
+  font-weight: 400;
+  font-size: var(--font-size-42);
+  line-height: 1;
+  letter-spacing: -0.024em;
+}
+@media (min-width: 600px) {
+  .type-numeral {
+    font-family: var(--font-family-serif);
+    font-weight: 400;
+    font-size: var(--font-size-48);
+    line-height: 1;
+    letter-spacing: -0.024em;
+  }
+}
+@media (min-width: 1200px) {
+  .type-numeral {
+    font-family: var(--font-family-serif);
+    font-weight: 400;
+    font-size: var(--font-size-54);
+    line-height: 1;
+    letter-spacing: -0.024em;
+  }
+}
+@media (min-width: 1500px) {
+  .type-numeral {
+    font-family: var(--font-family-serif);
+    font-weight: 400;
+    font-size: var(--font-size-60);
+    line-height: 1;
+    letter-spacing: -0.024em;
+  }
+}
+
 .type-heading-display {
   font-family: var(--font-family-sans);
   font-weight: 300;
@@ -642,7 +685,8 @@
   text-transform: uppercase;
 }
 
-.type-caption {
+/* ---- typography: discrete per-breakpoint classes (explicit control) ---- */
+.type-caption-sm-2xl {
   font-family: var(--font-family-sans);
   font-weight: 400;
   font-size: var(--font-size-14);
@@ -650,42 +694,38 @@
   letter-spacing: -0.006em;
 }
 
-.type-numeral {
+.type-numeral-sm {
   font-family: var(--font-family-serif);
   font-weight: 400;
   font-size: var(--font-size-42);
   line-height: 1;
   letter-spacing: -0.024em;
 }
-@media (min-width: 600px) {
-  .type-numeral {
-    font-family: var(--font-family-serif);
-    font-weight: 400;
-    font-size: var(--font-size-48);
-    line-height: 1;
-    letter-spacing: -0.024em;
-  }
-}
-@media (min-width: 1200px) {
-  .type-numeral {
-    font-family: var(--font-family-serif);
-    font-weight: 400;
-    font-size: var(--font-size-54);
-    line-height: 1;
-    letter-spacing: -0.024em;
-  }
-}
-@media (min-width: 1500px) {
-  .type-numeral {
-    font-family: var(--font-family-serif);
-    font-weight: 400;
-    font-size: var(--font-size-60);
-    line-height: 1;
-    letter-spacing: -0.024em;
-  }
+
+.type-numeral-md-lg {
+  font-family: var(--font-family-serif);
+  font-weight: 400;
+  font-size: var(--font-size-48);
+  line-height: 1;
+  letter-spacing: -0.024em;
 }
 
-/* ---- typography: discrete per-breakpoint classes (explicit control) ---- */
+.type-numeral-xl {
+  font-family: var(--font-family-serif);
+  font-weight: 400;
+  font-size: var(--font-size-54);
+  line-height: 1;
+  letter-spacing: -0.024em;
+}
+
+.type-numeral-2xl {
+  font-family: var(--font-family-serif);
+  font-weight: 400;
+  font-size: var(--font-size-60);
+  line-height: 1;
+  letter-spacing: -0.024em;
+}
+
 .type-heading-display-sm {
   font-family: var(--font-family-sans);
   font-weight: 300;
@@ -1053,44 +1093,4 @@
   line-height: 1.4;
   letter-spacing: 0.075em;
   text-transform: uppercase;
-}
-
-.type-caption-sm-2xl {
-  font-family: var(--font-family-sans);
-  font-weight: 400;
-  font-size: var(--font-size-14);
-  line-height: 1.4;
-  letter-spacing: -0.006em;
-}
-
-.type-numeral-sm {
-  font-family: var(--font-family-serif);
-  font-weight: 400;
-  font-size: var(--font-size-42);
-  line-height: 1;
-  letter-spacing: -0.024em;
-}
-
-.type-numeral-md-lg {
-  font-family: var(--font-family-serif);
-  font-weight: 400;
-  font-size: var(--font-size-48);
-  line-height: 1;
-  letter-spacing: -0.024em;
-}
-
-.type-numeral-xl {
-  font-family: var(--font-family-serif);
-  font-weight: 400;
-  font-size: var(--font-size-54);
-  line-height: 1;
-  letter-spacing: -0.024em;
-}
-
-.type-numeral-2xl {
-  font-family: var(--font-family-serif);
-  font-weight: 400;
-  font-size: var(--font-size-60);
-  line-height: 1;
-  letter-spacing: -0.024em;
 }

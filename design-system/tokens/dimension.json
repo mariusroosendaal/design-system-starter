@@ -1,46 +1,243 @@
 {
+  "$extensions": {
+    "ds.modeType": "breakpoint",
+    "ds.defaultMode": "sm",
+    "ds.modes": [
+      "sm",
+      "md",
+      "lg",
+      "xl",
+      "2xl"
+    ]
+  },
   "$description": "SNAP semantic dimensions, extracted from the Figma 'responsive' collection. Tokens are responsive: top-level $value is the smallest breakpoint (sm), the rest live under $extensions['ds.modes'] keyed by breakpoint (min-width). 'space/*' is the spacing scale (padding/gap/margin); it scales up at larger breakpoints. Replace/extend to match the grid.",
-  "$extensions": { "ds.modeType": "breakpoint", "ds.defaultMode": "sm", "ds.modes": ["sm", "md", "lg", "xl", "2xl"] },
-  "breakpoint": {
-    "$type": "dimension",
-    "sm":  { "$value": "0px" },
-    "md":  { "$value": "600px" },
-    "lg":  { "$value": "900px" },
-    "xl":  { "$value": "1200px" },
-    "2xl": { "$value": "1500px" }
-  },
-  "space": {
-    "$type": "dimension",
-    "1":  { "$value": "{size.4}" },
-    "2":  { "$value": "{size.8}" },
-    "3":  { "$value": "{size.12}", "$extensions": { "ds.modes": { "2xl": "{size.16}" } } },
-    "4":  { "$value": "{size.12}", "$extensions": { "ds.modes": { "lg": "{size.16}", "2xl": "{size.24}" } } },
-    "5":  { "$value": "{size.16}", "$extensions": { "ds.modes": { "lg": "{size.24}", "2xl": "{size.32}" } } },
-    "6":  { "$value": "{size.24}", "$extensions": { "ds.modes": { "lg": "{size.32}", "2xl": "{size.40}" } } },
-    "7":  { "$value": "{size.24}", "$extensions": { "ds.modes": { "md": "{size.32}", "lg": "{size.40}", "2xl": "{size.48}" } } },
-    "8":  { "$value": "{size.32}", "$extensions": { "ds.modes": { "md": "{size.40}", "lg": "{size.48}", "2xl": "{size.64}" } } },
-    "9":  { "$value": "{size.40}", "$extensions": { "ds.modes": { "md": "{size.48}", "lg": "{size.64}", "2xl": "{size.80}" } } },
-    "10": { "$value": "{size.48}", "$extensions": { "ds.modes": { "md": "{size.64}", "lg": "{size.80}", "2xl": "{size.96}" } } },
-    "11": { "$value": "{size.64}", "$extensions": { "ds.modes": { "md": "{size.80}", "lg": "{size.96}", "2xl": "{size.128}" } } },
-    "12": { "$value": "{size.80}", "$extensions": { "ds.modes": { "md": "{size.96}", "lg": "{size.128}", "2xl": "{size.160}" } } },
-    "13": { "$value": "{size.96}", "$extensions": { "ds.modes": { "md": "{size.128}", "lg": "{size.160}", "2xl": "{size.192}" } } },
-    "14": { "$value": "{size.128}", "$extensions": { "ds.modes": { "md": "{size.160}", "lg": "{size.192}", "2xl": "{size.256}" } } }
-  },
-  "interactive": {
-    "$type": "dimension",
-    "height-sm": { "$value": "{size.40}", "$description": "Small control height (buttons, inputs)." },
-    "height-md": { "$value": "{size.48}", "$description": "Default control height." }
-  },
   "layout": {
     "$type": "dimension",
-    "columns": { "$value": 12, "$description": "Grid column count (constant across breakpoints)." },
-    "gutter":  { "$value": "16px", "$extensions": { "ds.modes": { "md": "24px", "2xl": "32px" } } },
-    "margin":  { "$value": "16px", "$extensions": { "ds.modes": { "md": "24px", "2xl": "32px" } } }
+    "breakpoint": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "600px",
+          "lg": "900px",
+          "xl": "1200px",
+          "2xl": "1500px"
+        }
+      },
+      "$value": "0px"
+    },
+    "viewport-width": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "768px",
+          "lg": "1024px",
+          "xl": "1440px",
+          "2xl": "1920px"
+        }
+      },
+      "$value": "400px"
+    },
+    "viewport-height": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "1024px",
+          "lg": "768px",
+          "xl": "850px",
+          "2xl": "1080px"
+        }
+      },
+      "$value": "840px"
+    },
+    "columns": {
+      "$description": "Grid column count (constant across breakpoints).",
+      "$value": 12
+    },
+    "gutter": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "24px",
+          "2xl": "32px"
+        }
+      },
+      "$value": "16px"
+    },
+    "margin": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "24px",
+          "2xl": "32px"
+        }
+      },
+      "$value": "16px"
+    }
+  },
+  "space": {
+    "1": {
+      "$value": "{size.4}"
+    },
+    "2": {
+      "$value": "{size.8}"
+    },
+    "3": {
+      "$extensions": {
+        "ds.modes": {
+          "2xl": "{size.16}"
+        }
+      },
+      "$value": "{size.12}"
+    },
+    "4": {
+      "$extensions": {
+        "ds.modes": {
+          "lg": "{size.16}",
+          "2xl": "{size.24}"
+        }
+      },
+      "$value": "{size.12}"
+    },
+    "5": {
+      "$extensions": {
+        "ds.modes": {
+          "lg": "{size.24}",
+          "2xl": "{size.32}"
+        }
+      },
+      "$value": "{size.16}"
+    },
+    "6": {
+      "$extensions": {
+        "ds.modes": {
+          "lg": "{size.32}",
+          "2xl": "{size.40}"
+        }
+      },
+      "$value": "{size.24}"
+    },
+    "7": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "{size.32}",
+          "lg": "{size.40}",
+          "2xl": "{size.48}"
+        }
+      },
+      "$value": "{size.24}"
+    },
+    "8": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "{size.40}",
+          "lg": "{size.48}",
+          "2xl": "{size.64}"
+        }
+      },
+      "$value": "{size.32}"
+    },
+    "9": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "{size.48}",
+          "lg": "{size.64}",
+          "2xl": "{size.80}"
+        }
+      },
+      "$value": "{size.40}"
+    },
+    "10": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "{size.64}",
+          "lg": "{size.80}",
+          "2xl": "{size.96}"
+        }
+      },
+      "$value": "{size.48}"
+    },
+    "11": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "{size.80}",
+          "lg": "{size.96}",
+          "2xl": "{size.128}"
+        }
+      },
+      "$value": "{size.64}"
+    },
+    "12": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "{size.96}",
+          "lg": "{size.128}",
+          "2xl": "{size.160}"
+        }
+      },
+      "$value": "{size.80}"
+    },
+    "13": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "{size.128}",
+          "lg": "{size.160}",
+          "2xl": "{size.192}"
+        }
+      },
+      "$value": "{size.96}"
+    },
+    "14": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "{size.160}",
+          "lg": "{size.192}",
+          "2xl": "{size.256}"
+        }
+      },
+      "$value": "{size.128}"
+    },
+    "$type": "dimension"
   },
   "content-width": {
     "$type": "dimension",
-    "narrow":   { "$value": "368px", "$extensions": { "ds.modes": { "md": "596px", "lg": "640px", "xl": "684px", "2xl": "910px" } } },
-    "standard": { "$value": "368px", "$extensions": { "ds.modes": { "md": "720px", "lg": "806px", "xl": "1156px", "2xl": "1538px" } } },
-    "wide":     { "$value": "368px", "$extensions": { "ds.modes": { "md": "720px", "lg": "972px", "xl": "1392px", "2xl": "1852px" } } }
+    "narrow": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "596px",
+          "lg": "640px",
+          "xl": "684px",
+          "2xl": "910px"
+        }
+      },
+      "$value": "368px"
+    },
+    "standard": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "720px",
+          "lg": "806px",
+          "xl": "1156px",
+          "2xl": "1538px"
+        }
+      },
+      "$value": "368px"
+    },
+    "wide": {
+      "$extensions": {
+        "ds.modes": {
+          "md": "720px",
+          "lg": "972px",
+          "xl": "1392px",
+          "2xl": "1852px"
+        }
+      },
+      "$value": "368px"
+    }
+  },
+  "interactive": {
+    "$type": "dimension",
+    "height-sm": {
+      "$description": "Small control height (buttons, inputs).",
+      "$value": "{size.40}"
+    },
+    "height-md": {
+      "$description": "Default control height.",
+      "$value": "{size.48}"
+    }
   }
 }

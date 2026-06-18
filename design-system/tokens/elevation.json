@@ -3,19 +3,43 @@
   "shadow": {
     "$type": "shadow",
     "sm": {
-      "$value": { "color": "#0000000d", "offsetX": "0px", "offsetY": "1px", "blur": "2px", "spread": "1px" },
-      "$description": "Subtle resting lift."
+      "$description": "Subtle resting lift.",
+      "$value": {
+        "color": "#0000000d",
+        "offsetX": "0px",
+        "offsetY": "1px",
+        "blur": "2px",
+        "spread": "1px"
+      }
     },
     "md": {
+      "$description": "Raised surface (menus, popovers, cards).",
       "$value": [
-        { "color": "#0000004d", "offsetX": "0px", "offsetY": "0px", "blur": "2px", "spread": "0px" },
-        { "color": "#00000014", "offsetX": "0px", "offsetY": "3px", "blur": "3px", "spread": "0px" }
-      ],
-      "$description": "Raised surface (menus, popovers, cards)."
+        {
+          "color": "#0000004d",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "2px",
+          "spread": "0px"
+        },
+        {
+          "color": "#00000014",
+          "offsetX": "0px",
+          "offsetY": "3px",
+          "blur": "3px",
+          "spread": "0px"
+        }
+      ]
     },
     "focus": {
-      "$value": { "color": "{border.focus}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" },
-      "$description": "2px focus ring. Use on :focus-visible."
+      "$description": "2px focus ring. Use on :focus-visible.",
+      "$value": {
+        "color": "{border.focus}",
+        "offsetX": "0px",
+        "offsetY": "0px",
+        "blur": "0px",
+        "spread": "2px"
+      }
     }
   }
 }

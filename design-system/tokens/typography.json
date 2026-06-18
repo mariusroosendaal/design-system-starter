@@ -2,100 +2,517 @@
   "$description": "SNAP typography, extracted from the Figma text styles + 'typography' / 'typography primitives' collections. 'fontWeight' maps GT America / Tobias weight names → numbers. 'ramp' is the composite, responsive type scale → generated .type-* classes (responsive .type-<role> + discrete .type-<role>-<bp>). Headings use the sans face (GT America); 'heading-expressive' and 'numeral' use the serif face (Tobias). Sizes scale up across breakpoints; line-height and letter-spacing are constant per role.",
   "fontWeight": {
     "$type": "fontWeight",
-    "light":   { "$value": 300 },
-    "regular": { "$value": 400 },
-    "bold":    { "$value": 700 }
+    "light": {
+      "$value": 300
+    },
+    "regular": {
+      "$value": 400
+    },
+    "bold": {
+      "$value": 700
+    }
   },
   "ramp": {
     "$type": "typography",
-    "heading-display": {
-      "$description": "Largest heading. GT America Light.",
-      "sm":  { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.32}", "lineHeight": 1.1, "letterSpacing": "-0.039em" } },
-      "md":  { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.42}", "lineHeight": 1.1, "letterSpacing": "-0.039em" } },
-      "lg":  { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.48}", "lineHeight": 1.1, "letterSpacing": "-0.039em" } },
-      "xl":  { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.54}", "lineHeight": 1.1, "letterSpacing": "-0.039em" } },
-      "2xl": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.68}", "lineHeight": 1.1, "letterSpacing": "-0.039em" } }
-    },
-    "heading-large": {
-      "sm":  { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.28}", "lineHeight": 1.2, "letterSpacing": "-0.033em" } },
-      "md":  { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.32}", "lineHeight": 1.2, "letterSpacing": "-0.033em" } },
-      "lg":  { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.36}", "lineHeight": 1.2, "letterSpacing": "-0.033em" } },
-      "xl":  { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.42}", "lineHeight": 1.2, "letterSpacing": "-0.033em" } },
-      "2xl": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.48}", "lineHeight": 1.2, "letterSpacing": "-0.033em" } }
-    },
-    "heading-medium": {
-      "sm":    { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.20}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } },
-      "md-lg": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.24}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } },
-      "xl":    { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.28}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } },
-      "2xl":   { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.32}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } }
-    },
-    "heading-small": {
-      "$description": "GT America Bold.",
-      "sm-lg": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.20}", "lineHeight": 1.2, "letterSpacing": "-0.019em" } },
-      "xl":    { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.24}", "lineHeight": 1.2, "letterSpacing": "-0.019em" } },
-      "2xl":   { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.28}", "lineHeight": 1.2, "letterSpacing": "-0.019em" } }
-    },
-    "heading-expressive-display": {
-      "$description": "Editorial display. Tobias Regular.",
-      "sm":  { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.32}", "lineHeight": 1.1, "letterSpacing": "-0.024em" } },
-      "md":  { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.42}", "lineHeight": 1.1, "letterSpacing": "-0.024em" } },
-      "lg":  { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.48}", "lineHeight": 1.1, "letterSpacing": "-0.024em" } },
-      "xl":  { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.54}", "lineHeight": 1.1, "letterSpacing": "-0.024em" } },
-      "2xl": { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.68}", "lineHeight": 1.1, "letterSpacing": "-0.024em" } }
-    },
-    "heading-expressive-large": {
-      "sm":  { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.28}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } },
-      "md":  { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.32}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } },
-      "lg":  { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.36}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } },
-      "xl":  { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.42}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } },
-      "2xl": { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.48}", "lineHeight": 1.2, "letterSpacing": "-0.022em" } }
-    },
-    "heading-expressive-medium": {
-      "sm":    { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.20}", "lineHeight": 1.2, "letterSpacing": "-0.019em" } },
-      "md-lg": { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.24}", "lineHeight": 1.2, "letterSpacing": "-0.019em" } },
-      "xl":    { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.28}", "lineHeight": 1.2, "letterSpacing": "-0.019em" } },
-      "2xl":   { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.32}", "lineHeight": 1.2, "letterSpacing": "-0.019em" } }
-    },
-    "heading-expressive-small": {
-      "sm-lg": { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.20}", "lineHeight": 1.2, "letterSpacing": "-0.017em" } },
-      "xl":    { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.24}", "lineHeight": 1.2, "letterSpacing": "-0.017em" } },
-      "2xl":   { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.28}", "lineHeight": 1.2, "letterSpacing": "-0.017em" } }
-    },
-    "body-large": {
-      "$description": "GT America Light; -strong is Bold.",
-      "sm-md":        { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.16}", "lineHeight": 1.5, "letterSpacing": "-0.013em" } },
-      "lg-xl":        { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.18}", "lineHeight": 1.5, "letterSpacing": "-0.013em" } },
-      "2xl":          { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.20}", "lineHeight": 1.5, "letterSpacing": "-0.013em" } },
-      "sm-md-strong": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.16}", "lineHeight": 1.5, "letterSpacing": "-0.013em" } },
-      "lg-xl-strong": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.18}", "lineHeight": 1.5, "letterSpacing": "-0.013em" } },
-      "2xl-strong":   { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.20}", "lineHeight": 1.5, "letterSpacing": "-0.013em" } }
-    },
-    "body-medium": {
-      "$description": "Default body / control label. GT America Light; -strong is Bold.",
-      "sm-2xl":        { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.16}", "lineHeight": 1.5, "letterSpacing": "-0.011em" } },
-      "sm-2xl-strong": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.16}", "lineHeight": 1.5, "letterSpacing": "-0.011em" } }
-    },
-    "body-small": {
-      "sm-2xl":        { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 300, "fontSize": "{fontSize.14}", "lineHeight": 1.5, "letterSpacing": "-0.006em" } },
-      "sm-2xl-strong": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.14}", "lineHeight": 1.5, "letterSpacing": "-0.006em" } }
-    },
-    "label-medium": {
-      "$description": "GT America Bold.",
-      "sm-2xl": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.12}", "lineHeight": 1.4, "letterSpacing": "0" } }
-    },
-    "label-small": {
-      "$description": "GT America Bold, uppercase eyebrow.",
-      "sm-2xl": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 700, "fontSize": "{fontSize.10}", "lineHeight": 1.4, "letterSpacing": "0.075em" }, "$extensions": { "ds.textTransform": "uppercase" } }
-    },
     "caption": {
-      "sm-2xl": { "$value": { "fontFamily": "{fontFamily.sans}", "fontWeight": 400, "fontSize": "{fontSize.14}", "lineHeight": 1.4, "letterSpacing": "-0.006em" } }
+      "sm-2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.14}",
+          "lineHeight": 1.4,
+          "letterSpacing": "-0.006em"
+        }
+      }
     },
     "numeral": {
       "$description": "Tabular display numerals. Tobias Regular.",
-      "sm":    { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.42}", "lineHeight": 1, "letterSpacing": "-0.024em" } },
-      "md-lg": { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.48}", "lineHeight": 1, "letterSpacing": "-0.024em" } },
-      "xl":    { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.54}", "lineHeight": 1, "letterSpacing": "-0.024em" } },
-      "2xl":   { "$value": { "fontFamily": "{fontFamily.serif}", "fontWeight": 400, "fontSize": "{fontSize.60}", "lineHeight": 1, "letterSpacing": "-0.024em" } }
+      "sm": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.42}",
+          "lineHeight": 1,
+          "letterSpacing": "-0.024em"
+        }
+      },
+      "md-lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.48}",
+          "lineHeight": 1,
+          "letterSpacing": "-0.024em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.54}",
+          "lineHeight": 1,
+          "letterSpacing": "-0.024em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.60}",
+          "lineHeight": 1,
+          "letterSpacing": "-0.024em"
+        }
+      }
+    },
+    "heading-display": {
+      "$description": "Largest heading. GT America Light.",
+      "sm": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.32}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.039em"
+        }
+      },
+      "md": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.42}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.039em"
+        }
+      },
+      "lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.48}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.039em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.54}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.039em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.68}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.039em"
+        }
+      }
+    },
+    "heading-large": {
+      "sm": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.28}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.033em"
+        }
+      },
+      "md": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.32}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.033em"
+        }
+      },
+      "lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.36}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.033em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.42}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.033em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.48}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.033em"
+        }
+      }
+    },
+    "heading-medium": {
+      "sm": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.20}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      },
+      "md-lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.24}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.28}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.32}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      }
+    },
+    "heading-small": {
+      "$description": "GT America Bold.",
+      "sm-lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.20}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.019em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.24}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.019em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.28}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.019em"
+        }
+      }
+    },
+    "heading-expressive-display": {
+      "$description": "Editorial display. Tobias Regular.",
+      "sm": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.32}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.024em"
+        }
+      },
+      "md": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.42}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.024em"
+        }
+      },
+      "lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.48}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.024em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.54}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.024em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.68}",
+          "lineHeight": 1.1,
+          "letterSpacing": "-0.024em"
+        }
+      }
+    },
+    "heading-expressive-large": {
+      "sm": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.28}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      },
+      "md": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.32}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      },
+      "lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.36}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.42}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.48}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.022em"
+        }
+      }
+    },
+    "heading-expressive-medium": {
+      "sm": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.20}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.019em"
+        }
+      },
+      "md-lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.24}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.019em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.28}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.019em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.32}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.019em"
+        }
+      }
+    },
+    "heading-expressive-small": {
+      "sm-lg": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.20}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.017em"
+        }
+      },
+      "xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.24}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.017em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.serif}",
+          "fontWeight": 400,
+          "fontSize": "{fontSize.28}",
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.017em"
+        }
+      }
+    },
+    "body-large": {
+      "$description": "GT America Light; -strong is Bold.",
+      "sm-md": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.16}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.013em"
+        }
+      },
+      "lg-xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.18}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.013em"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.20}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.013em"
+        }
+      },
+      "sm-md-strong": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.16}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.013em"
+        }
+      },
+      "lg-xl-strong": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.18}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.013em"
+        }
+      },
+      "2xl-strong": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.20}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.013em"
+        }
+      }
+    },
+    "body-medium": {
+      "$description": "Default body / control label. GT America Light; -strong is Bold.",
+      "sm-2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.16}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.011em"
+        }
+      },
+      "sm-2xl-strong": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.16}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.011em"
+        }
+      }
+    },
+    "body-small": {
+      "sm-2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 300,
+          "fontSize": "{fontSize.14}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.006em"
+        }
+      },
+      "sm-2xl-strong": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.14}",
+          "lineHeight": 1.5,
+          "letterSpacing": "-0.006em"
+        }
+      }
+    },
+    "label-medium": {
+      "$description": "GT America Bold.",
+      "sm-2xl": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.12}",
+          "lineHeight": 1.4,
+          "letterSpacing": "0"
+        }
+      }
+    },
+    "label-small": {
+      "$description": "GT America Bold, uppercase eyebrow.",
+      "sm-2xl": {
+        "$extensions": {
+          "ds.textTransform": "uppercase"
+        },
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontWeight": 700,
+          "fontSize": "{fontSize.10}",
+          "lineHeight": 1.4,
+          "letterSpacing": "0.075em"
+        }
+      }
     }
   }
 }
