@@ -33,9 +33,10 @@ async function buildExport() {
   const collections = [];
   const localCollections = await figma.variables.getLocalVariableCollectionsAsync();
   for (const c of localCollections) {
+    // fetch every variable in the collection in parallel (was sequential)
+    const fetched = await Promise.all(c.variableIds.map((id) => figma.variables.getVariableByIdAsync(id)));
     const variables = [];
-    for (const id of c.variableIds) {
-      const v = await figma.variables.getVariableByIdAsync(id);
+    for (const v of fetched) {
       if (!v) continue;
       const valuesByMode = {};
       for (const modeId of Object.keys(v.valuesByMode)) valuesByMode[modeId] = normValue(v.valuesByMode[modeId]);
@@ -108,7 +109,7 @@ figma.ui.onmessage = async (msg) => {
     }
   } else if (msg.type === 'close') {
     figma.closePlugin();
-  } else if (msg.type === 'notify') {
+  } else if (msg.type === 'notify' && typeof msg.message === 'string') {
     figma.notify(msg.message);
   }
 };
