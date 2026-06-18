@@ -1,6 +1,10 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { cx } from '../lib/cx';
 
+// Spec: design-system/components/button.md
+// Reference component for the SNAP system. SNAP controls are square (radius 0)
+// and signal interaction by swapping color tokens — not a translucent overlay.
+
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 export type ButtonSize = 'sm' | 'md';
 
@@ -11,27 +15,35 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
 }
 
-// Spec: design-system/components/button.md
-// Example component — shows the token-only + state-layer + focus-ring pattern.
 const base = cx(
-  'relative isolate inline-flex items-center justify-center gap-2 rounded-interactive',
-  'select-none whitespace-nowrap transition-colors',
+  'inline-flex items-center justify-center gap-2 rounded-none',
+  'select-none whitespace-nowrap transition-colors type-body-medium',
   'focus-visible:outline-none focus-visible:shadow-focus',
-  'disabled:opacity-40 disabled:pointer-events-none',
-  "after:content-[''] after:absolute after:inset-0 after:rounded-[inherit] after:pointer-events-none",
-  'after:opacity-0 after:transition-opacity hover:after:opacity-100',
-  'after:bg-interactive-hovered active:after:bg-interactive-pressed',
+  'disabled:bg-background-disabled disabled:text-text-disabled disabled:border-border-disabled disabled:pointer-events-none',
 );
 
 const variantClass: Record<ButtonVariant, string> = {
-  primary: 'bg-interactive-default text-text-inverse',
-  secondary: 'bg-transparent text-text-default border border-border-input',
-  ghost: 'bg-transparent text-text-default',
+  // Primary: navy fill → bright fill on hover/press, label flips to ink for contrast.
+  primary: cx(
+    'bg-background-interactive-primary text-text-inverse',
+    'hover:bg-background-interactive-primary-hovered hover:text-text-default',
+    'active:bg-background-interactive-primary-hovered active:text-text-default',
+  ),
+  // Secondary: outlined; translucent ink overlay tokens carry hover/press.
+  secondary: cx(
+    'border border-border-strong bg-transparent text-text-default',
+    'hover:bg-background-overlay active:bg-background-overlay-strong',
+  ),
+  // Ghost: text-only; same overlay tokens for hover/press.
+  ghost: cx(
+    'bg-transparent text-text-default',
+    'hover:bg-background-overlay active:bg-background-overlay-strong',
+  ),
 };
 
 const sizeClass: Record<ButtonSize, string> = {
-  sm: 'h-control-sm px-3 type-ui-sm-2xl-strong',
-  md: 'h-control-md px-4 type-ui-sm-2xl-strong',
+  sm: 'h-control-sm px-3',
+  md: 'h-control-md px-4',
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -45,7 +57,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={cx(base, variantClass[variant], sizeClass[size], fullWidth && 'w-full', className)}
       {...rest}
     >
-      <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
+      {children}
     </button>
   );
 });

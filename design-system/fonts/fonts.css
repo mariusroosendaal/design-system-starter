@@ -1,18 +1,62 @@
 /* ------------------------------------------------------------------ *
- * Web fonts.
- * The example design system uses a system font stack (no @font-face),
- * so this file is intentionally empty. To self-host a brand font:
- *   1. drop the WOFF2 files in ./files/
- *   2. add an @font-face block whose `font-family` exactly matches the
- *      first family in your --font-family-* token (see primitives.json)
- *   3. import this file before tokens.css (already wired in src/styles.css)
+ * SNAP web fonts — self-hosted brand faces (WOFF2 in ./files/).
  *
- * Example:
- * @font-face {
- *   font-family: "Your Brand Sans";
- *   font-style: normal;
- *   font-weight: 400;
- *   font-display: swap;
- *   src: url("files/YourBrandSans-Regular.woff2") format("woff2");
- * }
+ *   --font-family-sans  → "GT America"  (300 Light, 400 Regular, 700 Bold + italics)
+ *   --font-family-serif → "Tobias"      (400 Regular)
+ *
+ * The `font-family` names here match the brand face in each --font-family-*
+ * token (see primitives.json). Imported before tokens.css in src/styles.css.
  * ------------------------------------------------------------------ */
+
+/* GT America — sans */
+@font-face {
+  font-family: "GT America";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("files/GT-America-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("files/GT-America-Light-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("files/GT-America-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("files/GT-America-Regular-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("files/GT-America-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "GT America";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("files/GT-America-Bold-Italic.woff2") format("woff2");
+}
+
+/* Tobias — serif */
+@font-face {
+  font-family: "Tobias";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("files/Tobias-Regular.woff2") format("woff2");
+}

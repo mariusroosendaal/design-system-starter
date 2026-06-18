@@ -1,13 +1,20 @@
 {
-  "$description": "EXAMPLE elevation. 'focus' is the focus ring — apply on :focus-visible.",
+  "$description": "SNAP elevation, extracted from the Figma effect styles (shadow-sm, shadow-md, .focus). 'focus' is the focus ring — apply on :focus-visible. Shadow tints are raw rgba (not palette tokens); the focus ring color is the semantic border/focus token.",
   "shadow": {
     "$type": "shadow",
     "sm": {
-      "$value": { "color": "#0000000d", "offsetX": "0px", "offsetY": "1px", "blur": "2px", "spread": "0px" },
+      "$value": { "color": "#0000000d", "offsetX": "0px", "offsetY": "1px", "blur": "2px", "spread": "1px" },
       "$description": "Subtle resting lift."
     },
+    "md": {
+      "$value": [
+        { "color": "#0000004d", "offsetX": "0px", "offsetY": "0px", "blur": "2px", "spread": "0px" },
+        { "color": "#00000014", "offsetX": "0px", "offsetY": "3px", "blur": "3px", "spread": "0px" }
+      ],
+      "$description": "Raised surface (menus, popovers, cards)."
+    },
     "focus": {
-      "$value": { "color": "{color.accent.500}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" },
+      "$value": { "color": "{border.focus}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" },
       "$description": "2px focus ring. Use on :focus-visible."
     }
   }

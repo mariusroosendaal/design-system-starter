@@ -1,8 +1,6 @@
-# <Design System Name> — Agentic Design System
+# SNAP — Agentic Design System
 
-> Replace `<Design System Name>` and this line with the client/system. This repo is the **code source of truth** for the design system. It exists so Claude Code can build new, on-system components on demand. Design decisions live in Figma; this repo is the extracted, machine-readable contract + the rules for using it.
-
-**Figma source:** `<link to the client's Figma file>`. Tokens here were extracted from its variable collections, text styles, and effect styles.
+**Figma source:** `https://www.figma.com/design/40hPEX7A9Wt5VsMHxk3xCr/%F0%9F%8E%A8-USCC-%E2%80%94-SNAP-DS?node-id=2-1929&p=f&t=Fy3cgaf8euHGyt2A-0`. Tokens here were extracted from its variable collections, text styles, and effect styles.
 
 ## Layout
 
@@ -10,18 +8,18 @@
 design-system/
   tokens/          W3C Design Tokens JSON — the source of truth (edit these)
     primitives.json     raw values (color ramps, size/radius scale, font sizes)
-    color.json          semantic color, themed (light/dark/…)
-    dimension.json      semantic spacing/layout, responsive across breakpoints
-    typography.json     font weights + the composite type ramp
+    color.json          semantic color (SNAP defines a single 'light' mode)
+    dimension.json      semantic spacing/layout, responsive across sm–2xl
+    typography.json     font weights + the composite, responsive type ramp
     elevation.json      shadows + focus ring
     build.mjs           generator: JSON → dist/tokens.css (no dependencies)
   dist/tokens.css   GENERATED — CSS custom properties + .type-* classes. Do not edit.
   foundations/     docs: color, typography, spacing-layout, radius-elevation
   components/      component specs (.md). _TEMPLATE.md is the required format.
-  fonts/           @font-face declarations + binaries in files/
+  fonts/           @font-face declarations (GT America, Tobias) + binaries in files/
 src/
   components/      React + TS component implementations
-  App.tsx          live gallery with a theme switcher
+  App.tsx          live gallery
   styles.css       imports fonts.css + tokens.css, then Tailwind layers
 eval/              style-guide eval (deterministic checks + LLM judge)
 ```
@@ -35,9 +33,9 @@ Consuming apps import fonts then tokens:
 
 ## Non-negotiable rules for building components
 
-1. **Tokens only — never hardcode.** No raw hex, px, rem, font names, or shadows in a component. Use the CSS custom properties from `dist/tokens.css` (e.g. `var(--text-default)`, `var(--space-6)`, `var(--radius-container)`).
-2. **Semantic over primitive.** Use `--text-default`, not `--color-neutral-900`. If no semantic token fits, flag the gap — don't reach past it.
-3. **Theme-agnostic.** Build once on semantic color tokens; themes work for free via `[data-theme]`. Never hand-author a theme override in a component.
+1. **Tokens only — never hardcode.** No raw hex, px, rem, font names, or shadows in a component. Use the CSS custom properties from `dist/tokens.css` (e.g. `var(--text-default)`, `var(--space-6)`, `var(--background-surface)`).
+2. **Semantic over primitive.** Use `--text-default`, not `--color-ink-100`. If no semantic token fits, flag the gap — don't reach past it. (SNAP has no semantic radius token; controls are square — `rounded-none`.)
+3. **Theme-agnostic.** Build once on semantic color tokens — never hand-author a theme override in a component. SNAP currently defines only a `light` mode in Figma; the `[data-theme]` plumbing stays so modes can be added without touching components.
 4. **Mobile-first & responsive.** Default to the smallest breakpoint; layer `@media (min-width: …)` upward. Use `--space-*` for spacing.
 5. **Type via the ramp.** Apply a `.type-*` class or compose from `--font-*` tokens. Pick the role by meaning.
 6. **Accessibility is part of "done":** focus ring on `:focus-visible` (`--shadow-focus`); never signal state with color alone; meet WCAG AA contrast; semantic HTML + ARIA.
@@ -48,7 +46,7 @@ Consuming apps import fonts then tokens:
 1. **Read the relevant foundations** (`design-system/foundations/*.md`).
 2. **Write/open the spec** in `design-system/components/<name>.md` using the template.
 3. **Implement** against the spec, tokens only — React + TS in `src/components/<Name>.tsx`, Tailwind utilities mapped to tokens (see "Component stack"). Link the spec at the top (`// Spec: design-system/components/<name>.md`).
-4. **Verify:** every value traces to a token; all states + focus ring handled; works in every theme + across breakpoints. Run the gallery (`npm run dev`).
+4. **Verify:** every value traces to a token; all states + focus ring handled; works across breakpoints (and every theme, once more than `light` exists). Run the gallery (`npm run dev`).
 5. **Evaluate — required before "done".** Run `/eval-component <Name>` (in-session) or `npm run eval <Name>` (CLI). Must **PASS** both the deterministic checks and the spec-adherence judge. CI runs `eval:all` on every PR. See `eval/README.md`.
 
 ## Workflow: re-syncing tokens from Figma
@@ -73,4 +71,4 @@ npm run tokens   # regenerate dist/tokens.css
 npm run eval:all # gate every component against the style guide
 ```
 
-State layers (`--interactive-hovered/pressed`) are translucent overlays — implement as an `::after` overlay toggled on `hover`/`active`, content in a `relative z-10` layer above it (see `Button.tsx`).
+Interaction states: SNAP signals hover/press by **swapping semantic color tokens**, not a translucent state-layer. Primary controls go `--background-interactive-primary` → `--background-interactive-primary-hovered` (with the label flipping to `--text-default` for contrast); outlined/ghost controls layer the translucent `--background-overlay` / `--background-overlay-strong` tokens on hover/press. Drive both with `transition-colors` (see `Button.tsx`).

@@ -3,3 +3,6 @@ node_modules/
 *.log
 .DS_Store
 .vite/
+
+# Licensed brand fonts — self-host locally / via private store, do not commit
+design-system/fonts/files/

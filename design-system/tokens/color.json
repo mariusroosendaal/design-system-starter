@@ -1,27 +1,51 @@
 {
-  "$description": "EXAMPLE semantic color — themed light/dark. The top-level $value is the default (light) theme; other themes live under $extensions['ds.modes']. Components use ONLY these semantic tokens (never primitives), so theming works for free. Add/rename groups to match your brand; keep the Tailwind color map (tailwind.config.js) in sync.",
-  "$extensions": { "ds.modeType": "theme", "ds.defaultMode": "light", "ds.modes": ["light", "dark"] },
+  "$description": "SNAP semantic color, extracted from the Figma 'color' collection. Components use ONLY these semantic tokens (never primitives). SNAP defines a single 'light' mode in Figma — there is no dark/wireframe theme in the source, so none is emitted. The 'theme' modeType is kept so theme overrides can be added under $extensions['ds.modes'] if SNAP adds modes later. Keep the Tailwind color map (tailwind.config.js) in sync with these groups.",
+  "$extensions": { "ds.modeType": "theme", "ds.defaultMode": "light", "ds.modes": ["light"] },
   "background": {
     "$type": "color",
-    "default":   { "$value": "{color.white.white}", "$extensions": { "ds.modes": { "dark": "{color.neutral.950}" } } },
-    "secondary": { "$value": "{color.neutral.50}",   "$extensions": { "ds.modes": { "dark": "{color.neutral.900}" } } },
-    "inverse":   { "$value": "{color.neutral.900}",  "$extensions": { "ds.modes": { "dark": "{color.white.white}" } } }
-  },
-  "text": {
-    "$type": "color",
-    "default":   { "$value": "{color.neutral.900}", "$extensions": { "ds.modes": { "dark": "{color.neutral.50}" } } },
-    "secondary": { "$value": "{color.neutral.500}", "$extensions": { "ds.modes": { "dark": "{color.neutral.300}" } } },
-    "inverse":   { "$value": "{color.white.white}", "$extensions": { "ds.modes": { "dark": "{color.neutral.900}" } } }
+    "default":                       { "$value": "{color.gray.50}" },
+    "surface":                       { "$value": "{color.white.white}", "$description": "Cards, sheets, raised surfaces." },
+    "inverse":                       { "$value": "{color.blue.impactful}" },
+    "overlay":                       { "$value": "{color.ink.12}" },
+    "overlay-strong":                { "$value": "{color.ink.40}" },
+    "accent-1":                      { "$value": "{color.blue.impactful}" },
+    "accent-2":                      { "$value": "{color.blue.bright}" },
+    "info":                          { "$value": "{color.blue.optimistic}" },
+    "positive":                      { "$value": "{color.green.optimistic}" },
+    "negative":                      { "$value": "{color.red.optimistic}" },
+    "disabled":                      { "$value": "{color.ink.12}" },
+    "interactive-primary":           { "$value": "{color.blue.impactful}", "$description": "Primary action fill (resting)." },
+    "interactive-primary-hovered":   { "$value": "{color.blue.bright}",    "$description": "Primary action fill on hover/press — pair with text/default." },
+    "interactive-accent":            { "$value": "{color.red.insightful}" },
+    "interactive-negative":          { "$value": "{color.red.insightful}" },
+    "interactive-negative-hovered":  { "$value": "{color.red.impactful}" }
   },
   "border": {
     "$type": "color",
-    "default": { "$value": "{color.neutral.100}", "$extensions": { "ds.modes": { "dark": "{color.neutral.700}" } } },
-    "input":   { "$value": "{color.neutral.300}", "$extensions": { "ds.modes": { "dark": "{color.neutral.700}" } } }
+    "default":            { "$value": "{color.ink.20}" },
+    "subtle":             { "$value": "{color.ink.12}" },
+    "input":              { "$value": "{color.ink.40}" },
+    "strong":             { "$value": "{color.ink.90}" },
+    "inverse":            { "$value": "{color.white.20}" },
+    "info":               { "$value": "{color.blue.insightful}" },
+    "positive":           { "$value": "{color.green.insightful}" },
+    "negative":           { "$value": "{color.red.insightful}" },
+    "disabled":           { "$value": "{color.ink.20}" },
+    "interactive-accent": { "$value": "{color.red.insightful}" },
+    "focus":              { "$value": "{color.blue.bold}", "$description": "Focus ring color. Drives --shadow-focus." }
   },
-  "interactive": {
+  "text": {
     "$type": "color",
-    "default": { "$value": "{color.accent.500}", "$extensions": { "ds.modes": { "dark": "{color.accent.400}" } }, "$description": "Accent for primary actions, links, focus." },
-    "hovered": { "$value": "{color.black.8}",   "$extensions": { "ds.modes": { "dark": "{color.white.8}" } }, "$description": "Hover state-layer (translucent overlay)." },
-    "pressed": { "$value": "{color.black.12}",  "$extensions": { "ds.modes": { "dark": "{color.white.12}" } }, "$description": "Pressed state-layer." }
+    "default":                     { "$value": "{color.ink.100}" },
+    "secondary":                   { "$value": "{color.ink.60}" },
+    "inverse":                     { "$value": "{color.white.white}" },
+    "accent-1":                    { "$value": "{color.blue.bright}" },
+    "accent-2":                    { "$value": "{color.blue.impactful}" },
+    "info":                        { "$value": "{color.blue.insightful}" },
+    "positive":                    { "$value": "{color.green.insightful}" },
+    "negative":                    { "$value": "{color.red.insightful}" },
+    "disabled":                    { "$value": "{color.ink.60}" },
+    "interactive-accent":          { "$value": "{color.red.insightful}" },
+    "interactive-accent-hovered":  { "$value": "{color.red.impactful}" }
   }
 }

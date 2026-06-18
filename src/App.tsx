@@ -1,46 +1,44 @@
-import { useEffect, useState } from 'react';
 import { Button } from './components';
 
-type Theme = 'light' | 'dark';
-const THEMES: Theme[] = ['light', 'dark'];
-
 export function App() {
-  const [theme, setTheme] = useState<Theme>('light');
-
-  useEffect(() => {
-    if (theme === 'light') document.documentElement.removeAttribute('data-theme');
-    else document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
   return (
-    <div className="min-h-screen bg-background-default p-6">
-      <div className="mx-auto flex max-w-2xl flex-col gap-6">
-        <header className="flex items-center justify-between gap-4">
-          <div className="flex flex-col gap-1">
-            <p className="type-label-sm-2xl text-text-secondary">Design System Starter</p>
-            <h1 className="type-heading">Component gallery</h1>
-          </div>
-          <div className="flex gap-2" role="group" aria-label="Theme">
-            {THEMES.map((t) => (
-              <Button key={t} size="sm" variant={t === theme ? 'primary' : 'secondary'} onClick={() => setTheme(t)}>
-                {t}
-              </Button>
-            ))}
-          </div>
+    <div className="min-h-screen bg-background-default p-6 lg:p-10">
+      <div className="mx-auto flex max-w-content-standard flex-col gap-8">
+        <header className="flex flex-col gap-2">
+          <p className="type-label-small text-text-secondary">SNAP — Agentic Design System</p>
+          <h1 className="type-heading-display text-text-default">Component gallery</h1>
+          <p className="type-body-large text-text-secondary">
+            Everything here is driven by semantic SNAP tokens — no hardcoded values.
+          </p>
         </header>
 
-        <section className="flex flex-col gap-4 rounded-container border border-border-default bg-background-secondary p-6">
-          <p className="type-label-sm-2xl text-text-secondary">Button</p>
+        <section className="flex flex-col gap-4 rounded-lg border border-border-default bg-background-surface p-6">
+          <p className="type-label-small text-text-secondary">Button — variants</p>
           <div className="flex flex-wrap items-center gap-3">
             <Button variant="primary">Primary</Button>
             <Button variant="secondary">Secondary</Button>
             <Button variant="ghost">Ghost</Button>
             <Button disabled>Disabled</Button>
           </div>
-          <p className="type-body text-text-default">
-            Body text rendered with <code className="type-ui-sm-2xl-strong">.type-body</code>. Everything here is driven by
-            semantic tokens — switch the theme to see it re-skin with no component changes.
+
+          <p className="type-label-small text-text-secondary">Button — sizes</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button size="sm">Small</Button>
+            <Button size="md">Medium</Button>
+            <Button size="md" fullWidth>
+              Full width
+            </Button>
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3 rounded-lg border border-border-default bg-background-surface p-6">
+          <p className="type-label-small text-text-secondary">Type ramp</p>
+          <p className="type-heading-large text-text-default">Heading large — GT America</p>
+          <p className="type-heading-expressive-large text-text-default">Expressive large — Tobias</p>
+          <p className="type-body-medium text-text-default">
+            Body medium. The quick brown fox jumps over the lazy dog.
           </p>
+          <p className="type-numeral text-text-accent-2">42</p>
         </section>
       </div>
     </div>
