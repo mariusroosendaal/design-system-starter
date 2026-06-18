@@ -45,8 +45,9 @@ export const CONFIG = {
   // Segment renames (Figma uses spaced names for some primitives).
   segmentRename: { 'font family': 'fontFamily', 'font size': 'fontSize' },
 
-  // Figma stores only the brand face name (e.g. "GT America"); the CSS fallback
-  // stack is a code concern. Expand `fontFamily.*` STRING values to the full stack.
+  // Last-resort fallback. The CSS fallback stack lives in a `font family/<x>-stack`
+  // variable in Figma (the bare `font family/<x>` value stays the face name so
+  // Figma can render it). This map is used only if that `-stack` variable is absent.
   fontFamilyStacks: {
     'GT America': "'GT America', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     'Tobias': "'Tobias', Georgia, 'Times New Roman', Times, serif",
@@ -159,6 +160,22 @@ export function transform(fig, opts = {}) {
       byId.set(v.id, { v, col });
     }
   }
+
+  // `font family/<x>-stack` variables hold the web CSS fallback stack for the
+  // sibling `fontFamily.<x>` token (whose own value stays the bare face name so
+  // Figma can render it). Collect them, and skip emitting them as tokens.
+  const fontStackByPath = new Map(); // 'fontFamily.sans' → "'GT America', system-ui, …"
+  const skipIds = new Set();
+  for (const col of fig.collections || []) {
+    for (const v of col.variables || []) {
+      const p = tokenPath(col.name, v.name);
+      const m = p.match(/^(fontFamily\..+)-stack$/);
+      if (!m) continue;
+      const raw = v.valuesByMode?.[col.defaultModeId];
+      if (raw?.type === 'STRING') fontStackByPath.set(m[1], raw.value);
+      skipIds.add(v.id);
+    }
+  }
   const aliasStr = (id) => {
     const p = idToPath.get(id);
     if (!p) { warn(`alias → unknown variable id ${id}`); return null; }
@@ -185,6 +202,7 @@ export function transform(fig, opts = {}) {
     };
 
     for (const v of col.variables || []) {
+      if (skipIds.has(v.id)) continue; // `*-stack` helper, folded into its sibling
       const path = tokenPath(col.name, v.name);
       if (cfg.excludePrefixes?.some((p) => path === p || path.startsWith(p + '.'))) continue;
 
@@ -192,7 +210,7 @@ export function transform(fig, opts = {}) {
         if (!raw) return undefined;
         if (raw.type === 'ALIAS') return aliasStr(raw.id);
         if (raw.type === 'COLOR') return colorToHex(raw);
-        if (raw.type === 'STRING') return path.startsWith('fontFamily.') ? (CONFIG.fontFamilyStacks[raw.value] || raw.value) : raw.value;
+        if (raw.type === 'STRING') return raw.value;
         if (raw.type === 'FLOAT') return isUnitless(path) ? raw.value : `${raw.value}px`;
         if (raw.type === 'BOOLEAN') return raw.value;
         warn(`${path}: unhandled value type ${raw.type}`);
@@ -222,7 +240,13 @@ export function transform(fig, opts = {}) {
           if (Object.keys(ds).length) leaf.$extensions = { 'ds.modes': ds };
         }
       }
-      if (v.description) leaf.$description = v.description;
+      // A fontFamily token's value is the web CSS fallback stack, which can't be a
+      // Figma font value (Figma couldn't render text bound to it) — it comes from
+      // the sibling `font family/<x>-stack` variable, with CONFIG as a last resort.
+      if (path.startsWith('fontFamily.')) {
+        leaf.$value = fontStackByPath.get(path) || CONFIG.fontFamilyStacks[leaf.$value] || leaf.$value;
+      }
+      if (v.description) leaf.$description = v.description; // docs, for every token incl. fontFamily
       setIn(file, path, leaf);
     }
   }
@@ -323,6 +347,8 @@ function buildRamp(fig, byId, idToPath, report, warn, ensureFile) {
     }
 
     const roleNode = (ramp[role] ||= {});
+    // role-level docs come from the (non-strong) text style's Figma description
+    if (!strong && style.description && roleNode.$description === undefined) roleNode.$description = style.description;
     for (const seg of collapseRanges(bps, byBp)) {
       const key = seg.range + (strong ? '-strong' : '');
       const entry = { $value: seg.value.composite };
@@ -387,23 +413,14 @@ function finalizeFiles(files, fig, existing, warn) {
       else warn(`${name}: group "${groupKey}" has no $type in CONFIG.groupTypes`);
     }
     if (fileExt[name]) obj.$extensions = fileExt[name];
-    if (CONFIG.preserveFileDescription && existing[name]) inheritDescriptions(obj, existing[name]);
+    // Per-token docs now come from Figma (variable/style descriptions). Only the
+    // file-level prose has no Figma source, so it's carried forward from the repo.
+    if (CONFIG.preserveFileDescription && existing[name]?.$description && obj.$description === undefined) {
+      obj.$description = existing[name].$description;
+    }
   }
 
   for (const [name, obj] of Object.entries(files)) files[name] = orderMeta(obj);
-}
-
-// Figma owns values; the repo owns docs. Copy $description from the existing file
-// onto matching nodes that don't already carry one (a Figma variable description
-// always wins). Keeps curated prose alive and keeps recurring diffs to real
-// value changes only.
-function inheritDescriptions(next, prev) {
-  if (!next || typeof next !== 'object' || !prev || typeof prev !== 'object') return;
-  if (typeof prev.$description === 'string' && next.$description === undefined) next.$description = prev.$description;
-  for (const [k, v] of Object.entries(next)) {
-    if (k.startsWith('$')) continue;
-    if (prev[k] && typeof prev[k] === 'object') inheritDescriptions(v, prev[k]);
-  }
 }
 
 function orderMeta(obj) {

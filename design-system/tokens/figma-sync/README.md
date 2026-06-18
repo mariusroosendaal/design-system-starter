@@ -40,6 +40,11 @@ export and is covered by `transform.test.mjs`. The plugin and server are thin.
 3. **Review** the diff: `git diff design-system/tokens` then `npm run eval:all`.
 4. **Commit** the token JSON and the regenerated `dist/tokens.css`.
 
+> **Restart the server after editing any `figma-sync/*.mjs`.** Node caches modules
+> at process start, so a long-running `npm run sync:serve` keeps using the code it
+> launched with — edits to `transform.mjs` won't take effect until you Ctrl-C and
+> restart it. (The CLI always runs fresh.)
+
 CLI equivalent (e.g. from a downloaded export):
 
 ```bash
@@ -100,9 +105,18 @@ Unmapped collections and unparsed style names are listed. Adjust `CONFIG`:
 
 ## Notes
 
-- **Source of truth.** Values now flow Figma → JSON. The JSON's structural
-  conventions (`$type`, `$extensions.ds.*`) are emitted by the transformer; each
-  file's prose `$description` is carried forward from the existing file.
+- **Source of truth.** Values flow Figma → JSON. The JSON's structural conventions
+  (`$type`, `$extensions.ds.*`) are emitted by the transformer. Anything Figma can't
+  hold has a defined home:
+  - **Per-token `$description`** comes from the Figma **variable / text-style
+    description** — author docs there, not in the JSON (they'd be overwritten).
+  - **Font-family fallback stacks** can't be a Figma font value (Figma couldn't
+    render them), so each `font family/<x>` token gets its CSS stack from a sibling
+    **`font family/<x>-stack`** variable (the bare `font family/<x>` value stays the
+    face name, for Figma rendering). The `-stack` variable isn't emitted as its own
+    token. `CONFIG.fontFamilyStacks` is a last-resort fallback if it's missing.
+  - **File-level `$description`** (the prose blurb atop each file) has no Figma
+    source, so it's carried forward from the existing file.
 - **No `.json` lands in `tokens/` except the five token files** — `build.mjs`
   globs `tokens/*.json`. Keep exports/fixtures here under `figma-sync/`.
 - Stop the server with Ctrl-C. Port override: `SNAP_SYNC_PORT=xxxx npm run sync:serve`

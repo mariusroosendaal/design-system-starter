@@ -36,7 +36,10 @@ const fig = {
       { id: 's24', name: 'size/24', resolvedType: 'FLOAT', valuesByMode: { m: float(24) } },
     ] },
     { name: 'typography primitives', defaultModeId: 'm', modes: ONE, variables: [
-      { id: 'famSans', name: 'font family/sans', resolvedType: 'STRING', valuesByMode: { m: str('GT America') } },
+      // sans gets its stack from a sibling `-stack` variable + its own doc description; serif uses the CONFIG fallback
+      { id: 'famSans', name: 'font family/sans', resolvedType: 'STRING', description: 'Primary UI typeface.', valuesByMode: { m: str('GT America') } },
+      { id: 'famSansStack', name: 'font family/sans-stack', resolvedType: 'STRING', valuesByMode: { m: str("'GT America', Arial, sans-serif") } },
+      { id: 'famSerif', name: 'font family/serif', resolvedType: 'STRING', valuesByMode: { m: str('Tobias') } },
       { id: 'fs10', name: 'font size/10', resolvedType: 'FLOAT', valuesByMode: { m: float(10) } },
       { id: 'fs16', name: 'font size/16', resolvedType: 'FLOAT', valuesByMode: { m: float(16) } },
       { id: 'fs32', name: 'font size/32', resolvedType: 'FLOAT', valuesByMode: { m: float(32) } },
@@ -73,7 +76,7 @@ const fig = {
   textStyles: [
     mkText('body/medium', 'GT America', 'Light', 16, 150, -1.1, 'bodyMedSize', 'bodyFam'),
     mkText('body/medium-strong', 'GT America', 'Bold', 16, 150, -1.1, 'bodyMedSize', 'bodyFam'),
-    mkText('heading/display', 'GT America', 'Light', 32, 110, -3.9, 'headDispSize', 'headFam'),
+    { ...mkText('heading/display', 'GT America', 'Light', 32, 110, -3.9, 'headDispSize', 'headFam'), description: 'Largest heading.' },
     mkText('label/small', 'GT America', 'Bold', 10, 140, 7.5, 'labelSmSize', 'labelFam', 'UPPER'),
   ],
   effectStyles: [
@@ -101,8 +104,12 @@ assert.equal(files['primitives.json'].color.ink['100'].$value, '#0a152b');
 assert.equal(files['primitives.json'].color.ink['12'].$value, '#0a152b1f');
 assert.equal(files['primitives.json'].color.gray.gray.$value, '#f5f5f5');
 assert.equal(files['primitives.json'].size['12'].$value, '12px');
+// font-family: value from the `-stack` variable (sans) or CONFIG fallback (serif); the variable's own description is docs
+assert.equal(files['primitives.json'].fontFamily.sans.$value, "'GT America', Arial, sans-serif", 'sans stack from -stack variable');
+assert.ok(!files['primitives.json'].fontFamily['sans-stack'], '-stack helper is folded in, not emitted as a token');
+assert.equal(files['primitives.json'].fontFamily.sans.$description, 'Primary UI typeface.', 'fontFamily var description is docs');
+assert.match(files['primitives.json'].fontFamily.serif.$value, /^'Tobias', Georgia/, 'serif stack from CONFIG fallback');
 assert.equal(files['primitives.json'].fontSize['32'].$value, '32px', 'font size/32 → fontSize.32');
-assert.match(files['primitives.json'].fontFamily.sans.$value, /^'GT America', system-ui/, 'family stack expanded');
 
 // ── color semantic: aliases resolve through the color. prefix ──
 assert.equal(files['color.json'].background.default.$value, '{color.gray.gray}');
@@ -132,6 +139,7 @@ assert.equal(bm['sm-2xl'].$value.lineHeight, 1.5);
 assert.equal(bm['sm-2xl'].$value.letterSpacing, '-0.011em');
 assert.equal(bm['sm-2xl-strong'].$value.fontWeight, 700);
 const hd = tf.ramp['heading-display'];
+assert.equal(hd.$description, 'Largest heading.', 'ramp role doc comes from the text style description');
 assert.ok(hd.sm && hd['md-2xl'], 'heading-display: sm distinct, md..2xl equal → md-2xl');
 assert.equal(hd.sm.$value.fontSize, '{fontSize.32}');
 assert.equal(hd['md-2xl'].$value.fontSize, '{fontSize.42}');

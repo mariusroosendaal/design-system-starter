@@ -59,6 +59,7 @@ async function buildExport() {
   const textStyles = (await figma.getLocalTextStylesAsync()).map((s) => ({
     id: s.id,
     name: s.name,
+    description: s.description || undefined,
     fontName: s.fontName, // { family, style }
     fontSize: s.fontSize,
     fontWeight: typeof s.fontWeight === 'number' ? s.fontWeight : undefined,
