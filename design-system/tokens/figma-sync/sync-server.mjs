@@ -44,11 +44,11 @@ const server = createServer((req, res) => {
     const dryRun = new URL(req.url, `http://localhost:${PORT}`).searchParams.get('dryRun') === '1';
     const lines = [];
     try {
-      const { written, warnings } = runSync({ exportData, dryRun, log: (m) => lines.push(m) });
-      console.log(`[sync] ${dryRun ? 'dry-run' : 'wrote'} ${written.length} file(s); ${warnings.length} warning(s)`);
+      const { written, warnings, changed, changes } = runSync({ exportData, dryRun, log: (m) => lines.push(m) });
+      console.log(`[sync] ${dryRun ? 'dry-run' : 'wrote'} ${(dryRun ? changed : written).length} file(s); ${warnings.length} warning(s)`);
       lines.forEach((l) => console.log(l));
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ ok: true, dryRun, written, warnings }));
+      res.end(JSON.stringify({ ok: true, dryRun, written, changed, changes, warnings }));
     } catch (err) {
       console.error('[sync] failed:', err);
       res.writeHead(500, { 'Content-Type': 'application/json' });

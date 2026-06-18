@@ -45,15 +45,23 @@ export function runSync({ exportData, report = false, dryRun = false, onlyFiles 
   }
 
   const targets = Object.keys(files).filter((f) => !onlyFiles || onlyFiles.includes(f));
-  const written = [];
-  let changed = 0;
+  const written = [];        // files actually written (empty on dry-run)
+  const changedFiles = [];   // files that differ from disk (populated either way)
+  const changes = [];        // per-token diffs, file-prefixed, for the UI/CLI
   for (const f of targets) {
     const p = join(TOKENS_DIR, f);
     const next = JSON.stringify(files[f], null, 2) + '\n';
     const prev = existsSync(p) ? readFileSync(p, 'utf8') : '';
     if (next === prev) { log(`  = ${f} (unchanged)`); continue; }
-    changed++;
-    if (dryRun) { log(`  ~ ${f} (would change)`); continue; }
+    changedFiles.push(f);
+    const detail = diffTokens(prev ? JSON.parse(prev) : {}, files[f]);
+    changes.push(...detail.map((d) => `${f}  ${d}`));
+    if (dryRun) {
+      log(`  ~ ${f} (would change · ${detail.length} token${detail.length === 1 ? '' : 's'})`);
+      detail.slice(0, 12).forEach((d) => log(`      ${d}`));
+      if (detail.length > 12) log(`      … +${detail.length - 12} more`);
+      continue;
+    }
     writeFileSync(p, next);
     written.push(f);
     log(`  ✓ ${f}`);
@@ -65,9 +73,34 @@ export function runSync({ exportData, report = false, dryRun = false, onlyFiles 
     log('\nRebuilding tokens.css …');
     execFileSync('node', [BUILD], { stdio: 'inherit' });
   } else if (dryRun) {
-    log(`\nDry run: ${changed} file(s) would change. Nothing written.`);
+    log(`\nDry run: ${changedFiles.length} file(s) would change. Nothing written.`);
   }
-  return { files, warnings, report: rpt, written };
+  return { files, warnings, report: rpt, written, changed: changedFiles, changes };
+}
+
+// flatten a token tree to Map(path → JSON-encoded value), including mode overrides
+function flattenLeaves(node, path, out) {
+  if (!node || typeof node !== 'object') return;
+  if ('$value' in node) {
+    out.set(path, JSON.stringify(node.$value));
+    const modes = node.$extensions?.['ds.modes'];
+    if (modes) for (const [m, v] of Object.entries(modes)) out.set(`${path}@${m}`, JSON.stringify(v));
+  }
+  for (const [k, v] of Object.entries(node)) if (!k.startsWith('$')) flattenLeaves(v, path ? `${path}.${k}` : k, out);
+}
+
+// human-readable token-level changes between two parsed token files
+export function diffTokens(prevObj, nextObj) {
+  const a = new Map(), b = new Map();
+  flattenLeaves(prevObj, '', a);
+  flattenLeaves(nextObj, '', b);
+  const out = [];
+  for (const [k, v] of b) {
+    if (!a.has(k)) out.push(`+ ${k} = ${v}`);
+    else if (a.get(k) !== v) out.push(`~ ${k}: ${a.get(k)} → ${v}`);
+  }
+  for (const k of a.keys()) if (!b.has(k)) out.push(`- ${k}`);
+  return out;
 }
 
 // CLI entry — only when run directly (`node sync.mjs …`), not when imported

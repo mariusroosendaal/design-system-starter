@@ -90,8 +90,15 @@
       }
       let body; try { body = await r.json(); } catch { log('✗ Bad response from server', 'err'); return; }
       if (!body.ok) { log(`✗ ${body.error || 'sync failed'}`, 'err'); return; }
-      if (dryRun) log(`✓ Dry run OK — ${ (body.written||[]).length ? body.written.join(', ') : 'no changes' } would change`, 'ok');
-      else log(`✓ Synced: ${ (body.written||[]).length ? body.written.join(', ') : 'no changes (already up to date)' }`, 'ok');
+      if (dryRun) {
+        const changed = body.changed || [];
+        log(changed.length ? `✓ Dry run — ${changed.join(', ')} would change` : '✓ Dry run — no changes (up to date)', 'ok');
+        const detail = body.changes || [];
+        detail.slice(0, 30).forEach((c) => log(c));
+        if (detail.length > 30) log(`… +${detail.length - 30} more`);
+      } else {
+        log(`✓ Synced: ${ (body.written||[]).length ? body.written.join(', ') : 'no changes (already up to date)' }`, 'ok');
+      }
       (body.warnings || []).forEach((w) => log('⚠ ' + w, 'warn'));
       parent.postMessage({ pluginMessage: { type: 'notify', message: dryRun ? 'Dry run complete' : 'Tokens synced' } }, '*');
     } finally {
