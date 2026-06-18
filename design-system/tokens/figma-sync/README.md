@@ -117,6 +117,9 @@ Unmapped collections and unparsed style names are listed. Adjust `CONFIG`:
     token. `CONFIG.fontFamilyStacks` is a last-resort fallback if it's missing.
   - **File-level `$description`** (the prose blurb atop each file) has no Figma
     source, so it's carried forward from the existing file.
+- **Exports aren't tracked.** The plugin produces `figma-export.json` on demand;
+  it's gitignored (large, goes stale, not needed for tests). Re-export whenever you
+  want to sync.
 - **No `.json` lands in `tokens/` except the five token files** — `build.mjs`
   globs `tokens/*.json`. Keep exports/fixtures here under `figma-sync/`.
 - Stop the server with Ctrl-C. Port override: `SNAP_SYNC_PORT=xxxx npm run sync:serve`

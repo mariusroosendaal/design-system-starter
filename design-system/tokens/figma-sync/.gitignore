@@ -1,0 +1,6 @@
+# Plugin exports are produced on demand (the plugin's "Download export JSON",
+# or the companion server) — they're large, go stale, and aren't needed for
+# tests (transform.test.mjs uses a synthetic fixture). Don't track them.
+figma-export.json
+*.figma-export.json
+.candidate/
