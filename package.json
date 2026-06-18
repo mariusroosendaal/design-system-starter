@@ -5,6 +5,9 @@
   "description": "Reusable starter for building a client design system: tokens → CSS, React + Tailwind components, and a style-guide eval.",
   "scripts": {
     "tokens": "node design-system/tokens/build.mjs",
+    "sync": "node design-system/tokens/figma-sync/sync.mjs",
+    "sync:serve": "node design-system/tokens/figma-sync/sync-server.mjs",
+    "sync:test": "node design-system/tokens/figma-sync/transform.test.mjs",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",

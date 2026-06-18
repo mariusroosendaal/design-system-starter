@@ -51,13 +51,24 @@ Consuming apps import fonts then tokens:
 
 ## Workflow: re-syncing tokens from Figma
 
-Re-extract the variables/styles, update the JSON in `tokens/`, then regenerate:
+Automated, deterministic (no LLM): a Figma plugin reads the variables/styles and a
+local server runs a pure transformer that rewrites `tokens/*.json`, then `build.mjs`.
+One-way — Figma owns values; the JSON is regenerated from them.
 
 ```bash
-node design-system/tokens/build.mjs
+npm run sync:serve     # start the local receiver, then click "Sync" in the
+                       # "SNAP Token Sync" plugin (Figma → Plugins → Development)
+# or, from a downloaded export:
+npm run sync -- <figma-export.json> [--dry-run|--report|--only=color,dimension]
 ```
 
-Edit `tokens/*.json`; `dist/tokens.css` is always generated. Commit both.
+Or run `/sync-tokens` to orchestrate it (test → sync → diff → `eval:all`). The whole
+thing lives in `design-system/tokens/figma-sync/` — `transform.mjs` is the brain
+(`npm run sync:test`), and its `CONFIG`/`README.md` document the
+collection→file mapping and how to tune it if Figma's names drift.
+
+Manual fallback: edit `tokens/*.json` by hand, then `node design-system/tokens/build.mjs`.
+`dist/tokens.css` is always generated. Commit both.
 
 ## Component stack
 

@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  :root { --bg:#fff; --fg:#0a152b; --muted:#717171; --line:#e2e2e2; --accent:#001f5c; --accent-hover:#313bfb; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#1d1d1d; --fg:#f5f5f5; --muted:#acacac; --line:#3e3e3e; --accent:#81eef3; --accent-hover:#dbf5ff; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font:12px/1.4 'Inter', system-ui, sans-serif; color:var(--fg); background:var(--bg); padding:16px; }
+  h1 { font-size:13px; margin:0 0 2px; }
+  p.sub { margin:0 0 14px; color:var(--muted); }
+  label { display:block; font-weight:600; margin:0 0 4px; }
+  input[type=text] { width:100%; padding:7px 8px; border:1px solid var(--line); background:transparent; color:var(--fg); border-radius:0; margin-bottom:12px; }
+  button { font:inherit; font-weight:600; padding:9px 12px; border:0; border-radius:0; cursor:pointer; width:100%; }
+  button.primary { background:var(--accent); color:#fff; }
+  button.primary:hover { background:var(--accent-hover); }
+  button.ghost { background:transparent; color:var(--fg); border:1px solid var(--line); margin-top:8px; }
+  button:disabled { opacity:.5; cursor:default; }
+  .counts { display:flex; gap:12px; margin:12px 0; color:var(--muted); flex-wrap:wrap; }
+  .counts b { color:var(--fg); }
+  .log { margin-top:12px; padding:8px; background:rgba(127,127,127,.08); border-radius:0; white-space:pre-wrap; font-family:ui-monospace,monospace; font-size:11px; max-height:120px; overflow:auto; }
+  .ok { color:#00c217; } .warn { color:#ff8300; } .err { color:#eb1600; }
+</style>
+</head>
+<body>
+  <h1>SNAP Token Sync</h1>
+  <p class="sub">Reads local variables + styles and syncs them into the repo's token JSON. One-way: Figma → JSON.</p>
+
+  <label for="server">Companion server</label>
+  <input id="server" type="text" value="http://localhost:41789" />
+
+  <div class="counts" id="counts" hidden>
+    <span><b id="cVars">0</b> vars</span>
+    <span><b id="cCols">0</b> collections</span>
+    <span><b id="cText">0</b> text styles</span>
+    <span><b id="cFx">0</b> effect styles</span>
+  </div>
+
+  <button class="primary" id="sync">Read &amp; Sync to repo</button>
+  <button class="ghost" id="dry">Dry run (preview changes)</button>
+  <button class="ghost" id="download">Download export JSON</button>
+
+  <div class="log" id="log" hidden></div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const log = (msg, cls) => { const el = $('log'); el.hidden = false; el.innerHTML += `<div class="${cls||''}">${msg}</div>`; el.scrollTop = el.scrollHeight; };
+  const clearLog = () => { $('log').innerHTML = ''; $('log').hidden = true; };
+  let pending = null; // 'sync' | 'dry' | 'download'
+  let lastData = null;
+
+  const ask = (action) => { pending = action; clearLog(); parent.postMessage({ pluginMessage: { type: 'export' } }, '*'); };
+  $('sync').onclick = () => ask('sync');
+  $('dry').onclick = () => ask('dry');
+  $('download').onclick = () => ask('download');
+
+  async function post(data, dryRun) {
+    const base = $('server').value.replace(/\/$/, '');
+    const url = base + (dryRun ? '/?dryRun=1' : '/');
+    log(`POST ${url} …`);
+    let r;
+    try { r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }); }
+    catch (e) { log(`✗ Could not reach the server. Is it running? (npm run sync:serve)`, 'err'); return; }
+    let body; try { body = await r.json(); } catch { log('✗ Bad response from server', 'err'); return; }
+    if (!body.ok) { log(`✗ ${body.error || 'sync failed'}`, 'err'); return; }
+    if (dryRun) log(`✓ Dry run OK — ${ (body.written||[]).length ? body.written.join(', ') : 'no changes' } would change`, 'ok');
+    else log(`✓ Synced: ${ (body.written||[]).length ? body.written.join(', ') : 'no changes (already up to date)' }`, 'ok');
+    (body.warnings || []).forEach((w) => log('⚠ ' + w, 'warn'));
+    parent.postMessage({ pluginMessage: { type: 'notify', message: dryRun ? 'Dry run complete' : 'Tokens synced' } }, '*');
+  }
+
+  function download(data) {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'figma-export.json';
+    a.click();
+    log('✓ Saved figma-export.json — run: node design-system/tokens/figma-sync/sync.mjs <path>', 'ok');
+  }
+
+  onmessage = (e) => {
+    const msg = e.data.pluginMessage; if (!msg) return;
+    if (msg.type === 'export-data') {
+      lastData = msg.data;
+      $('counts').hidden = false;
+      $('cVars').textContent = msg.counts.variables;
+      $('cCols').textContent = msg.counts.collections;
+      $('cText').textContent = msg.counts.textStyles;
+      $('cFx').textContent = msg.counts.effectStyles;
+      if (pending === 'download') download(msg.data);
+      else post(msg.data, pending === 'dry');
+    } else if (msg.type === 'error') {
+      log('✗ ' + msg.message, 'err');
+    }
+  };
+</script>
+</body>
+</html>
