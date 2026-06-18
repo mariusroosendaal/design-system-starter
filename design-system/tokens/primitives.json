@@ -26,8 +26,7 @@
       },
       "100": {
         "$value": "#0a152b"
-      },
-      "$description": "Brand near-black (deep navy #0a152b) at opacity steps. Used for text, borders, overlays."
+      }
     },
     "white": {
       "4": {
@@ -222,7 +221,6 @@
     }
   },
   "fontFamily": {
-    "$description": "Full CSS stacks (brand face first, then fallbacks). Self-host the brand faces in design-system/fonts/ (see fonts.css) — until then the fallbacks render.",
     "$type": "fontFamily",
     "sans": {
       "$value": "'GT America', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"

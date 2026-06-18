@@ -26,7 +26,6 @@
       }
     },
     "numeral": {
-      "$description": "Tabular display numerals. Tobias Regular.",
       "sm": {
         "$value": {
           "fontFamily": "{fontFamily.serif}",
@@ -65,7 +64,6 @@
       }
     },
     "heading-display": {
-      "$description": "Largest heading. GT America Light.",
       "sm": {
         "$value": {
           "fontFamily": "{fontFamily.sans}",
@@ -198,7 +196,6 @@
       }
     },
     "heading-small": {
-      "$description": "GT America Bold.",
       "sm-lg": {
         "$value": {
           "fontFamily": "{fontFamily.sans}",
@@ -228,7 +225,6 @@
       }
     },
     "heading-expressive-display": {
-      "$description": "Editorial display. Tobias Regular.",
       "sm": {
         "$value": {
           "fontFamily": "{fontFamily.serif}",
@@ -390,7 +386,6 @@
       }
     },
     "body-large": {
-      "$description": "GT America Light; -strong is Bold.",
       "sm-md": {
         "$value": {
           "fontFamily": "{fontFamily.sans}",
@@ -447,7 +442,6 @@
       }
     },
     "body-medium": {
-      "$description": "Default body / control label. GT America Light; -strong is Bold.",
       "sm-2xl": {
         "$value": {
           "fontFamily": "{fontFamily.sans}",
@@ -488,7 +482,6 @@
       }
     },
     "label-medium": {
-      "$description": "GT America Bold.",
       "sm-2xl": {
         "$value": {
           "fontFamily": "{fontFamily.sans}",
@@ -500,7 +493,6 @@
       }
     },
     "label-small": {
-      "$description": "GT America Bold, uppercase eyebrow.",
       "sm-2xl": {
         "$extensions": {
           "ds.textTransform": "uppercase"

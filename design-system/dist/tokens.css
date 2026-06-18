@@ -165,7 +165,7 @@
 
 @media (min-width: 600px) {
   :root {
-    --layout-breakpoint: 600px;
+    --layout-breakpoint: 700px;
     --layout-viewport-width: 768px;
     --layout-viewport-height: 1024px;
     --layout-gutter: 24px;

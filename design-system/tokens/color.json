@@ -13,7 +13,6 @@
       "$value": "{color.gray.gray}"
     },
     "surface": {
-      "$description": "Cards, sheets, raised surfaces.",
       "$value": "{color.white.white}"
     },
     "inverse": {
@@ -44,11 +43,9 @@
       "$value": "{color.ink.12}"
     },
     "interactive-primary": {
-      "$description": "Primary action fill (resting).",
       "$value": "{color.blue.impactful}"
     },
     "interactive-primary-hovered": {
-      "$description": "Primary action fill on hover/press — pair with text/default.",
       "$value": "{color.blue.bright}"
     },
     "interactive-accent": {
@@ -94,7 +91,6 @@
       "$value": "{color.red.insightful}"
     },
     "focus": {
-      "$description": "Focus ring color. Drives --shadow-focus.",
       "$value": "{color.blue.bold}"
     }
   },
