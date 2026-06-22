@@ -1,11 +1,13 @@
 {
   "$description": "EXAMPLE semantic dimensions. 'space/*' is the spacing scale (use for padding/gap/margin). Tokens may be responsive: top-level $value is the smallest breakpoint, others under $extensions['ds.modes']. Breakpoints are min-width. Replace/extend to match your grid.",
-  "$extensions": { "ds.modeType": "breakpoint", "ds.defaultMode": "sm", "ds.modes": ["sm", "md", "lg"] },
+  "$extensions": { "ds.modeType": "breakpoint", "ds.defaultMode": "sm", "ds.modes": ["sm", "md", "lg", "xl", "2xl"] },
   "breakpoint": {
     "$type": "dimension",
     "sm": { "$value": "0px" },
     "md": { "$value": "600px" },
-    "lg": { "$value": "900px" }
+    "lg": { "$value": "900px" },
+    "xl": { "$value": "1200px" },
+    "2xl": { "$value": "1500px" }
   },
   "space": {
     "$type": "dimension",
