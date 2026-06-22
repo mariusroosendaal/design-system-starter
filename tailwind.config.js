@@ -9,14 +9,21 @@
  * When you change your token GROUPS (e.g. add a status color), update the map
  * here to match. Keys mirror the semantic token names in color.json.
  */
+const dimension = require('./design-system/tokens/dimension.json');
+
+// Derive screens from the breakpoint.* tokens (single source of truth) so they
+// can never drift from tokens.css. The 0px base is mobile-first → not a screen.
+const screens = Object.fromEntries(
+  Object.entries(dimension.breakpoint)
+    .filter(([key, v]) => !key.startsWith('$') && parseInt(v.$value, 10) > 0)
+    .map(([key, v]) => [key, v.$value]),
+);
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
-    screens: {
-      md: '600px',
-      lg: '900px',
-    },
+    screens,
     colors: {
       transparent: 'transparent',
       current: 'currentColor',

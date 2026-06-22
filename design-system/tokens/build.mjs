@@ -6,9 +6,8 @@
  * the source of truth), resolves aliases to CSS var() references, and emits
  * design-system/dist/tokens.css:
  *
- *   :root                      → primitives + semantic LIGHT theme + 'sm' breakpoint
- *   [data-theme="dark"]        → semantic color overrides
- *   [data-theme="wireframe"]   → semantic color overrides
+ *   :root                      → primitives + default theme + smallest breakpoint
+ *   [data-theme="…"]           → one block per non-default theme defined in color.json
  *   @media (min-width: …)      → responsive dimension overrides (md/lg/xl/2xl)
  *   .type-*                    → typography ramp utility classes
  *   --shadow-*                 → composed box-shadow values
@@ -22,9 +21,6 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(HERE, '..', 'dist');
 const OUT_FILE = join(OUT_DIR, 'tokens.css');
-
-const BREAKPOINTS = { sm: 0, md: 600, lg: 900, xl: 1200, '2xl': 1500 };
-const BP_ORDER = ['sm', 'md', 'lg', 'xl', '2xl'];
 
 // segment camelCase → kebab, then join path on "-"  →  CSS var stem (no leading --)
 const seg = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
@@ -83,10 +79,20 @@ for (const file of readdirSync(HERE).filter((f) => f.endsWith('.json'))) {
   flatten(json, '', null, modeType, tokens);
 }
 
+// ---- breakpoints (single source of truth: the breakpoint.* dimension tokens) ----
+// name → px number, ordered ascending. The smallest (0px) is the mobile-first base.
+const BREAKPOINTS = Object.fromEntries(
+  tokens
+    .filter((t) => t.path.startsWith('breakpoint.'))
+    .map((t) => [t.path.split('.')[1], parseInt(t.value, 10)]),
+);
+const BP_ORDER = Object.keys(BREAKPOINTS).sort((a, b) => BREAKPOINTS[a] - BREAKPOINTS[b]);
+const BP_RESPONSIVE = BP_ORDER.slice(1); // every breakpoint above the base
+
 // ---- buckets ----
 const rootDecls = [];                       // :root scalar custom props
 const themeDecls = {}; // theme name → declarations (discovered from the tokens)
-const bpDecls = { md: [], lg: [], xl: [], '2xl': [] };
+const bpDecls = Object.fromEntries(BP_RESPONSIVE.map((bp) => [bp, []]));
 const shadowDecls = [];
 const typeClasses = [];                     // discrete .type-<role>-<bp>
 const typeFamilies = {};                    // family → { bp → props } for responsive classes
@@ -140,8 +146,8 @@ for (const t of tokens) {
     }
   } else if (t.modeType === 'breakpoint') {
     // emit at each breakpoint only when the value changes from the previous active one
-    let prev = resolveValue(t.value); // sm
-    for (const bp of ['md', 'lg', 'xl', '2xl']) {
+    let prev = resolveValue(t.value); // base (smallest breakpoint)
+    for (const bp of BP_RESPONSIVE) {
       const cur = resolveValue(t.modes[bp]);
       if (cur !== undefined && cur !== prev) {
         bpDecls[bp].push(`    ${name}: ${cur};`);
@@ -182,7 +188,7 @@ for (const [theme, decls] of Object.entries(themeDecls)) {
   if (decls.length) css += `\n[data-theme="${theme}"] {\n${decls.join('\n')}\n}\n`;
 }
 
-for (const bp of ['md', 'lg', 'xl', '2xl']) {
+for (const bp of BP_RESPONSIVE) {
   if (bpDecls[bp].length) {
     css += `\n@media (min-width: ${BREAKPOINTS[bp]}px) {\n  :root {\n${bpDecls[bp].join('\n')}\n  }\n}\n`;
   }
