@@ -33,7 +33,7 @@
 | pressed | state layer | `--interactive-pressed` |
 | focus (keyboard) | focus ring | `--shadow-focus` on `:focus-visible` |
 | disabled | reduced emphasis, no pointer | |
-| error / invalid | | `--border-negative`, `--text-negative` |
+| error / invalid | | status token, if your system defines one (add to color.json) |
 | loading | | |
 
 ## Tokens used
@@ -48,14 +48,14 @@
 
 ## Behavior
 
-(Keyboard interaction, focus management, responsive changes by breakpoint, motion. Note which `--space-*` / `--content-width-*` / `--cell-*` tokens drive responsive layout.)
+(Keyboard interaction, focus management, responsive changes by breakpoint, motion. Note which `--space-*` tokens drive responsive layout.)
 
 ## Accessibility
 
 - Semantic element / ARIA role: <…>
 - Keyboard: <tab order, Enter/Space/Esc/arrows as applicable>
 - Labels: <how the accessible name is set>
-- Contrast: confirmed AA in light, dark, wireframe
+- Contrast: confirmed AA in every defined theme (e.g. light, dark)
 - State not conveyed by color alone: <icon/text used>
 
 ## Do / Don't

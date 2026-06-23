@@ -42,6 +42,7 @@ Consuming apps import fonts then tokens:
 5. **Type via the ramp.** Apply a `.type-*` class or compose from `--font-*` tokens. Pick the role by meaning.
 6. **Accessibility is part of "done":** focus ring on `:focus-visible` (`--shadow-focus`); never signal state with color alone; meet WCAG AA contrast; semantic HTML + ARIA.
 7. **Spec before code.** Every component gets a spec in `components/` following `_TEMPLATE.md`. The spec is the contract.
+8. **Honour the ledgers.** Read `GUARDRAILS.md` before building (the anti-drift rules; every eval failure gets appended there). Log non-trivial design/system calls — what, why, what was rejected — in `DECISIONS.md`, newest first.
 
 ## Workflow: building a new component
 
@@ -49,7 +50,7 @@ Consuming apps import fonts then tokens:
 2. **Write/open the spec** in `design-system/components/<name>.md` using the template.
 3. **Implement** against the spec, tokens only — React + TS in `src/components/<Name>.tsx`, Tailwind utilities mapped to tokens (see "Component stack"). Link the spec at the top (`// Spec: design-system/components/<name>.md`).
 4. **Verify:** every value traces to a token; all states + focus ring handled; works in every theme + across breakpoints. Run the gallery (`npm run dev`).
-5. **Evaluate — required before "done".** Run `/eval-component <Name>` (in-session) or `npm run eval <Name>` (CLI). Must **PASS** both the deterministic checks and the spec-adherence judge. CI runs `eval:all` on every PR. See `eval/README.md`.
+5. **Evaluate — required before "done".** Run `/eval-component <Name>` (in-session) or `npm run eval <Name>` (CLI). Must **PASS** both the deterministic checks and the spec-adherence judge. CI runs `eval:all` on every PR. See `eval/README.md`. **On any failure, append the cause to `GUARDRAILS.md`** so it can't recur.
 
 ## Workflow: re-syncing tokens from Figma
 
