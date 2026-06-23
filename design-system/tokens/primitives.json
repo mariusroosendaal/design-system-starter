@@ -48,7 +48,7 @@
         "$value": "#ffffff80"
       },
       "white": {
-        "$value": "#ffffff"
+        "$value": "#000000"
       }
     },
     "blue": {
