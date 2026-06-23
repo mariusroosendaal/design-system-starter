@@ -98,9 +98,28 @@ itself uses the built-in `GITHUB_TOKEN`.
 enable **“Allow GitHub Actions to create and approve pull requests.”** Without it
 the Action can transform but can't open the PR.
 
-> Heads-up: a PR opened by the built-in `GITHUB_TOKEN` does **not** re-trigger
-> `eval.yml`, so this workflow runs `eval:all` itself before opening the PR. If you
-> swap in a PAT for the PR step, `eval.yml` will run on the PR too.
+### Why this workflow runs `eval:all` itself (don't delete it as "redundant")
+
+Tokens are the contract components consume, so a token change can break a
+component — a renamed/removed semantic token leaves a `var()` dangling, or a value
+change regresses WCAG contrast. That's exactly what the component eval catches, so
+**token drift must clear the component gate before merge.**
+
+`eval.yml` is still *the* gate — it already triggers on PRs touching
+`design-system/tokens/**` and `dist/**`. The catch: a PR opened by the built-in
+`GITHUB_TOKEN` does **not** reliably trigger `eval.yml` — GitHub holds it as
+*"1 workflow awaiting approval"* until a maintainer clicks **Approve**. If nobody
+clicks, the gate never runs.
+
+So the `eval:all` step inside this workflow is a **pre-flight**, not a duplicate:
+the producer refuses to open a PR it already knows is broken, using the same
+command as the gate. The token-sync PR is therefore pre-validated even if the
+`eval.yml` check sits unapproved.
+
+**When to remove it:** if you switch the `create-pull-request` step to a
+**PAT / GitHub App token** instead of `GITHUB_TOKEN`, `eval.yml` fires on the PR
+normally (no "awaiting approval") and the inline `eval:all` becomes redundant.
+While it runs on `GITHUB_TOKEN`, keep it.
 
 ## Installing the plugin (once)
 
