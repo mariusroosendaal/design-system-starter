@@ -35,7 +35,13 @@ export const CONFIG = {
                                modeOrder: ['sm', 'md', 'lg', 'xl', '2xl'],
                                // `type/*` are responsive font sizes — consumed by
                                // the ramp builder, not emitted to dimension.json.
-                               excludePrefixes: ['type'] },
+                               excludePrefixes: ['type'],
+                               // Figma models breakpoints as ONE responsive variable
+                               // (`layout/breakpoint`, value-per-mode). The build + Tailwind
+                               // derive screens from a flat `breakpoint.<mode>` source of
+                               // truth, so explode that variable's per-mode values into
+                               // discrete tokens rather than a single ds.modes token.
+                               explodeModes: { 'layout.breakpoint': 'breakpoint' } },
     'typography':            { ramp: true }, // family/size/weight vars feed the ramp
   },
 
@@ -60,7 +66,7 @@ export const CONFIG = {
   groupTypes: {
     color: 'color', size: 'dimension', radius: 'dimension', fontSize: 'dimension',
     fontFamily: 'fontFamily', fontWeight: 'fontWeight',
-    space: 'dimension', interactive: 'dimension', layout: 'dimension',
+    breakpoint: 'dimension', space: 'dimension', interactive: 'dimension', layout: 'dimension',
     'content-width': 'dimension',
     background: 'color', border: 'color', text: 'color',
   },
@@ -216,6 +222,19 @@ export function transform(fig, opts = {}) {
         warn(`${path}: unhandled value type ${raw.type}`);
         return undefined;
       };
+
+      // A responsive variable that should be exploded into one flat token per mode
+      // (e.g. `layout/breakpoint` → `breakpoint.sm`, `breakpoint.md`, …) so it can
+      // be the single source of truth that build.mjs + tailwind.config.js derive from.
+      const explodeTo = cfg.explodeModes?.[path];
+      if (explodeTo) {
+        const byKey = {};
+        for (const [mid, raw] of Object.entries(v.valuesByMode || {})) byKey[modeKey(mid)] = resolveOne(raw);
+        for (const mode of cfg.modeOrder) {
+          if (byKey[mode] !== undefined) setIn(file, `${explodeTo}.${mode}`, { $value: byKey[mode] });
+        }
+        continue;
+      }
 
       let leaf;
       if (!cfg.modeType) {

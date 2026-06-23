@@ -56,6 +56,8 @@ const fig = {
         // space/4: 12,12,16,16,24 ⇒ ds.modes {lg, 2xl}
         { id: 'space4', name: 'space/4', resolvedType: 'FLOAT', valuesByMode: { sm: alias('s12'), md: alias('s12'), lg: alias('s16'), xl: alias('s16'), '2xl': alias('s24') } },
         { id: 'cols', name: 'layout/columns', resolvedType: 'FLOAT', valuesByMode: { sm: float(12), md: float(12), lg: float(12), xl: float(12), '2xl': float(12) } },
+        // one responsive variable → exploded into flat breakpoint.<mode> tokens (single source of truth)
+        { id: 'bp', name: 'layout/breakpoint', resolvedType: 'FLOAT', valuesByMode: { sm: float(0), md: float(600), lg: float(900), xl: float(1200), '2xl': float(1500) } },
         // responsive type sizes (consumed by the ramp, excluded from dimension.json)
         { id: 'typeBodyMed', name: 'type/body/medium', resolvedType: 'FLOAT', valuesByMode: { sm: alias('fs16'), md: alias('fs16'), lg: alias('fs16'), xl: alias('fs16'), '2xl': alias('fs16') } },
         { id: 'typeHeadDisp', name: 'type/heading/display', resolvedType: 'FLOAT', valuesByMode: { sm: alias('fs32'), md: alias('fs42'), lg: alias('fs42'), xl: alias('fs42'), '2xl': alias('fs42') } },
@@ -126,6 +128,14 @@ assert.deepEqual(space4.$extensions['ds.modes'], { lg: '{size.16}', '2xl': '{siz
 assert.equal(files['dimension.json'].layout.columns.$value, 12);
 assert.ok(!files['dimension.json'].layout.columns.$extensions);
 assert.ok(!files['dimension.json'].type, 'type/* must NOT land in dimension.json');
+// breakpoint: one responsive variable exploded into flat per-mode tokens (single source of truth)
+const bp = files['dimension.json'].breakpoint;
+assert.equal(bp.$type, 'dimension');
+assert.equal(bp.sm.$value, '0px');
+assert.equal(bp.md.$value, '600px');
+assert.equal(bp['2xl'].$value, '1500px');
+assert.ok(!bp.md.$extensions, 'exploded breakpoint tokens are flat, no ds.modes');
+assert.ok(!files['dimension.json'].layout.breakpoint, 'breakpoint must NOT remain nested under layout');
 
 // ── typography ramp: variable-driven, terminal family, ranges, weights ──
 const tf = files['typography.json'];
