@@ -1,5 +1,4 @@
 {
-  "$description": "SNAP semantic dimensions, extracted from the Figma 'responsive' collection. Tokens are responsive: top-level $value is the smallest breakpoint (sm), the rest live under $extensions['ds.modes'] keyed by breakpoint (min-width). 'breakpoint/*' is the single source of truth for min-widths (build.mjs and tailwind.config.js both derive from it). 'space/*' is the spacing scale (padding/gap/margin); it scales up at larger breakpoints. Replace/extend to match the grid.",
   "$extensions": {
     "ds.modeType": "breakpoint",
     "ds.defaultMode": "sm",
@@ -11,6 +10,7 @@
       "2xl"
     ]
   },
+  "$description": "SNAP semantic dimensions, extracted from the Figma 'responsive' collection. Tokens are responsive: top-level $value is the smallest breakpoint (sm), the rest live under $extensions['ds.modes'] keyed by breakpoint (min-width). 'breakpoint/*' is the single source of truth for min-widths (build.mjs and tailwind.config.js both derive from it). 'space/*' is the spacing scale (padding/gap/margin); it scales up at larger breakpoints. Replace/extend to match the grid.",
   "breakpoint": {
     "$type": "dimension",
     "sm": {
