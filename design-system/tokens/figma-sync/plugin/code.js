@@ -5,7 +5,7 @@
 // UI (ui.html) posts that export to the localhost companion server, or saves
 // it to disk. Pure read — this plugin never writes to the Figma file.
 
-figma.showUI(__html__, { width: 340, height: 420, themeColors: true });
+figma.showUI(__html__, { width: 340, height: 600, themeColors: true });
 
 // normalize one variable value (per mode) to the transformer's tagged union
 function normValue(v) {
@@ -93,7 +93,21 @@ async function buildExport() {
   };
 }
 
+// GitHub flow settings (repo + token) live in clientStorage — local to this
+// Figma client, never committed to the repo. Only the main thread can reach
+// clientStorage, so the UI gets/sets them through these messages.
+const SETTINGS_KEY = 'snap-token-sync.github';
+
 figma.ui.onmessage = async (msg) => {
+  if (msg.type === 'get-settings') {
+    const settings = (await figma.clientStorage.getAsync(SETTINGS_KEY)) || {};
+    figma.ui.postMessage({ type: 'settings', settings });
+    return;
+  }
+  if (msg.type === 'save-settings') {
+    await figma.clientStorage.setAsync(SETTINGS_KEY, msg.settings || {});
+    return;
+  }
   if (msg.type === 'export') {
     try {
       const data = await buildExport();

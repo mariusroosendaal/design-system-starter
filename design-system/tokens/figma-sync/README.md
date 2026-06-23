@@ -7,7 +7,15 @@ regenerated from them, then `build.mjs` regenerates `dist/tokens.css`.
 This exists because the Figma **Variables REST API is Enterprise-only**, and we
 don't want an LLM relaying a few hundred values (the non-determinism we're
 avoiding). A plugin reads variables via the Plugin API — available on every plan
-— and a tiny local server writes the result to disk.
+— and either a tiny local server writes the result to disk, **or** the plugin
+commits the export to GitHub and a CI Action opens a token-sync PR.
+
+Two delivery paths, same deterministic core (`transform.mjs`):
+
+- **Local** — `npm run sync:serve`, click **Read & Sync to repo**, commit by hand.
+- **GitHub** — click **Sync to GitHub & open PR**: no local server, the diff
+  arrives as a reviewed, eval-gated PR. (Still a human click — Figma plugins
+  can't run headlessly, and the REST API that could is Enterprise-only.)
 
 ```
 figma-sync/
@@ -29,8 +37,20 @@ figma-sync/
 └─────────────────────┘         └───────────────────────────────────────────┘
 ```
 
+Or, the GitHub path — same brain, different delivery (no local server):
+
+```
+┌─ Figma ─────────────┐  commit export   ┌─ GitHub ─────────────────────────────┐
+│ SNAP Token Sync     │  via REST API     │ branch figma-sync/incoming           │
+│ plugin (Plugin API) │ ────────────────► │   └─ push triggers Action:           │
+│  + your PAT         │  api.github.com   │      transform.mjs → build → eval     │
+└─────────────────────┘                   │      → opens/updates a token PR       │
+                                          └──────────────────────────────────────┘
+```
+
 `transform.mjs` is the whole brain and is Figma-agnostic — it eats a plain JSON
 export and is covered by `transform.test.mjs`. The plugin and server are thin.
+The Action lives at `.github/workflows/figma-token-sync.yml`.
 
 ## Usage (the normal loop)
 
@@ -54,12 +74,60 @@ npm run sync -- export.json --report                 # coverage only
 npm run sync -- export.json --only=color,dimension   # subset of files
 ```
 
+## Usage via GitHub (no local server)
+
+For a designer who just wants to push changes without running anything locally:
+
+1. In the plugin, fill in **GitHub repo** (`owner/name`) and a **GitHub token**,
+   then click **Sync to GitHub & open PR**.
+2. The plugin commits the export to the **`figma-sync/incoming`** branch. That push
+   triggers `.github/workflows/figma-token-sync.yml`, which transforms the export,
+   runs `build` + `eval:all`, and opens/updates a single **token-sync PR** — but
+   only if tokens actually drifted (no diff ⇒ no PR).
+3. Review and merge the PR like any other.
+
+Repo/token are remembered in Figma `clientStorage` (local to your client, never
+committed). The export is read straight off the `incoming` branch by the Action
+and never reaches `main` or the PR.
+
+**Token:** a **fine-grained PAT** scoped to this repo with **Contents: Read/Write**
+(that's all the plugin needs — it only writes a file to a branch). The Action
+itself uses the built-in `GITHUB_TOKEN`.
+
+**One repo setting:** Settings → Actions → General → *Workflow permissions* →
+enable **“Allow GitHub Actions to create and approve pull requests.”** Without it
+the Action can transform but can't open the PR.
+
+### Why this workflow runs `eval:all` itself (don't delete it as "redundant")
+
+Tokens are the contract components consume, so a token change can break a
+component — a renamed/removed semantic token leaves a `var()` dangling, or a value
+change regresses WCAG contrast. That's exactly what the component eval catches, so
+**token drift must clear the component gate before merge.**
+
+`eval.yml` is still *the* gate — it already triggers on PRs touching
+`design-system/tokens/**` and `dist/**`. The catch: a PR opened by the built-in
+`GITHUB_TOKEN` does **not** reliably trigger `eval.yml` — GitHub holds it as
+*"1 workflow awaiting approval"* until a maintainer clicks **Approve**. If nobody
+clicks, the gate never runs.
+
+So the `eval:all` step inside this workflow is a **pre-flight**, not a duplicate:
+the producer refuses to open a PR it already knows is broken, using the same
+command as the gate. The token-sync PR is therefore pre-validated even if the
+`eval.yml` check sits unapproved.
+
+**When to remove it:** if you switch the `create-pull-request` step to a
+**PAT / GitHub App token** instead of `GITHUB_TOKEN`, `eval.yml` fires on the PR
+normally (no "awaiting approval") and the inline `eval:all` becomes redundant.
+While it runs on `GITHUB_TOKEN`, keep it.
+
 ## Installing the plugin (once)
 
 Figma → **Plugins → Development → Import plugin from manifest…** → pick
 `design-system/tokens/figma-sync/plugin/manifest.json`. It runs locally; no
-publishing needed. The manifest only allows network access to
-`http://localhost:41789` — nothing leaves your machine.
+publishing needed. The manifest allows network access only to
+`http://localhost:41789` (local flow) and `https://api.github.com` (GitHub flow)
+— nothing else.
 
 ## The mapping (and how to tune it after the first run)
 
@@ -119,7 +187,9 @@ Unmapped collections and unparsed style names are listed. Adjust `CONFIG`:
     source, so it's carried forward from the existing file.
 - **Exports aren't tracked.** The plugin produces `figma-export.json` on demand;
   it's gitignored (large, goes stale, not needed for tests). Re-export whenever you
-  want to sync.
+  want to sync. The GitHub flow commits it via the API to the `figma-sync/incoming`
+  branch only (the API ignores `.gitignore`); the Action reads it from there, so it
+  never lands on `main` or in the PR.
 - **No `.json` lands in `tokens/` except the five token files** — `build.mjs`
   globs `tokens/*.json`. Keep exports/fixtures here under `figma-sync/`.
 - Stop the server with Ctrl-C. Port override: `SNAP_SYNC_PORT=xxxx npm run sync:serve`

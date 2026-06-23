@@ -7,7 +7,7 @@
   "editorType": ["figma"],
   "documentAccess": "dynamic-page",
   "networkAccess": {
-    "allowedDomains": ["http://localhost:41789"],
-    "reasoning": "Posts the local variable/style export to the SNAP token-sync server running on your own machine (localhost). Nothing is sent anywhere else."
+    "allowedDomains": ["http://localhost:41789", "https://api.github.com"],
+    "reasoning": "Posts the local variable/style export either to the SNAP token-sync server on your own machine (localhost), or — for the GitHub flow — to api.github.com to commit the export to a sync branch using a token you provide. Nothing is sent anywhere else."
   }
 }
