@@ -43,22 +43,34 @@ jobs:
           cache: 'npm'
 
       - name: Extract export from incoming branch
+        id: export
         run: |
           set -euo pipefail
           git fetch origin figma-sync/incoming
-          EXPORT="$RUNNER_TEMP/figma-export.json"
+          BLOB=design-system/tokens/figma-sync/figma-export.json
           # Read the blob straight out of the incoming branch — never merge it,
-          # so the gitignored export stays out of main and out of the PR.
-          git show origin/figma-sync/incoming:design-system/tokens/figma-sync/figma-export.json > "$EXPORT"
-          echo "EXPORT=$EXPORT" >> "$GITHUB_ENV"
-          echo "Export size: $(wc -c < "$EXPORT") bytes"
+          # so the gitignored export stays out of main and out of the PR. If it's
+          # not there yet (e.g. the branch was just seeded), no-op cleanly.
+          if git cat-file -e "origin/figma-sync/incoming:$BLOB" 2>/dev/null; then
+            EXPORT="$RUNNER_TEMP/figma-export.json"
+            git show "origin/figma-sync/incoming:$BLOB" > "$EXPORT"
+            echo "EXPORT=$EXPORT" >> "$GITHUB_ENV"
+            echo "found=true" >> "$GITHUB_OUTPUT"
+            echo "Export size: $(wc -c < "$EXPORT") bytes"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No export on figma-sync/incoming yet — nothing to do."
+          fi
 
-      - run: npm ci
+      - if: steps.export.outputs.found == 'true'
+        run: npm ci
 
       - name: Transform + build tokens
+        if: steps.export.outputs.found == 'true'
         run: npm run sync -- "$EXPORT"
 
       - name: Detect drift
+        if: steps.export.outputs.found == 'true'
         id: drift
         run: |
           if [ -n "$(git status --porcelain design-system/tokens design-system/dist)" ]; then
