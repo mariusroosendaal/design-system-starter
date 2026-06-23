@@ -10,9 +10,9 @@ Be strict. Cite line numbers. Any criterion you mark `fail` makes the overall re
 
 2. **Semantic over primitive** — Uses semantic tokens (`--background-*`, `--text-*`, `--border-*`, `--interactive-*`, `--space-*`, `--radius-interactive/container`) and never primitives (`--color-*`, `--size-*`, raw `--radius-md`). Color is chosen by role + intent, not hue.
 
-3. **Theme-agnostic** — No hand-authored light/dark/wireframe branching. The component must work in all three themes purely because it uses semantic tokens. Flag any `data-theme`-specific code or conditional colors.
+3. **Theme-agnostic** — No hand-authored per-theme branching. The component must work in every defined theme purely because it uses semantic tokens. Flag any `data-theme`-specific code or conditional colors.
 
-4. **Responsive & spacing** — Spacing/gaps/padding use the fluid scale (`--space-*` via `p-/m-/gap-1…14`); layout sizing uses `--content-width-*`, `--cell-*`, control heights use `--interactive-height-*`. Breakpoints use the system's `md/lg/xl/2xl` (mobile-first). No raw spacing.
+4. **Responsive & spacing** — Spacing/gaps/padding use the spacing scale (`--space-*` via `p-/m-/gap-1…7`); control heights use `--interactive-height-*`. Breakpoints use the system's `md/lg/xl/2xl` (mobile-first). No raw spacing (e.g. `p-10`, `gap-12` are non-token defaults).
 
 5. **Typography via the ramp** — Text uses a `.type-*` ramp class (responsive `type-<role>` preferred) or `--font-*` tokens. Correct role for meaning (heading vs body vs label vs ui). No ad-hoc font-size/line-height/weight.
 
