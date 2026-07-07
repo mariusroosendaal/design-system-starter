@@ -8,8 +8,5 @@ node_modules/
 # Licensed brand fonts — self-host locally / via private store, do not commit
 design-system/fonts/files/
 
-# Audit spike raw dumps (large Figma API responses)
-audit/spike-output/
-
 # Generated audit HTML report (regenerate with `npm run audit:report`)
 audit/report.html
