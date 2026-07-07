@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "eval": "node eval/run.mjs",
     "eval:all": "node eval/run.mjs --all",
-    "audit:fetch": "node audit/fetch-figma.mjs"
+    "audit:fetch": "node audit/fetch-figma.mjs",
+    "audit": "node audit/audit.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",

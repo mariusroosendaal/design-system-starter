@@ -43,23 +43,81 @@ export const CONFIG = {
   // published component surface.
   includePrivate: false,
 
-  // Figma-name → code-name join map, e.g. { "accordion item": "AccordionItem" }.
-  // Placeholder for the future join step that matches this Figma inventory
-  // against a code inventory. Unused by fetch-figma.mjs today.
+  // Figma-name → code-name join map, applied (after normalization — see
+  // audit/audit.mjs `normalizeName`) when a Figma component set's name
+  // doesn't literally equal a code component's normalized name. Keys and
+  // values are both already-normalized (lowercase, spaces/underscores →
+  // hyphens). Empty for now — nothing in the current inventory needs
+  // renaming to match; add entries here as real drift shows up (e.g. a
+  // Figma set called "title lockup" that should join to a code component
+  // named differently).
   aliases: {},
 
-  // Seed map documenting how Figma variant-property names are expected to
-  // map to code concerns. Not read by fetch-figma.mjs — this is here so the
-  // future join step has a documented starting point rather than inventing
-  // the mapping ad hoc.
-  //   'css-state' → the property drives a CSS pseudo-class / interaction
-  //                 state (hover, focus, pressed, disabled…) rather than a
-  //                 distinct component prop.
-  //   'prop'      → the property should surface as a component prop in code.
+  // Where the client's Fractal-style component configs live, relative to
+  // the repo root. Convention: a folder of <name>.twig + <name>.config.json
+  // pairs (Craft/Twig stack) — this repo doesn't have one (it's a React
+  // gallery), so audit/code-inventory.mjs's fractal adapter returns []
+  // gracefully when this path doesn't exist. Point this at the real
+  // template root when running the audit against a client codebase.
+  codeInventory: {
+    fractalRoot: "templates",
+  },
+
+  // How Figma variant-property axes map to code concerns for the join step
+  // (audit/audit.mjs). Any axis *not* listed here falls through to the
+  // default role 'prop' and is additionally reported as an 'unmappedAxis'
+  // info finding, so coverage gaps in this map are visible rather than
+  // silently mis-scored.
+  //
+  //   'css-state'   → the axis drives a CSS pseudo-class / interaction state
+  //                   (hover, focus, pressed…) rather than a distinct
+  //                   component prop — excluded from prop comparison,
+  //                   counted separately as `stateAxes`.
+  //   'responsive'  → the axis represents a breakpoint / viewport variant,
+  //                   not a prop — SNAP components are responsive via CSS
+  //                   media queries, not a JS prop switch. Excluded from
+  //                   prop comparison; reported as an info note per match.
+  //   'prop'        → the axis should surface as a component prop in code
+  //                   (compared by name + enum/boolean value set).
   propertyRoles: {
+    // css-state: every "state" axis across the inventory (button, accordion
+    // item, checkbox, tab, …) enumerates default/hovered/pressed/focused —
+    // exactly the CSS pseudo-classes SNAP uses instead of a `state` prop.
     state: "css-state",
+
+    // responsive: title-lockup / tag-style "breakpoint" axes describe
+    // viewport-driven layout, handled by media queries in code, not props.
+    breakpoint: "responsive",
+
+    // prop: boolean-ish "is <adjective>" and enum axes seen across the real
+    // inventory (button, accordion item, checkbox family, tabs, dropdown,
+    // chip, jump link/links, modal header, list item, segment button …).
+    // Each should exist as a same-meaning code prop once that component is
+    // built.
     "is open": "prop",
+    "is disabled": "prop",
+    "is invalid": "prop",
+    "is checked": "prop",
+    "is expanded": "prop",
+    "is current": "prop",
+    "is active": "prop",
+    "is intermediate": "prop",
+    "is segmented": "prop",
+    "is cancellable": "prop",
+    "is icon only": "prop",
+    "is selectable": "prop",
+    "is first": "prop",
+    "icon only": "prop",
+    "has notification": "prop",
+    "has image": "prop",
+    "has back button": "prop",
     variant: "prop",
     size: "prop",
+    style: "prop",
+    layout: "prop",
+    order: "prop",
+    position: "prop",
+    alignment: "prop",
+    "heading level": "prop",
   },
 };
