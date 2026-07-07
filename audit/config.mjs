@@ -65,7 +65,7 @@ export const CONFIG = {
 
   // How Figma variant-property axes map to code concerns for the join step
   // (audit/audit.mjs). Any axis *not* listed here falls through to the
-  // default role 'prop' and is additionally reported as an 'unmappedAxis'
+  // default role 'prop' and is additionally reported as an 'unmapped-axis'
   // info finding, so coverage gaps in this map are visible rather than
   // silently mis-scored.
   //

@@ -3,10 +3,12 @@
 //
 //   { name, source: 'react-tsx' | 'fractal-config', file,
 //     props: { <propName>: { kind: 'enum'|'boolean'|'text'|'node'|'other', values?: [sorted] } },
-//     status: string|null, specPath: string|null }
+//     status: string|null }
 //
 // react-tsx: this repo's gallery (src/components/*.tsx) — props parsed via
 // regex from the component's `<Name>Props` interface/type, no TS compiler.
+// react entries also carry `rawSource` (the file's full text) so callers
+// (audit.mjs's eval-static gate) don't have to re-read the file from disk.
 //
 // fractal-config: the client's Craft/Twig convention (folders of
 // <name>.twig + <name>.config.json, Fractal-style) — not present in *this*
@@ -17,10 +19,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { repoRoot, read, has, COMPONENT_FILE_RE } from "../eval/lib/context.mjs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const REPO_ROOT = path.resolve(__dirname, "..");
 
 // ---------------------------------------------------------------------------
 // react-tsx adapter
@@ -121,27 +121,20 @@ function parsePropsBody(body, typeAliases) {
   return props;
 }
 
-function extractSpecPath(source) {
-  const m = /\/\/\s*Spec:\s*(\S+)/.exec(source);
-  return m ? m[1] : null;
-}
-
 export function buildReactTsxInventory({ reactComponentsDir = REACT_COMPONENTS_DIR } = {}) {
-  const dir = path.join(REPO_ROOT, reactComponentsDir);
   let files;
   try {
-    files = fs.readdirSync(dir);
+    files = fs.readdirSync(path.join(repoRoot, reactComponentsDir));
   } catch {
     return []; // directory absent — nothing to inventory
   }
 
   const entries = [];
   for (const file of files.sort()) {
-    if (!/^[A-Z][A-Za-z0-9]*\.tsx$/.test(file)) continue; // PascalCase files only, skip index.ts etc.
+    if (!COMPONENT_FILE_RE.test(file)) continue; // PascalCase files only, skip index.ts etc.
     const componentName = file.replace(/\.tsx$/, "");
     const relFile = path.join(reactComponentsDir, file);
-    const absFile = path.join(dir, file);
-    const source = fs.readFileSync(absFile, "utf8");
+    const source = read(relFile);
 
     const entry = {
       name: componentName,
@@ -149,7 +142,7 @@ export function buildReactTsxInventory({ reactComponentsDir = REACT_COMPONENTS_D
       file: relFile,
       props: {},
       status: null, // the React gallery has no status field
-      specPath: extractSpecPath(source),
+      rawSource: source,
     };
 
     try {
@@ -207,22 +200,22 @@ function classifyContextValues(values) {
 
 export function fractalRootExists({ codeInventory = {} } = {}) {
   if (!codeInventory.fractalRoot) return false;
-  return fs.existsSync(path.join(REPO_ROOT, codeInventory.fractalRoot));
+  return has(codeInventory.fractalRoot);
 }
 
 export function buildFractalConfigInventory({ codeInventory = {} } = {}) {
   const root = codeInventory.fractalRoot;
   if (!root) return [];
-  const absRoot = path.join(REPO_ROOT, root);
+  const absRoot = path.join(repoRoot, root);
   const files = walkForConfigs(absRoot).sort();
 
   const entries = [];
   for (const file of files) {
-    const relFile = path.relative(REPO_ROOT, file);
+    const relFile = path.relative(repoRoot, file);
     const baseName = path.basename(file).replace(/\.config\.json$/, "");
     let json;
     try {
-      json = JSON.parse(fs.readFileSync(file, "utf8"));
+      json = JSON.parse(read(relFile));
     } catch (err) {
       entries.push({
         name: baseName,
@@ -230,7 +223,6 @@ export function buildFractalConfigInventory({ codeInventory = {} } = {}) {
         file: relFile,
         props: {},
         status: null,
-        specPath: null,
         parseWarning: `JSON parse error: ${err.message}`,
       });
       continue;
@@ -264,7 +256,7 @@ export function buildFractalConfigInventory({ codeInventory = {} } = {}) {
       props[key] = classifyContextValues(valuesByKey.get(key));
     }
 
-    entries.push({ name, source: "fractal-config", file: relFile, props, status, specPath: null });
+    entries.push({ name, source: "fractal-config", file: relFile, props, status });
   }
   return entries;
 }

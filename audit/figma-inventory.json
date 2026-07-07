@@ -1,8 +1,8 @@
 {
   "fileKey": "40hPEX7A9Wt5VsMHxk3xCr",
   "fileName": "🟦 USCC — SNAP DS",
-  "fileVersion": "2373420549206700173",
-  "lastModified": "2026-07-07T09:51:25Z",
+  "fileVersion": "2373489277786716005",
+  "lastModified": "2026-07-07T14:48:17Z",
   "pagesScanned": [
     "└ accordion",
     "└ avatar",
@@ -15,6 +15,7 @@
     "└ link",
     "└ menu",
     "└ modal",
+    "└ progression",
     "└ spinner",
     "└ tabs",
     "└ tag",
@@ -127,7 +128,6 @@
         "state=hovered, is open=false",
         "state=pressed, is open=false"
       ],
-      "variantCount": 5,
       "axes": {
         "is open": [
           "false",
@@ -264,7 +264,6 @@
         "style=positive, layout=horizontal",
         "style=positive, layout=vertical"
       ],
-      "variantCount": 8,
       "axes": {
         "layout": [
           "horizontal",
@@ -359,7 +358,6 @@
           "type": "VARIANT",
           "values": [
             "2x-large",
-            "3x-large",
             "large",
             "medium",
             "small",
@@ -382,9 +380,6 @@
         "has notification=false, size=2x-large, variant=image",
         "has notification=false, size=2x-large, variant=initials",
         "has notification=false, size=2x-large, variant=placeholder",
-        "has notification=false, size=3x-large, variant=image",
-        "has notification=false, size=3x-large, variant=initials",
-        "has notification=false, size=3x-large, variant=placeholder",
         "has notification=false, size=large, variant=image",
         "has notification=false, size=large, variant=initials",
         "has notification=false, size=large, variant=placeholder",
@@ -401,14 +396,12 @@
         "has notification=false, size=x-small, variant=initials",
         "has notification=false, size=x-small, variant=placeholder",
         "has notification=true, size=2x-large, variant=image",
-        "has notification=true, size=3x-large, variant=image",
         "has notification=true, size=large, variant=image",
         "has notification=true, size=medium, variant=image",
         "has notification=true, size=small, variant=image",
         "has notification=true, size=x-large, variant=image",
         "has notification=true, size=x-small, variant=image"
       ],
-      "variantCount": 28,
       "axes": {
         "has notification": [
           "false",
@@ -416,7 +409,6 @@
         ],
         "size": [
           "2x-large",
-          "3x-large",
           "large",
           "medium",
           "small",
@@ -432,11 +424,11 @@
       "boundVariables": {
         "fills": [
           "VariableID:3302:20893",
-          "VariableID:3302:20912",
           "VariableID:4194:12645",
-          "VariableID:5563:8079",
           "VariableID:5575:12939",
-          "VariableID:5666:16459"
+          "VariableID:5666:16459",
+          "VariableID:8009:11",
+          "VariableID:8009:9"
         ],
         "fontFamily": [
           "VariableID:5609:13578"
@@ -502,7 +494,6 @@
         "order=top to bottom, size=small",
         "order=top to bottom, size=x-small"
       ],
-      "variantCount": 6,
       "axes": {
         "order": [
           "bottom to top",
@@ -557,7 +548,6 @@
       "variants": [
         "size=small"
       ],
-      "variantCount": 1,
       "axes": {
         "size": [
           "small"
@@ -622,7 +612,6 @@
         "style=neutral",
         "style=positive"
       ],
-      "variantCount": 4,
       "axes": {
         "style": [
           "informative",
@@ -735,7 +724,6 @@
         "variant=full width, breakpoint=lg-xl",
         "variant=full width, breakpoint=sm-md"
       ],
-      "variantCount": 4,
       "axes": {
         "breakpoint": [
           "lg-xl",
@@ -900,50 +888,81 @@
         "variant=destructive, state=default, size=medium, is disabled=true, icon only=true",
         "variant=destructive, state=default, size=small, is disabled=false, icon only=false",
         "variant=destructive, state=default, size=small, is disabled=false, icon only=true",
+        "variant=destructive, state=default, size=small, is disabled=true, icon only=false",
+        "variant=destructive, state=default, size=small, is disabled=true, icon only=true",
         "variant=destructive, state=focused, size=medium, is disabled=false, icon only=false",
         "variant=destructive, state=focused, size=medium, is disabled=false, icon only=true",
+        "variant=destructive, state=focused, size=small, is disabled=false, icon only=false",
+        "variant=destructive, state=focused, size=small, is disabled=false, icon only=true",
         "variant=destructive, state=hovered, size=medium, is disabled=false, icon only=false",
         "variant=destructive, state=hovered, size=medium, is disabled=false, icon only=true",
+        "variant=destructive, state=hovered, size=small, is disabled=false, icon only=false",
+        "variant=destructive, state=hovered, size=small, is disabled=false, icon only=true",
         "variant=destructive, state=pressed, size=medium, is disabled=false, icon only=false",
         "variant=destructive, state=pressed, size=medium, is disabled=false, icon only=true",
+        "variant=destructive, state=pressed, size=small, is disabled=false, icon only=false",
+        "variant=destructive, state=pressed, size=small, is disabled=false, icon only=true",
         "variant=primary, state=default, size=medium, is disabled=false, icon only=false",
         "variant=primary, state=default, size=medium, is disabled=false, icon only=true",
         "variant=primary, state=default, size=medium, is disabled=true, icon only=false",
         "variant=primary, state=default, size=medium, is disabled=true, icon only=true",
         "variant=primary, state=default, size=small, is disabled=false, icon only=false",
         "variant=primary, state=default, size=small, is disabled=false, icon only=true",
+        "variant=primary, state=default, size=small, is disabled=true, icon only=false",
+        "variant=primary, state=default, size=small, is disabled=true, icon only=true",
         "variant=primary, state=focused, size=medium, is disabled=false, icon only=false",
         "variant=primary, state=focused, size=medium, is disabled=false, icon only=true",
+        "variant=primary, state=focused, size=small, is disabled=false, icon only=false",
+        "variant=primary, state=focused, size=small, is disabled=false, icon only=true",
         "variant=primary, state=hovered, size=medium, is disabled=false, icon only=false",
         "variant=primary, state=hovered, size=medium, is disabled=false, icon only=true",
+        "variant=primary, state=hovered, size=small, is disabled=false, icon only=false",
+        "variant=primary, state=hovered, size=small, is disabled=false, icon only=true",
         "variant=primary, state=pressed, size=medium, is disabled=false, icon only=false",
         "variant=primary, state=pressed, size=medium, is disabled=false, icon only=true",
+        "variant=primary, state=pressed, size=small, is disabled=false, icon only=false",
+        "variant=primary, state=pressed, size=small, is disabled=false, icon only=true",
         "variant=secondary, state=default, size=medium, is disabled=false, icon only=false",
         "variant=secondary, state=default, size=medium, is disabled=false, icon only=true",
         "variant=secondary, state=default, size=medium, is disabled=true, icon only=false",
         "variant=secondary, state=default, size=medium, is disabled=true, icon only=true",
         "variant=secondary, state=default, size=small, is disabled=false, icon only=false",
         "variant=secondary, state=default, size=small, is disabled=false, icon only=true",
+        "variant=secondary, state=default, size=small, is disabled=true, icon only=false",
+        "variant=secondary, state=default, size=small, is disabled=true, icon only=true",
         "variant=secondary, state=focused, size=medium, is disabled=false, icon only=false",
         "variant=secondary, state=focused, size=medium, is disabled=false, icon only=true",
+        "variant=secondary, state=focused, size=small, is disabled=false, icon only=false",
+        "variant=secondary, state=focused, size=small, is disabled=false, icon only=true",
         "variant=secondary, state=hovered, size=medium, is disabled=false, icon only=false",
         "variant=secondary, state=hovered, size=medium, is disabled=false, icon only=true",
+        "variant=secondary, state=hovered, size=small, is disabled=false, icon only=false",
+        "variant=secondary, state=hovered, size=small, is disabled=false, icon only=true",
         "variant=secondary, state=pressed, size=medium, is disabled=false, icon only=false",
         "variant=secondary, state=pressed, size=medium, is disabled=false, icon only=true",
+        "variant=secondary, state=pressed, size=small, is disabled=false, icon only=false",
+        "variant=secondary, state=pressed, size=small, is disabled=false, icon only=true",
         "variant=tertiary, state=default, size=medium, is disabled=false, icon only=false",
         "variant=tertiary, state=default, size=medium, is disabled=false, icon only=true",
         "variant=tertiary, state=default, size=medium, is disabled=true, icon only=false",
         "variant=tertiary, state=default, size=medium, is disabled=true, icon only=true",
         "variant=tertiary, state=default, size=small, is disabled=false, icon only=false",
         "variant=tertiary, state=default, size=small, is disabled=false, icon only=true",
+        "variant=tertiary, state=default, size=small, is disabled=true, icon only=false",
+        "variant=tertiary, state=default, size=small, is disabled=true, icon only=true",
         "variant=tertiary, state=focused, size=medium, is disabled=false, icon only=false",
         "variant=tertiary, state=focused, size=medium, is disabled=false, icon only=true",
+        "variant=tertiary, state=focused, size=small, is disabled=false, icon only=false",
+        "variant=tertiary, state=focused, size=small, is disabled=false, icon only=true",
         "variant=tertiary, state=hovered, size=medium, is disabled=false, icon only=false",
         "variant=tertiary, state=hovered, size=medium, is disabled=false, icon only=true",
+        "variant=tertiary, state=hovered, size=small, is disabled=false, icon only=false",
+        "variant=tertiary, state=hovered, size=small, is disabled=false, icon only=true",
         "variant=tertiary, state=pressed, size=medium, is disabled=false, icon only=false",
-        "variant=tertiary, state=pressed, size=medium, is disabled=false, icon only=true"
+        "variant=tertiary, state=pressed, size=medium, is disabled=false, icon only=true",
+        "variant=tertiary, state=pressed, size=small, is disabled=false, icon only=false",
+        "variant=tertiary, state=pressed, size=small, is disabled=false, icon only=true"
       ],
-      "variantCount": 48,
       "axes": {
         "icon only": [
           "false",
@@ -1028,7 +1047,8 @@
           "VariableID:3302:20826",
           "VariableID:3302:20830",
           "VariableID:3302:20840",
-          "VariableID:8323:12607"
+          "VariableID:8323:12607",
+          "VariableID:8323:12609"
         ]
       }
     },
@@ -1071,7 +1091,6 @@
         "variant=icon only, is segmented=true",
         "variant=with background, is segmented=true"
       ],
-      "variantCount": 5,
       "axes": {
         "is segmented": [
           "false",
@@ -1183,7 +1202,6 @@
         "is active=true, state=focused",
         "is active=true, state=hovered"
       ],
-      "variantCount": 6,
       "axes": {
         "is active": [
           "false",
@@ -1301,7 +1319,6 @@
         "is cancellable=true, has image=true, state=hovered",
         "is cancellable=true, has image=true, state=pressed"
       ],
-      "variantCount": 16,
       "axes": {
         "has image": [
           "false",
@@ -1401,7 +1418,6 @@
         "is expanded=true, is icon only=false",
         "is expanded=true, is icon only=true"
       ],
-      "variantCount": 4,
       "axes": {
         "is expanded": [
           "false",
@@ -1592,7 +1608,6 @@
         "state=hovered, is checked=false, is disabled=false, is invalid=false, is intermediate=false",
         "state=hovered, is checked=false, is disabled=true, is invalid=false, is intermediate=false"
       ],
-      "variantCount": 10,
       "axes": {
         "is checked": [
           "false",
@@ -1633,191 +1648,6 @@
           "VariableID:5589:23357",
           "VariableID:7300:15420",
           "VariableID:8323:12609"
-        ]
-      }
-    },
-    {
-      "name": "checkbox card",
-      "nodeId": "8079:55431",
-      "kind": "componentSet",
-      "page": "└ input",
-      "section": {
-        "name": "checkbox",
-        "nodeId": "8937:30324",
-        "devStatus": null
-      },
-      "properties": {
-        "Property 1": {
-          "type": "VARIANT",
-          "values": [
-            "1",
-            "1a"
-          ],
-          "default": "1"
-        }
-      },
-      "variants": [
-        "Property 1=1",
-        "Property 1=1a"
-      ],
-      "variantCount": 2,
-      "axes": {
-        "Property 1": [
-          "1",
-          "1a"
-        ]
-      },
-      "boundVariables": {
-        "fills": [
-          "VariableID:3302:20830",
-          "VariableID:8009:10",
-          "VariableID:8009:11",
-          "VariableID:8009:12",
-          "VariableID:8009:9"
-        ],
-        "fontFamily": [
-          "VariableID:5608:3147"
-        ],
-        "fontSize": [
-          "VariableID:8306:62257",
-          "VariableID:8306:62259"
-        ],
-        "fontStyle": [
-          "VariableID:8307:27",
-          "VariableID:8307:29"
-        ],
-        "itemSpacing": [
-          "VariableID:5609:13583"
-        ],
-        "paddingLeft": [
-          "VariableID:5609:13584"
-        ],
-        "paddingRight": [
-          "VariableID:5609:13584"
-        ],
-        "size": [
-          "VariableID:4199:27974"
-        ],
-        "strokes": [
-          "VariableID:3302:20825"
-        ]
-      }
-    },
-    {
-      "name": "checkbox card",
-      "nodeId": "8088:1374",
-      "kind": "componentSet",
-      "page": "└ input",
-      "section": {
-        "name": "checkbox",
-        "nodeId": "8937:30182",
-        "devStatus": null
-      },
-      "properties": {
-        "is checked": {
-          "type": "VARIANT",
-          "values": [
-            "false",
-            "true"
-          ],
-          "default": "false"
-        },
-        "is disabled": {
-          "type": "VARIANT",
-          "values": [
-            "false",
-            "true"
-          ],
-          "default": "false"
-        },
-        "is invalid": {
-          "type": "VARIANT",
-          "values": [
-            "false",
-            "true"
-          ],
-          "default": "false"
-        },
-        "label": {
-          "type": "TEXT",
-          "default": "Label"
-        },
-        "state": {
-          "type": "VARIANT",
-          "values": [
-            "default",
-            "focused",
-            "hovered"
-          ],
-          "default": "default"
-        }
-      },
-      "variants": [
-        "state=default, is disabled=false, is checked=false, is invalid=false",
-        "state=default, is disabled=false, is checked=true, is invalid=false",
-        "state=default, is disabled=false, is checked=true, is invalid=true",
-        "state=default, is disabled=true, is checked=false, is invalid=false",
-        "state=focused, is disabled=false, is checked=false, is invalid=false",
-        "state=focused, is disabled=false, is checked=true, is invalid=false",
-        "state=hovered, is disabled=false, is checked=false, is invalid=false"
-      ],
-      "variantCount": 7,
-      "axes": {
-        "is checked": [
-          "false",
-          "true"
-        ],
-        "is disabled": [
-          "false",
-          "true"
-        ],
-        "is invalid": [
-          "false",
-          "true"
-        ],
-        "state": [
-          "default",
-          "focused",
-          "hovered"
-        ]
-      },
-      "boundVariables": {
-        "effects": [
-          "VariableID:3302:20849"
-        ],
-        "fills": [
-          "VariableID:3302:20825",
-          "VariableID:3302:20832",
-          "VariableID:4194:12645",
-          "VariableID:8009:12"
-        ],
-        "fontFamily": [
-          "VariableID:5608:3147"
-        ],
-        "fontSize": [
-          "VariableID:8306:62257"
-        ],
-        "fontStyle": [
-          "VariableID:8307:27"
-        ],
-        "itemSpacing": [
-          "VariableID:5609:13583"
-        ],
-        "paddingLeft": [
-          "VariableID:5609:13585"
-        ],
-        "paddingRight": [
-          "VariableID:5609:13585"
-        ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
-        "strokes": [
-          "VariableID:3302:20826",
-          "VariableID:3302:20840",
-          "VariableID:4380:7821",
-          "VariableID:5589:23357",
-          "VariableID:7300:15420"
         ]
       }
     },
@@ -1928,7 +1758,6 @@
         "state=focused, is disabled=false, is checked=true, is invalid=false",
         "state=hovered, is disabled=false, is checked=false, is invalid=false"
       ],
-      "variantCount": 7,
       "axes": {
         "is checked": [
           "false",
@@ -2128,7 +1957,6 @@
         "state=focused, is disabled=false, is invalid=false",
         "state=hovered, is disabled=false, is invalid=false"
       ],
-      "variantCount": 6,
       "axes": {
         "is disabled": [
           "false",
@@ -2247,7 +2075,6 @@
         "variant=password, is disabled=true, state=default, is invalid=false",
         "variant=text, is disabled=false, state=default, is invalid=false"
       ],
-      "variantCount": 7,
       "axes": {
         "is disabled": [
           "false",
@@ -2368,7 +2195,6 @@
         "state=focused, is checked=true, is disabled=false, is invalid=false",
         "state=hovered, is checked=false, is disabled=false, is invalid=false"
       ],
-      "variantCount": 7,
       "axes": {
         "is checked": [
           "false",
@@ -2471,7 +2297,6 @@
         "state=focused, is disabled=false, is checked=true, is invalid=false",
         "state=hovered, is disabled=false, is checked=false, is invalid=false"
       ],
-      "variantCount": 7,
       "axes": {
         "is checked": [
           "false",
@@ -2607,7 +2432,6 @@
         "is disabled=false, state=hovered",
         "is disabled=true, state=default"
       ],
-      "variantCount": 5,
       "axes": {
         "is disabled": [
           "false",
@@ -2715,7 +2539,6 @@
         "state=focused, is disabled=false, is invalid=false",
         "state=hovered, is disabled=false, is invalid=false"
       ],
-      "variantCount": 6,
       "axes": {
         "is disabled": [
           "false",
@@ -2828,7 +2651,6 @@
         "state=focused, is disabled=false, is invalid=false",
         "state=hovered, is disabled=false, is invalid=false"
       ],
-      "variantCount": 6,
       "axes": {
         "is disabled": [
           "false",
@@ -2940,7 +2762,6 @@
         "state=hovered, is checked=false, is disabled=false",
         "state=hovered, is checked=true, is disabled=false"
       ],
-      "variantCount": 8,
       "axes": {
         "is checked": [
           "false",
@@ -3023,7 +2844,6 @@
         "style=pill, is current=true, state=focused",
         "style=pill, is current=true, state=hovered"
       ],
-      "variantCount": 6,
       "axes": {
         "is current": [
           "false",
@@ -3095,10 +2915,10 @@
         "breakpoint": {
           "type": "VARIANT",
           "values": [
-            "md-xl",
-            "sm"
+            "lg-2xl",
+            "sm-md"
           ],
-          "default": "sm"
+          "default": "sm-md"
         },
         "is expanded": {
           "type": "VARIANT",
@@ -3113,15 +2933,14 @@
         }
       },
       "variants": [
-        "breakpoint=md-xl, is expanded=true",
-        "breakpoint=sm, is expanded=false",
-        "breakpoint=sm, is expanded=true"
+        "breakpoint=lg-2xl, is expanded=true",
+        "breakpoint=sm-md, is expanded=false",
+        "breakpoint=sm-md, is expanded=true"
       ],
-      "variantCount": 3,
       "axes": {
         "breakpoint": [
-          "md-xl",
-          "sm"
+          "lg-2xl",
+          "sm-md"
         ],
         "is expanded": [
           "false",
@@ -3256,7 +3075,6 @@
         "size=small, state=pressed, icon=before",
         "size=small, state=pressed, icon=none"
       ],
-      "variantCount": 24,
       "axes": {
         "icon": [
           "after",
@@ -3480,7 +3298,6 @@
         "state=hovered",
         "state=pressed"
       ],
-      "variantCount": 4,
       "axes": {
         "state": [
           "default",
@@ -3565,23 +3382,22 @@
         "variant": {
           "type": "VARIANT",
           "values": [
-            "centered",
-            "right side drawer"
+            "_right side drawer",
+            "centered"
           ],
-          "default": "right side drawer"
+          "default": "_right side drawer"
         }
       },
       "variants": [
+        "variant=_right side drawer, breakpoint=lg",
+        "variant=_right side drawer, breakpoint=md",
+        "variant=_right side drawer, breakpoint=sm",
+        "variant=_right side drawer, breakpoint=xl",
         "variant=centered, breakpoint=lg",
         "variant=centered, breakpoint=md",
         "variant=centered, breakpoint=sm",
-        "variant=centered, breakpoint=xl",
-        "variant=right side drawer, breakpoint=lg",
-        "variant=right side drawer, breakpoint=md",
-        "variant=right side drawer, breakpoint=sm",
-        "variant=right side drawer, breakpoint=xl"
+        "variant=centered, breakpoint=xl"
       ],
-      "variantCount": 8,
       "axes": {
         "breakpoint": [
           "lg",
@@ -3590,8 +3406,8 @@
           "xl"
         ],
         "variant": [
-          "centered",
-          "right side drawer"
+          "_right side drawer",
+          "centered"
         ]
       },
       "boundVariables": {
@@ -3685,7 +3501,6 @@
         "layout=horizontal",
         "layout=vertical"
       ],
-      "variantCount": 2,
       "axes": {
         "layout": [
           "horizontal",
@@ -3768,7 +3583,6 @@
         "has back button=false",
         "has back button=true"
       ],
-      "variantCount": 2,
       "axes": {
         "has back button": [
           "false",
@@ -3815,311 +3629,69 @@
       }
     },
     {
-      "name": "form",
-      "nodeId": "8529:38782",
+      "name": "progress indicator",
+      "nodeId": "9014:10893",
       "kind": "component",
-      "page": "└ section",
-      "section": null,
-      "properties": {},
-      "boundVariables": {
-        "effects": [
-          "VariableID:3302:20849"
-        ],
-        "fills": [
-          "VariableID:3302:20825",
-          "VariableID:3302:20835",
-          "VariableID:3302:20842",
-          "VariableID:7176:112577",
-          "VariableID:8008:24081",
-          "VariableID:8323:12607",
-          "VariableID:8323:12608"
-        ],
-        "fontFamily": [
-          "VariableID:5608:3147",
-          "VariableID:5609:13076"
-        ],
-        "fontSize": [
-          "VariableID:8306:62257",
-          "VariableID:8306:62259",
-          "VariableID:8306:62261"
-        ],
-        "fontStyle": [
-          "VariableID:5609:13077",
-          "VariableID:8307:27",
-          "VariableID:8307:29",
-          "VariableID:8307:30"
-        ],
-        "gridColumnGap": [
-          "VariableID:3304:32280"
-        ],
-        "gridRowGap": [
-          "VariableID:3304:32280"
-        ],
-        "itemSpacing": [
-          "VariableID:3304:31584",
-          "VariableID:3304:31586",
-          "VariableID:5609:13582",
-          "VariableID:5609:13583"
-        ],
-        "paddingLeft": [
-          "VariableID:5609:13585"
-        ],
-        "paddingRight": [
-          "VariableID:5609:13584"
-        ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
-        "size": [
-          "VariableID:4199:27728"
-        ],
-        "strokes": [
-          "VariableID:3302:20825",
-          "VariableID:5589:23357",
-          "VariableID:7300:15420",
-          "VariableID:8323:12607",
-          "VariableID:8323:12609"
-        ]
-      }
-    },
-    {
-      "name": "list item",
-      "nodeId": "8883:3551",
-      "kind": "componentSet",
-      "page": "└ section",
-      "section": null,
-      "properties": {
-        "is selectable": {
-          "type": "VARIANT",
-          "values": [
-            "false",
-            "true"
-          ],
-          "default": "false"
-        }
+      "page": "└ progression",
+      "section": {
+        "name": "Section 1",
+        "nodeId": "9015:6673",
+        "devStatus": null
       },
-      "variants": [
-        "is selectable=false",
-        "is selectable=true"
-      ],
-      "variantCount": 2,
-      "axes": {
-        "is selectable": [
-          "false",
-          "true"
-        ]
-      },
-      "boundVariables": {
-        "fills": [
-          "VariableID:3302:20825",
-          "VariableID:3302:20842"
-        ],
-        "fontFamily": [
-          "VariableID:5608:3147"
-        ],
-        "fontSize": [
-          "VariableID:8306:62257",
-          "VariableID:8306:62259"
-        ],
-        "fontStyle": [
-          "VariableID:8307:27",
-          "VariableID:8307:28",
-          "VariableID:8307:29"
-        ],
-        "itemSpacing": [
-          "VariableID:3304:32280",
-          "VariableID:5609:13583"
-        ],
-        "paddingBottom": [
-          "VariableID:3402:42505"
-        ],
-        "paddingLeft": [
-          "VariableID:3402:42505",
-          "VariableID:5609:13584"
-        ],
-        "paddingRight": [
-          "VariableID:3402:42505",
-          "VariableID:5609:13584"
-        ],
-        "paddingTop": [
-          "VariableID:3402:42505"
-        ],
-        "size": [
-          "VariableID:4199:27974"
-        ],
-        "strokes": [
-          "VariableID:3302:20825",
-          "VariableID:3302:20838",
-          "VariableID:3302:20840",
-          "VariableID:7300:15420"
-        ]
-      }
-    },
-    {
-      "name": "section",
-      "nodeId": "8529:38483",
-      "kind": "component",
-      "page": "└ section",
-      "section": null,
-      "properties": {
-        "alerts": {
-          "type": "SLOT"
-        },
-        "content": {
-          "type": "SLOT"
-        },
-        "footer": {
-          "type": "SLOT"
-        },
-        "has alerts": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "has footer": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "boundVariables": {
-        "fills": [
-          "VariableID:137:51340",
-          "VariableID:137:51341",
-          "VariableID:3302:20825",
-          "VariableID:3302:20830",
-          "VariableID:3302:20835",
-          "VariableID:3302:20842",
-          "VariableID:8008:24081",
-          "VariableID:8016:51032"
-        ],
-        "fontFamily": [
-          "VariableID:2006:38070",
-          "VariableID:5607:2939",
-          "VariableID:5608:3147"
-        ],
-        "fontSize": [
-          "VariableID:8306:62245",
-          "VariableID:8306:62257",
-          "VariableID:8306:62259",
-          "VariableID:8306:62263"
-        ],
-        "fontStyle": [
-          "VariableID:8307:20",
-          "VariableID:8307:27",
-          "VariableID:8307:29",
-          "VariableID:8307:30",
-          "VariableID:8307:31"
-        ],
-        "itemSpacing": [
-          "VariableID:3304:31585",
-          "VariableID:3304:31586",
-          "VariableID:3304:31587",
-          "VariableID:3402:42505",
-          "VariableID:5609:13582",
-          "VariableID:5609:13583",
-          "VariableID:5609:13584"
-        ],
-        "paddingBottom": [
-          "VariableID:3304:32281",
-          "VariableID:3402:42505"
-        ],
-        "paddingLeft": [
-          "VariableID:3304:31587",
-          "VariableID:3304:32281",
-          "VariableID:5609:13585"
-        ],
-        "paddingRight": [
-          "VariableID:3304:31587",
-          "VariableID:3304:32281",
-          "VariableID:5609:13585"
-        ],
-        "paddingTop": [
-          "VariableID:3304:31588",
-          "VariableID:3402:42505",
-          "VariableID:4071:31781"
-        ],
-        "size": [
-          "VariableID:4199:27728",
-          "VariableID:4199:27974"
-        ],
-        "strokes": [
-          "VariableID:3302:20825",
-          "VariableID:3302:20830",
-          "VariableID:3302:20840",
-          "VariableID:5589:23357",
-          "VariableID:7263:138410"
-        ]
-      }
-    },
-    {
-      "name": "stack",
-      "nodeId": "8529:40428",
-      "kind": "component",
-      "page": "└ section",
-      "section": null,
       "properties": {
         "slot": {
           "type": "SLOT"
         }
       },
       "boundVariables": {
-        "strokes": [
-          "VariableID:3302:20838"
+        "fills": [
+          "VariableID:3302:20844"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13584"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
         ]
       }
     },
     {
-      "name": "toggle item",
-      "nodeId": "8487:34248",
-      "kind": "component",
-      "page": "└ section",
-      "section": null,
+      "name": "progress step",
+      "nodeId": "9014:10919",
+      "kind": "componentSet",
+      "page": "└ progression",
+      "section": {
+        "name": "Section 1",
+        "nodeId": "9015:6673",
+        "devStatus": null
+      },
       "properties": {
-        "supporting text": {
-          "type": "TEXT",
-          "default": "Supporting text"
-        },
-        "title": {
-          "type": "TEXT",
-          "default": "Title"
+        "is current": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "true"
         }
+      },
+      "variants": [
+        "is current=false",
+        "is current=true"
+      ],
+      "axes": {
+        "is current": [
+          "false",
+          "true"
+        ]
       },
       "boundVariables": {
         "fills": [
-          "VariableID:3302:20825",
-          "VariableID:3302:20842",
-          "VariableID:8016:51032"
-        ],
-        "fontFamily": [
-          "VariableID:5608:3147"
-        ],
-        "fontSize": [
-          "VariableID:8306:62257"
-        ],
-        "fontStyle": [
-          "VariableID:8307:27",
-          "VariableID:8307:28"
-        ],
-        "itemSpacing": [
-          "VariableID:3304:32280"
-        ],
-        "paddingBottom": [
-          "VariableID:3402:42505"
-        ],
-        "paddingLeft": [
-          "VariableID:3402:42505"
-        ],
-        "paddingRight": [
-          "VariableID:3402:42505"
-        ],
-        "paddingTop": [
-          "VariableID:3402:42505"
+          "VariableID:3302:20827",
+          "VariableID:3302:20844"
         ],
         "rectangleCornerRadii": [
           "VariableID:5609:13601"
-        ],
-        "strokes": [
-          "VariableID:3302:20830",
-          "VariableID:3302:20838"
         ]
       }
     },
@@ -4149,7 +3721,6 @@
         "size=medium",
         "size=small"
       ],
-      "variantCount": 3,
       "axes": {
         "size": [
           "large",
@@ -4220,7 +3791,6 @@
         "is current=true, state=focused",
         "is current=true, state=hovered"
       ],
-      "variantCount": 6,
       "axes": {
         "is current": [
           "false",
@@ -4386,7 +3956,6 @@
         "state=pressed, variant=primary",
         "state=pressed, variant=secondary"
       ],
-      "variantCount": 8,
       "axes": {
         "state": [
           "default",
@@ -4490,7 +4059,6 @@
         "variant=unordered list, is first=false",
         "variant=unordered list, is first=true"
       ],
-      "variantCount": 12,
       "axes": {
         "is first": [
           "false",
@@ -4626,7 +4194,6 @@
         "heading level=small, layout=default, style=default",
         "heading level=small, layout=default, style=expressive"
       ],
-      "variantCount": 16,
       "axes": {
         "heading level": [
           "display",
@@ -4745,7 +4312,6 @@
         "position=top, alignment=end",
         "position=top, alignment=start"
       ],
-      "variantCount": 6,
       "axes": {
         "alignment": [
           "center",

@@ -17,18 +17,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CONFIG } from "./config.mjs";
-import { buildCodeInventory, fractalRootExists, REPO_ROOT } from "./code-inventory.mjs";
-import { runStaticChecks } from "../eval/static-checks.mjs";
+import { buildCodeInventory, fractalRootExists } from "./code-inventory.mjs";
+import { repoRoot as REPO_ROOT, runStaticChecksWithSpecGate } from "../eval/lib/context.mjs";
+import { normalizeName, axesSummary, READY_DEV_STATUSES } from "./lib.mjs";
 import { renderHtmlReport } from "./report-html.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INVENTORY_FILE = path.join(__dirname, "figma-inventory.json");
-
-// Kept identical to eval/run.mjs's own kebab-case + spec-path derivation so
-// "does this component have a spec / pass static checks" means the same
-// thing here as it does in `npm run eval`.
-const kebab = (n) => n.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
-const SPEC_DIR = "design-system/components";
 
 // ---------------------------------------------------------------------------
 // Severity rules registry — one entry per finding `kind`.
@@ -72,7 +67,7 @@ const RULES = {
     severity: "warn",
     rule: "two or more code entries normalize to the same name, so the join can't tell them apart.",
   },
-  unmappedAxis: {
+  "unmapped-axis": {
     severity: "info",
     rule: "a variant axis has no CONFIG.propertyRoles entry, so it's treated as 'prop' by default — a coverage gap in the map, not necessarily a bug.",
   },
@@ -88,16 +83,15 @@ const RULES = {
     severity: "info",
     rule: "a Figma SLOT property has no corresponding node prop on the matched code component — presence-only check, not a variant axis.",
   },
+  "parse-warning": {
+    severity: "info",
+    rule: "the react-tsx adapter couldn't parse this component's props; its comparison is incomplete.",
+  },
 };
 
 // ---------------------------------------------------------------------------
 // Name / key normalization
 // ---------------------------------------------------------------------------
-
-// Component-name normalization for the join: lowercase, trim, spaces/underscores → hyphens.
-function normalizeName(name) {
-  return name.trim().toLowerCase().replace(/[\s_]+/g, "-");
-}
 
 // Stricter key normalization for matching a Figma axis name to a code prop
 // name: strip spaces/hyphens/underscores entirely, lowercase. This is what
@@ -106,11 +100,28 @@ function normalizeKey(name) {
   return name.toLowerCase().replace(/[\s\-_]+/g, "");
 }
 
-function figmaMatchesCode(figmaName, codeName) {
+// Build a normalized-code-name → entry lookup for the join, once. When two
+// code entries normalize to the same name, the first one (in codeEntries
+// order) wins — matching the old `codeEntries.find(...)` semantics (that
+// case is separately flagged as `duplicate-code-name`).
+function buildCodeByNormalizedName(codeEntries) {
+  const map = new Map();
+  for (const c of codeEntries) {
+    const key = normalizeName(c.name);
+    if (!map.has(key)) map.set(key, c);
+  }
+  return map;
+}
+
+// Find the code entry a Figma name joins to: a direct normalized-name match,
+// falling back to CONFIG.aliases (keyed by normalized Figma name, valued by
+// normalized code name) — same alias semantics as the old figmaMatchesCode.
+function findMatchingCode(figmaName, codeByName) {
   const f = normalizeName(figmaName);
-  const c = normalizeName(codeName);
-  if (f === c) return true;
-  return CONFIG.aliases[f] === c;
+  if (codeByName.has(f)) return codeByName.get(f);
+  const aliasTarget = CONFIG.aliases[f];
+  if (aliasTarget && codeByName.has(aliasTarget)) return codeByName.get(aliasTarget);
+  return null;
 }
 
 function groupBy(list, keyFn) {
@@ -156,7 +167,7 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
     if (role === "responsive") {
       result.responsiveAxes.push(axisName);
       findings.push({
-        severity: "info",
+        severity: RULES["responsive-axis"].severity,
         component: figmaEntry.name,
         kind: "responsive-axis",
         detail: `Axis "${axisName}" is a breakpoint/responsive concern (handled by CSS media queries), not a prop.`,
@@ -168,9 +179,9 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
     // role === 'prop', either declared or defaulted.
     if (!declaredRole) {
       findings.push({
-        severity: "info",
+        severity: RULES["unmapped-axis"].severity,
         component: figmaEntry.name,
-        kind: "unmappedAxis",
+        kind: "unmapped-axis",
         detail: `Axis "${axisName}" has no CONFIG.propertyRoles entry; treated as 'prop' by default.`,
         why: `No propertyRoles entry for "${axisName}" — defaulting to 'prop' so the gap in the map is visible instead of silently mis-scored.`,
       });
@@ -182,51 +193,54 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
     if (!codeProp) {
       entryResult.status = "missing-in-code";
       findings.push({
-        severity: "warn",
+        severity: RULES["axis-missing-in-code"].severity,
         component: figmaEntry.name,
         kind: "axis-missing-in-code",
         detail: `Figma axis "${axisName}" (values: ${values.join("/")}) has no matching prop on code component "${codeEntry.name}".`,
         why: `Figma defines this axis but no code prop on "${codeEntry.name}" matches it under normalized-key comparison.`,
       });
-    } else {
-      entryResult.codeProp = codeProp.key;
-      entryResult.codeKind = codeProp.kind;
-      const figmaBooleanish = isBooleanish(values);
+      result.propAxes.push(entryResult);
+      continue;
+    }
 
-      if (figmaBooleanish && codeProp.kind === "boolean") {
-        entryResult.status = "match";
-      } else if (codeProp.kind === "enum") {
-        const figmaSet = new Set(values.map(String));
-        const codeSet = new Set((codeProp.values || []).map(String));
-        const missingInCode = [...figmaSet].filter((v) => !codeSet.has(v)).sort();
-        const extraInCode = [...codeSet].filter((v) => !figmaSet.has(v)).sort();
-        entryResult.missingInCode = missingInCode;
-        entryResult.extraInCode = extraInCode;
-        if (missingInCode.length || extraInCode.length) {
-          entryResult.status = "value-mismatch";
-          findings.push({
-            severity: "warn",
-            component: figmaEntry.name,
-            kind: "enum-mismatch",
-            detail:
-              `Axis "${axisName}" vs ${codeEntry.name}.${codeProp.key}: ` +
-              `missing in code [${missingInCode.join(", ") || "none"}], ` +
-              `extra in code [${extraInCode.join(", ") || "none"}].`,
-            why: `Both sides define this axis/prop, but their value sets disagree — a real gap unless the Figma/code naming convention is expected to differ.`,
-          });
-        } else {
-          entryResult.status = "match";
-        }
-      } else {
-        entryResult.status = "kind-mismatch";
+    entryResult.codeProp = codeProp.key;
+    entryResult.codeKind = codeProp.kind;
+    const figmaBooleanish = isBooleanish(values);
+
+    if (figmaBooleanish && codeProp.kind === "boolean") {
+      entryResult.status = "match";
+    } else if (codeProp.kind === "enum") {
+      const figmaSet = new Set(values.map(String));
+      const codeSet = new Set((codeProp.values || []).map(String));
+      const missingInCode = [...figmaSet].filter((v) => !codeSet.has(v)).sort();
+      const extraInCode = [...codeSet].filter((v) => !figmaSet.has(v)).sort();
+      entryResult.missingInCode = missingInCode;
+      entryResult.extraInCode = extraInCode;
+      entryResult.codeValues = [...codeSet].sort();
+      if (missingInCode.length || extraInCode.length) {
+        entryResult.status = "value-mismatch";
         findings.push({
-          severity: "warn",
+          severity: RULES["enum-mismatch"].severity,
           component: figmaEntry.name,
-          kind: "prop-kind-mismatch",
-          detail: `Axis "${axisName}" (values: ${values.join("/")}) vs ${codeEntry.name}.${codeProp.key}: code prop is kind "${codeProp.kind}", expected enum or boolean.`,
-          why: `Code prop "${codeProp.key}" exists under this name but is kind "${codeProp.kind}", not the enum/boolean a variant axis needs.`,
+          kind: "enum-mismatch",
+          detail:
+            `Axis "${axisName}" vs ${codeEntry.name}.${codeProp.key}: ` +
+            `missing in code [${missingInCode.join(", ") || "none"}], ` +
+            `extra in code [${extraInCode.join(", ") || "none"}].`,
+          why: `Both sides define this axis/prop, but their value sets disagree — a real gap unless the Figma/code naming convention is expected to differ.`,
         });
+      } else {
+        entryResult.status = "match";
       }
+    } else {
+      entryResult.status = "kind-mismatch";
+      findings.push({
+        severity: RULES["prop-kind-mismatch"].severity,
+        component: figmaEntry.name,
+        kind: "prop-kind-mismatch",
+        detail: `Axis "${axisName}" (values: ${values.join("/")}) vs ${codeEntry.name}.${codeProp.key}: code prop is kind "${codeProp.kind}", expected enum or boolean.`,
+        why: `Code prop "${codeProp.key}" exists under this name but is kind "${codeProp.kind}", not the enum/boolean a variant axis needs.`,
+      });
     }
     result.propAxes.push(entryResult);
   }
@@ -249,7 +263,7 @@ function compareTextSlotProps(figmaEntry, codeEntry, findings) {
     });
     if (!ok) {
       findings.push({
-        severity: "info",
+        severity: RULES[def.type === "TEXT" ? "missing-text-prop" : "missing-slot-prop"].severity,
         component: figmaEntry.name,
         kind: def.type === "TEXT" ? "missing-text-prop" : "missing-slot-prop",
         detail: `Figma ${def.type} property "${propName}" has no corresponding ${wantKind.join("/")} prop on code component "${codeEntry.name}".`,
@@ -261,29 +275,18 @@ function compareTextSlotProps(figmaEntry, codeEntry, findings) {
 }
 
 // ---------------------------------------------------------------------------
-// Eval static gate (react-tsx only) — reuses eval/static-checks.mjs exactly
-// the way eval/run.mjs does, so "passes the audit" and "passes `npm run eval`"
-// agree on what a static error is.
+// Eval static gate (react-tsx only) — reuses eval/static-checks.mjs (via the
+// shared eval/lib/context.mjs helper) exactly the way eval/run.mjs does, so
+// "passes the audit" and "passes `npm run eval`" agree on what a static
+// error is. Uses the source text already read by code-inventory.mjs's
+// react-tsx adapter (`codeEntry.rawSource`) instead of re-reading the file.
 // ---------------------------------------------------------------------------
 
 function evalReactComponent(codeEntry, figmaName, findings) {
-  const specRel = `${SPEC_DIR}/${kebab(codeEntry.name)}.md`;
-  const specExists = fs.existsSync(path.join(REPO_ROOT, specRel));
-  const source = fs.readFileSync(path.join(REPO_ROOT, codeEntry.file), "utf8");
-  const sc = runStaticChecks(source, { specRel: specExists ? specRel : null });
-  if (!specExists) {
-    sc.findings.unshift({
-      ruleId: "spec-required",
-      severity: "error",
-      line: 0,
-      snippet: specRel,
-      message: `No spec found at ${specRel}. Every component needs a spec (spec-before-code).`,
-    });
-    sc.errors += 1;
-  }
+  const sc = runStaticChecksWithSpecGate(codeEntry.rawSource, codeEntry.name);
   if (sc.errors > 0) {
     findings.push({
-      severity: "error",
+      severity: RULES["eval-static-errors"].severity,
       component: figmaName || codeEntry.name,
       kind: "eval-static-errors",
       detail: `${sc.errors} static error(s) on ${codeEntry.file}: ${sc.findings
@@ -293,18 +296,12 @@ function evalReactComponent(codeEntry, figmaName, findings) {
       why: "Static style-guide checks (eval/static-checks.mjs) failed — these are the hard CLAUDE.md rules, always an error regardless of Figma state.",
     });
   }
-  return { specRel, specExists, errors: sc.errors, warnings: sc.warnings, findings: sc.findings };
+  return { errors: sc.errors, warnings: sc.warnings, findings: sc.findings };
 }
 
 // ---------------------------------------------------------------------------
 // Human report
 // ---------------------------------------------------------------------------
-
-function axesSummary(figmaEntry) {
-  if (figmaEntry.kind !== "componentSet") return "-";
-  const parts = Object.entries(figmaEntry.axes || {}).map(([a, v]) => `${a}(${v.length})`);
-  return parts.length ? parts.join(", ") : "(none)";
-}
 
 function propComparisonSummary(comparison) {
   if (!comparison) return "-";
@@ -322,10 +319,10 @@ function propComparisonSummary(comparison) {
 // kinds sorted alphabetically so grouping is deterministic regardless of
 // insertion order. Shared by the human report and the HTML report.
 function groupFindingsForReport(findings) {
-  function groupSeverity(sevList) {
+  function groupSeverity(severity) {
     const byKind = new Map();
     for (const f of findings) {
-      if (!sevList.includes(f.severity)) continue;
+      if (f.severity !== severity) continue;
       if (!byKind.has(f.kind)) byKind.set(f.kind, []);
       byKind.get(f.kind).push(f);
     }
@@ -336,12 +333,12 @@ function groupFindingsForReport(findings) {
     }));
   }
   return {
-    actionNeeded: [...groupSeverity(["error"]), ...groupSeverity(["warn"])],
-    forCompleteness: groupSeverity(["info"]),
+    actionNeeded: [...groupSeverity("error"), ...groupSeverity("warn")],
+    forCompleteness: groupSeverity("info"),
   };
 }
 
-function printHuman({ summary, componentRecords, findings, fractalAbsent }) {
+function printHuman({ summary, componentRecords, findings, fractalAbsent, groupedFindings }) {
   console.log("Design-system drift audit");
   console.log("==========================");
   console.log(`Figma components: ${summary.figmaComponents}`);
@@ -384,7 +381,7 @@ function printHuman({ summary, componentRecords, findings, fractalAbsent }) {
   console.log("  warn  = contradiction someone should act on");
   console.log("  info  = expected state, listed for completeness");
 
-  const { actionNeeded, forCompleteness } = groupFindingsForReport(findings);
+  const { actionNeeded, forCompleteness } = groupedFindings;
 
   function printFindingGroups(title, groups) {
     if (!groups.length) return;
@@ -445,7 +442,7 @@ function buildReportModel() {
   for (const [key, group] of figmaGroups) {
     if (group.length > 1) {
       findings.push({
-        severity: "warn",
+        severity: RULES["duplicate-figma-name"].severity,
         component: group[0].name,
         kind: "duplicate-figma-name",
         detail: `${group.length} Figma components normalize to "${key}": ${group
@@ -459,7 +456,7 @@ function buildReportModel() {
   for (const [key, group] of codeGroups) {
     if (group.length > 1) {
       findings.push({
-        severity: "warn",
+        severity: RULES["duplicate-code-name"].severity,
         component: group[0].name,
         kind: "duplicate-code-name",
         detail: `${group.length} code components normalize to "${key}": ${group
@@ -471,16 +468,27 @@ function buildReportModel() {
   }
 
   // --- join ---------------------------------------------------------------
+  // Normalize each side once and join via a Map (O(n+m) instead of an
+  // O(n*m) scan per Figma component), preserving figmaMatchesCode's alias
+  // semantics: a direct normalized-name match wins, falling back to
+  // CONFIG.aliases[normalizedFigmaName] as the code-side lookup key. When
+  // several code entries share a normalized name, the first one (in
+  // codeEntries order) is the one that can be joined — same as the old
+  // `codeEntries.find(...)` — the rest still surface via duplicate-code-name.
+  const codeByName = buildCodeByNormalizedName(codeEntries);
   const matched = []; // { figma, code }
   const figmaOnly = [];
+  const consumedCodeNames = new Set();
   for (const figma of figmaComponents) {
-    const code = codeEntries.find((c) => figmaMatchesCode(figma.name, c.name));
-    if (code) matched.push({ figma, code });
-    else figmaOnly.push(figma);
+    const code = findMatchingCode(figma.name, codeByName);
+    if (code) {
+      matched.push({ figma, code });
+      consumedCodeNames.add(normalizeName(code.name));
+    } else {
+      figmaOnly.push(figma);
+    }
   }
-  const codeOnly = codeEntries.filter(
-    (c) => !figmaComponents.some((f) => figmaMatchesCode(f.name, c.name))
-  );
+  const codeOnly = codeEntries.filter((c) => !consumedCodeNames.has(normalizeName(c.name)));
 
   // --- per-match comparison + eval -----------------------------------------
   const componentRecords = [];
@@ -488,6 +496,15 @@ function buildReportModel() {
     const comparison = figma.kind === "componentSet" ? compareComponentAxes(figma, code, findings) : null;
     const textSlot = compareTextSlotProps(figma, code, findings);
     const evalStatic = code.source === "react-tsx" ? evalReactComponent(code, figma.name, findings) : null;
+    if (code.parseWarning) {
+      findings.push({
+        severity: RULES["parse-warning"].severity,
+        component: figma.name,
+        kind: "parse-warning",
+        detail: `${code.file}: ${code.parseWarning}`,
+        why: "The react-tsx adapter couldn't parse this component's props; its comparison is incomplete.",
+      });
+    }
     componentRecords.push({
       name: figma.name,
       matched: true,
@@ -502,7 +519,7 @@ function buildReportModel() {
   // --- figma-only / code-only findings -------------------------------------
   for (const f of figmaOnly) {
     const devStatus = f.section?.devStatus;
-    const readyForDev = devStatus === "READY_FOR_DEV" || devStatus === "COMPLETED";
+    const readyForDev = READY_DEV_STATUSES.includes(devStatus);
     findings.push({
       severity: readyForDev ? "warn" : "info",
       component: f.name,
@@ -518,12 +535,21 @@ function buildReportModel() {
   }
   for (const c of codeOnly) {
     findings.push({
-      severity: "warn",
+      severity: RULES["code-only"].severity,
       component: c.name,
       kind: "code-only",
       detail: `Code component "${c.name}" (${c.file}) has no matching Figma component/set.`,
       why: "No Figma component/set normalizes to this name — check for a rename, a missing alias, or a component built ahead of its Figma definition.",
     });
+    if (c.parseWarning) {
+      findings.push({
+        severity: RULES["parse-warning"].severity,
+        component: c.name,
+        kind: "parse-warning",
+        detail: `${c.file}: ${c.parseWarning}`,
+        why: "The react-tsx adapter couldn't parse this component's props; its comparison is incomplete.",
+      });
+    }
     componentRecords.push({ name: c.name, matched: false, figma: null, code: c });
   }
 
@@ -565,6 +591,7 @@ function buildReportModel() {
     summary,
     componentRecords,
     findings,
+    groupedFindings: groupFindingsForReport(findings),
     rules: RULES,
     fractalAbsent,
     hasError,
@@ -601,7 +628,7 @@ function main() {
   }
 
   if (htmlMode) {
-    const html = renderHtmlReport(model, { groupFindingsForReport, axesSummary });
+    const html = renderHtmlReport(model, { axesSummary });
     const outFile = path.join(__dirname, "report.html");
     fs.writeFileSync(outFile, html);
     console.error(`Wrote ${path.relative(REPO_ROOT, outFile)}`);

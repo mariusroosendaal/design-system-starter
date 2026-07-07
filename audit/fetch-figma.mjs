@@ -19,9 +19,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CONFIG } from "./config.mjs";
+import { axesSummary } from "./lib.mjs";
+import { has, read } from "../eval/lib/context.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.resolve(__dirname, "..");
 const OUT_FILE = path.join(__dirname, "figma-inventory.json");
 const API_BASE = "https://api.figma.com";
 const PAGE_IDS_PER_REQUEST = 4; // bound the /nodes payload size
@@ -32,10 +33,8 @@ const PAGE_IDS_PER_REQUEST = 4; // bound the /nodes payload size
 
 function resolveToken() {
   if (process.env.FIGMA_TOKEN) return process.env.FIGMA_TOKEN;
-  const envPath = path.join(REPO_ROOT, ".env");
-  if (fs.existsSync(envPath)) {
-    const line = fs
-      .readFileSync(envPath, "utf8")
+  if (has(".env")) {
+    const line = read(".env")
       .split("\n")
       .find((l) => l.trim().startsWith("FIGMA_TOKEN="));
     if (line) {
@@ -71,13 +70,17 @@ async function figmaGet(token, url) {
 // ---------------------------------------------------------------------------
 
 // Walk a Figma node tree, invoking cb(node, ancestors) for every node.
-// ancestors runs from root to (but not including) node.
+// ancestors runs from root to (but not including) node. A single ancestors
+// array is shared and mutated (push before recursing, pop after) rather than
+// spreading a new array per node, to avoid an O(depth) allocation per node.
 function walk(node, cb, ancestors = []) {
   if (!node) return;
   cb(node, ancestors);
+  ancestors.push(node);
   for (const child of node.children || []) {
-    walk(child, cb, [...ancestors, node]);
+    walk(child, cb, ancestors);
   }
+  ancestors.pop();
 }
 
 // Parse Figma variant naming convention "Prop1=Value1, Prop2=Value2".
@@ -196,7 +199,6 @@ function buildEntry(node, kind, pageName, ancestors, descriptions) {
       .filter((c) => c.type === "COMPONENT")
       .map((c) => c.name);
     entry.variants = [...variantNames].sort();
-    entry.variantCount = variantNames.length;
     entry.axes = deriveAxes(variantNames);
   }
   entry.boundVariables = collectBoundVariables(node);
@@ -238,14 +240,6 @@ function printChangeSummary(prev, next) {
 // Human summary
 // ---------------------------------------------------------------------------
 
-function axesSummary(entry) {
-  if (entry.kind !== "componentSet") return "-";
-  const parts = Object.entries(entry.axes).map(
-    ([axis, values]) => `${axis}(${values.length})`
-  );
-  return parts.length ? parts.join(", ") : "(none)";
-}
-
 function printHumanSummary(inventory, skippedPrivate) {
   const sets = inventory.components.filter((c) => c.kind === "componentSet");
   const standalone = inventory.components.filter((c) => c.kind === "component");
@@ -259,9 +253,12 @@ function printHumanSummary(inventory, skippedPrivate) {
   );
 
   console.log("\nPer-page counts:");
+  const perPageTally = new Map();
+  for (const c of inventory.components) {
+    perPageTally.set(c.page, (perPageTally.get(c.page) || 0) + 1);
+  }
   for (const page of inventory.pagesScanned) {
-    const n = inventory.components.filter((c) => c.page === page).length;
-    console.log(`  ${page.padEnd(24)} ${n}`);
+    console.log(`  ${page.padEnd(24)} ${perPageTally.get(page) || 0}`);
   }
 
   const nameW = Math.max(4, ...inventory.components.map((c) => c.name.length));
@@ -273,7 +270,7 @@ function printHumanSummary(inventory, skippedPrivate) {
     console.log(
       `  ${c.name.padEnd(nameW)}  ` +
         `${(c.kind === "componentSet" ? "set" : "component").padEnd(12)}  ` +
-        `${String(c.variantCount ?? "-").padEnd(8)}  ` +
+        `${String(c.variants ? c.variants.length : "-").padEnd(8)}  ` +
         `${axesSummary(c).padEnd(28)}  ` +
         `${c.section?.devStatus ?? "-"}`
     );
@@ -310,17 +307,27 @@ async function main() {
     process.exit(1);
   }
 
-  // Step 3: fetch kept pages' full subtrees, chunked, sequentially.
+  // Step 3: fetch kept pages' full subtrees, chunked, fired concurrently.
   const pageDocs = new Map(); // page id -> subtree root
   const descriptions = new Map(); // component/set node id -> description
+  const chunks = [];
   for (let i = 0; i < keptPages.length; i += PAGE_IDS_PER_REQUEST) {
-    const chunk = keptPages.slice(i, i + PAGE_IDS_PER_REQUEST);
-    const ids = chunk.map((p) => p.id).join(",");
-    const url = `${API_BASE}/v1/files/${fileKey}/nodes?ids=${encodeURIComponent(ids)}`;
-    console.error(
-      `fetching pages ${i + 1}-${i + chunk.length} of ${keptPages.length}...`
-    );
-    const doc = await figmaGet(token, url);
+    chunks.push(keptPages.slice(i, i + PAGE_IDS_PER_REQUEST));
+  }
+  const chunkDocs = await Promise.all(
+    chunks.map((chunk, idx) => {
+      const start = idx * PAGE_IDS_PER_REQUEST;
+      const ids = chunk.map((p) => p.id).join(",");
+      const url = `${API_BASE}/v1/files/${fileKey}/nodes?ids=${encodeURIComponent(ids)}`;
+      console.error(
+        `fetching pages ${start + 1}-${start + chunk.length} of ${keptPages.length}...`
+      );
+      return figmaGet(token, url);
+    })
+  );
+  for (let idx = 0; idx < chunks.length; idx++) {
+    const chunk = chunks[idx];
+    const doc = chunkDocs[idx];
     for (const page of chunk) {
       const entry = doc.nodes?.[page.id];
       if (!entry?.document) {

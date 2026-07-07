@@ -39,7 +39,7 @@ section still says `READY_FOR_DEV` *is* that signal, per component.
 ```
 { name, source: 'react-tsx' | 'fractal-config', file,
   props: { <propName>: { kind: 'enum'|'boolean'|'text'|'node'|'other', values?: [sorted] } },
-  status: string|null, specPath: string|null }
+  status: string|null }
 ```
 
 - **react-tsx** — regex-parses `<Name>Props` from `src/components/*.tsx`
@@ -63,7 +63,7 @@ section still says `READY_FOR_DEV` *is* that signal, per component.
   as a code prop under a normalized-key match (`'is open'` ⇄ `isOpen`);
   `[false, true]` axes match boolean props, enum value sets are diffed.
   Axes missing from the role map still compare as props but raise an
-  `unmappedAxis` info finding. Figma TEXT/SLOT properties get a
+  `unmapped-axis` info finding. Figma TEXT/SLOT properties get a
   presence-only check.
 - **Statuses**: Figma = section `devStatus`; code = the fractal `status`
   field, or `eval/static-checks.mjs` for react components (same spec-path
@@ -88,9 +88,10 @@ Every finding carries a per-instance `why`; the `RULES` registry in
 | `prop-kind-mismatch` | warn | name matches, but the prop isn't enum/boolean as an axis needs. |
 | `eval-static-errors` | error | matched react component fails the hard style-guide checks. |
 | `duplicate-figma-name` / `duplicate-code-name` | warn | two entries normalize to the same name; the join can't tell them apart. |
-| `unmappedAxis` | info | axis has no `propertyRoles` entry — a gap in the map, not necessarily a bug. |
+| `unmapped-axis` | info | axis has no `propertyRoles` entry — a gap in the map, not necessarily a bug. |
 | `responsive-axis` | info | breakpoint axis, handled by media queries rather than a prop. |
 | `missing-text-prop` / `missing-slot-prop` | info | Figma TEXT/SLOT property with no text/node prop; presence-only check. |
+| `parse-warning` | info | the react-tsx adapter couldn't parse this component's props; its comparison is incomplete. |
 
 A finding isn't necessarily a code bug — e.g. Button's `ghost` variant is a
 known, documented gap (`design-system/components/button.md`). Surfacing that

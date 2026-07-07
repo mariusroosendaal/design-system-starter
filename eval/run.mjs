@@ -11,8 +11,7 @@
  */
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { repoRoot, read, has } from './lib/context.mjs';
-import { runStaticChecks } from './static-checks.mjs';
+import { repoRoot, read, has, kebab, COMPONENT_DIR, SPEC_DIR, COMPONENT_FILE_RE, runStaticChecksWithSpecGate } from './lib/context.mjs';
 import { runJudge } from './judge.mjs';
 
 const argv = process.argv.slice(2);
@@ -23,13 +22,9 @@ const names = argv.filter((a) => !a.startsWith('--') && a !== model);
 const asJson = flags.has('--json');
 const noJudge = flags.has('--no-judge');
 
-const kebab = (n) => n.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-const COMPONENT_DIR = 'src/components';
-const SPEC_DIR = 'design-system/components';
-
 function discoverAll() {
   return readdirSync(join(repoRoot, COMPONENT_DIR))
-    .filter((f) => /^[A-Z][A-Za-z0-9]*\.tsx$/.test(f))
+    .filter((f) => COMPONENT_FILE_RE.test(f))
     .map((f) => f.replace(/\.tsx$/, ''))
     .filter((name) => has(`${SPEC_DIR}/${kebab(name)}.md`)); // only components with a spec
 }
@@ -48,17 +43,7 @@ async function evalComponent(name) {
   const specSource = has(specRel) ? read(specRel) : null;
 
   // 1) deterministic gate
-  const sc = runStaticChecks(source, { specRel: specSource ? specRel : null });
-  if (!specSource) {
-    sc.findings.unshift({
-      ruleId: 'spec-required',
-      severity: 'error',
-      line: 0,
-      snippet: specRel,
-      message: `No spec found at ${specRel}. Every component needs a spec (spec-before-code).`,
-    });
-    sc.errors += 1;
-  }
+  const sc = runStaticChecksWithSpecGate(source, name);
   result.static = sc;
   if (sc.errors > 0) result.pass = false;
 

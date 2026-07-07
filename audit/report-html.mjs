@@ -7,6 +7,11 @@
 // Deterministic: no timestamps, no Math.random, no Map/Set iteration order
 // dependency — same inputs always produce byte-identical output.
 
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { repoRoot } from "../eval/lib/context.mjs";
+import { READY_DEV_STATUSES } from "./lib.mjs";
+
 function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, (c) => ({
     "&": "&amp;",
@@ -31,26 +36,67 @@ function bar(matched, total) {
   return "▮".repeat(filled) + "░".repeat(segments - filled);
 }
 
+// Light-theme palette — sourced from design-system/dist/tokens.css at
+// report-generation time (same regex-extraction technique as
+// eval/lib/context.mjs's buildTokenReference) rather than hand-copied hex,
+// so the report can't silently drift from the real primitives. Falls back
+// to the literal values below if tokens.css is missing.
+const LIGHT_PALETTE_FALLBACK = {
+  ink: "#0a152b",
+  blueImpactful: "#001f5c",
+  blueBold: "#313bfb",
+  blueOptimistic: "#dbf5ff",
+  redBold: "#eb1600",
+  greenBold: "#00821c",
+};
+
+function parseTokenHex(css, varName) {
+  const re = new RegExp(`${varName}\\s*:\\s*(#[0-9a-fA-F]{3,8})`);
+  const m = re.exec(css);
+  return m ? m[1] : null;
+}
+
+function loadLightPalette() {
+  let css = null;
+  try {
+    css = readFileSync(join(repoRoot, "design-system/dist/tokens.css"), "utf8");
+  } catch {
+    css = null; // tokens.css missing — fall back to the literal palette below.
+  }
+  if (!css) return LIGHT_PALETTE_FALLBACK;
+  const get = (varName, fallback) => parseTokenHex(css, varName) ?? fallback;
+  return {
+    ink: get("--color-ink-100", LIGHT_PALETTE_FALLBACK.ink),
+    blueImpactful: get("--color-blue-impactful", LIGHT_PALETTE_FALLBACK.blueImpactful),
+    blueBold: get("--color-blue-bold", LIGHT_PALETTE_FALLBACK.blueBold),
+    blueOptimistic: get("--color-blue-optimistic", LIGHT_PALETTE_FALLBACK.blueOptimistic),
+    redBold: get("--color-red-bold", LIGHT_PALETTE_FALLBACK.redBold),
+    greenBold: get("--color-green-bold", LIGHT_PALETTE_FALLBACK.greenBold),
+  };
+}
+
+const PALETTE = loadLightPalette();
+
 const CSS = `
 :root {
   --ground: #ffffff;
-  --panel: #0a152b0a;
-  --hairline: #0a152b33;
-  --strong-line: #0a152be5;
-  --text: #0a152b;
-  --muted: #0a152b99;
-  --primary-navy: #001f5c;
-  --accent-blue: #313bfb;
-  --pale-blue: #dbf5ff;
-  --green: #00821c;
-  --red: #eb1600;
+  --panel: ${PALETTE.ink}0a;
+  --hairline: ${PALETTE.ink}33;
+  --strong-line: ${PALETTE.ink}e5;
+  --text: ${PALETTE.ink};
+  --muted: ${PALETTE.ink}99;
+  --primary-navy: ${PALETTE.blueImpactful};
+  --accent-blue: ${PALETTE.blueBold};
+  --pale-blue: ${PALETTE.blueOptimistic};
+  --green: ${PALETTE.greenBold};
+  --red: ${PALETTE.redBold};
   --on-solid: #ffffff;
 }
+/* SNAP defines no dark-mode tokens in Figma yet, so this block is hand-authored (not derived from tokens.css). */
 @media (prefers-color-scheme: dark) {
   :root {
     --ground: #0a152b;
     --panel: #ffffff0a;
-    --panel-2: #101d38;
     --hairline: #ffffff26;
     --strong-line: #ffffffcc;
     --text: #eef4ff;
@@ -187,9 +233,11 @@ function statTile(num, label) {
 }
 
 function devStatusChip(devStatus) {
+  // "is ready" gate uses the shared READY_DEV_STATUSES list; which chip
+  // style (outline vs solid) to use for each ready value stays local.
+  if (!READY_DEV_STATUSES.includes(devStatus)) return `<span class="muted">—</span>`;
   if (devStatus === "READY_FOR_DEV") return `<span class="chip chip-outline-green">READY_FOR_DEV</span>`;
-  if (devStatus === "COMPLETED") return `<span class="chip chip-solid-green">COMPLETED</span>`;
-  return `<span class="muted">—</span>`;
+  return `<span class="chip chip-solid-green">COMPLETED</span>`;
 }
 
 function axisCoverageHtml(axisResult) {
@@ -207,14 +255,14 @@ function axisCoverageHtml(axisResult) {
     matched = 0;
     note = `figma: ${figmaValues.join(",")} · code: ${axisResult.codeProp} (kind: ${axisResult.codeKind})`;
   } else {
-    // value-mismatch: reconstruct the code side's full value set from the
-    // missing/extra diff already computed in audit.mjs's compareComponentAxes.
+    // value-mismatch: audit.mjs's compareComponentAxes already attaches the
+    // matched code prop's full value set as `codeValues` — no need to
+    // reconstruct it from the missing/extra diff.
     const missingInCode = axisResult.missingInCode || [];
     const extraInCode = axisResult.extraInCode || [];
     matched = figmaValues.length - missingInCode.length;
     total = figmaValues.length + extraInCode.length;
-    const codeValues = figmaValues.filter((v) => !missingInCode.includes(String(v))).concat(extraInCode);
-    note = `figma: ${figmaValues.join(",")} · code: ${codeValues.join(",")}`;
+    note = `figma: ${figmaValues.join(",")} · code: ${(axisResult.codeValues || []).join(",")}`;
   }
   return `
     <div class="axis-row">
@@ -325,8 +373,8 @@ function findingGroupHtml(group) {
     </div>`;
 }
 
-function findingsSectionHtml(model, { groupFindingsForReport }) {
-  const { actionNeeded, forCompleteness } = groupFindingsForReport(model.findings);
+function findingsSectionHtml(model) {
+  const { actionNeeded, forCompleteness } = model.groupedFindings;
   const actionCount = actionNeeded.reduce((n, g) => n + g.findings.length, 0);
   const completenessCount = forCompleteness.reduce((n, g) => n + g.findings.length, 0);
   return `
@@ -353,7 +401,7 @@ export function renderHtmlReport(model, helpers) {
   }
 
   const rowsHtml = componentRecords.map((r) => componentRowHtml(r, model, countsByComponent, helpers)).join("");
-  const findingsHtml = findingsSectionHtml(model, helpers);
+  const findingsHtml = findingsSectionHtml(model);
 
   return `<!doctype html>
 <html lang="en">
