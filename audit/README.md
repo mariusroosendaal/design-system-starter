@@ -18,8 +18,10 @@ npm run audit:fetch          # or: node audit/fetch-figma.mjs
 node audit/fetch-figma.mjs --json   # print the inventory JSON instead of the summary
 
 npm run audit                # or: node audit/audit.mjs — the join/drift report
-node audit/audit.mjs --json    # { generatedFrom, components, findings } instead of the human report
+node audit/audit.mjs --json    # { generatedFrom, components, findings, rules } instead of the human report
 node audit/audit.mjs --strict  # exit 1 if any error-severity finding (CI gate)
+node audit/audit.mjs --html    # additionally write a self-contained audit/report.html
+npm run audit:report           # shorthand for `node audit/audit.mjs --html`
 ```
 
 Prints which pages were skipped/scanned, a change summary against the previous
@@ -154,38 +156,84 @@ Two adapters:
    with the spec path derived exactly like `eval/run.mjs` does (`kebab-case`
    the component name → `design-system/components/<kebab>.md`), so "passes
    the audit" and "passes `npm run eval`" mean the same thing.
-6. **Findings** (`{ severity: 'error'|'warn'|'info', component, kind, detail }`):
-   - `figma-only` — no code component; `info`, or `warn` if the section's
-     `devStatus` is `READY_FOR_DEV`/`COMPLETED` (design says it's ready and
-     nothing's built).
-   - `code-only` — no Figma component/set; `warn`.
-   - `axis-missing-in-code`, `enum-mismatch`, `prop-kind-mismatch` — `warn`.
-   - `eval-static-errors` — a matched react-tsx component fails
-     `runStaticChecks`; `error`.
-   - `duplicate-figma-name` / `duplicate-code-name` — two entries on the same
-     side normalize to the same name (e.g. Figma's two `checkbox card`
-     sets); `warn`, listing the colliding node ids (or files).
-   - `unmappedAxis`, `responsive-axis`, `missing-text-prop`,
-     `missing-slot-prop` — `info`.
-7. **Output**: human report (summary → per-matched-component table → findings
-   grouped by severity → compact figma-only/code-only lists) or, with
-   `--json`, `{ generatedFrom: { fileVersion }, components: [...], findings: [...] }`.
+6. **Findings** (`{ severity: 'error'|'warn'|'info', component, kind, detail, why }`):
+   every finding carries a `why` — a short, instance-specific clause
+   explaining *this particular* severity (not just the general rule for its
+   `kind`). See "Severity legend and rules" below for the full registry.
+7. **Output**: human report (summary → per-matched-component table → severity
+   legend → findings grouped as ACTION NEEDED / FOR COMPLETENESS, each
+   grouped by `kind` with that kind's rule sentence printed once → compact
+   figma-only/code-only lists) or, with `--json`,
+   `{ generatedFrom: { fileVersion }, components: [...], findings: [...], rules: {...} }`,
+   or, with `--html`, a self-contained `audit/report.html` (see below).
    Deterministic — no timestamps, findings sorted by severity/component/kind
    so a re-run against the same inputs diffs cleanly. Exit code is always 0
    unless `--strict` is passed and at least one `error`-severity finding
    exists, in which case it's 1 (mirrors `eval`'s CI gate).
 
+### Severity legend and rules
+
+- **error** — blocks `--strict`.
+- **warn** — a contradiction someone should act on.
+- **info** — expected state, listed for completeness.
+
+The `RULES` registry in `audit.mjs` is the explicit, single source of truth
+for what each finding `kind` means and why it gets the severity it does.
+`figma-only` is the one **conditional** kind — its severity depends on the
+instance (the section's `devStatus`), which is why every finding also carries
+a per-instance `why` rather than relying on the kind's rule sentence alone.
+
+| kind | severity | rule |
+| --- | --- | --- |
+| `figma-only` | conditional | warn when the section is marked READY_FOR_DEV/COMPLETED (design says ready, nothing built); info otherwise (backlog — expected). |
+| `code-only` | warn | a code component exists with no matching Figma component/set — either Figma is missing it or the names have drifted apart. |
+| `axis-missing-in-code` | warn | a Figma variant axis has no corresponding prop on the matched code component. |
+| `enum-mismatch` | warn | a Figma axis and its matched code prop both exist, but their value sets disagree. |
+| `prop-kind-mismatch` | warn | a Figma axis matches a code prop by name, but the prop's kind isn't enum/boolean as a variant axis needs. |
+| `eval-static-errors` | error | a matched react-tsx component fails `eval/static-checks.mjs` — the hard, deterministic style-guide rules from CLAUDE.md. |
+| `duplicate-figma-name` / `duplicate-code-name` | warn | two or more entries on the same side normalize to the same name, so the join can't tell them apart. |
+| `unmappedAxis` | info | a variant axis has no `CONFIG.propertyRoles` entry, so it's treated as `'prop'` by default — a coverage gap in the map, not necessarily a bug. |
+| `responsive-axis` | info | a variant axis is a breakpoint/responsive concern, handled by CSS media queries rather than a component prop. |
+| `missing-text-prop` / `missing-slot-prop` | info | a Figma TEXT/SLOT property has no corresponding text/node prop on the matched code component — presence-only check, not a variant axis. |
+
 ### Reading the report
 
 The per-matched-component table's "prop comparison" column is a quick
 pass/fail count (`N/M match; issues: axis:status, …`); the findings list
-underneath has the actual detail for each mismatch. A finding being reported
-isn't necessarily a bug in the code — e.g. Button's Figma set has `variant`
-values `destructive`/`primary`/`secondary`/`tertiary` where the code only has
-`primary`/`secondary`/`ghost`; that's a real, known gap (see
+underneath has the actual detail (and `why`) for each mismatch. A finding
+being reported isn't necessarily a bug in the code — e.g. Button's Figma set
+has `variant` values `destructive`/`primary`/`secondary`/`tertiary` where the
+code only has `primary`/`secondary`/`ghost`; that's a real, known gap (see
 `design-system/components/button.md`: "secondary/ghost are token-derived
 conventions pending Figma definition") that the tool is meant to surface, not
 hide.
+
+### HTML report (`--html`)
+
+`node audit/audit.mjs --html` (or `npm run audit:report`) writes
+`audit/report.html` alongside the usual output — a single self-contained
+file (inline CSS + vanilla JS, no external requests, no build step) styled
+in SNAP's own visual language, since it's a report about SNAP. It has:
+
+- Header with file name/version and 5 summary stat tiles.
+- The same severity legend as above, always visible.
+- A component board — one row per Figma component plus any code-only
+  entries — with a Figma deep link, code file, dev-status chip, code status,
+  a per-axis variant-coverage bar for matched components (or just the axis
+  summary for unmatched ones), and clickable findings-count chips per
+  severity that filter the findings section to that component.
+- The findings section, grouped exactly like the human report (ACTION
+  NEEDED / FOR COMPLETENESS → by kind → rule sentence → findings with their
+  `why`).
+- Small vanilla-JS filters: a name search box, All/Matched/Figma-only/
+  Code-only toggle chips, and a "has warnings" toggle.
+
+It's built from the same report model as `--json` (see `buildReportModel()`
+in `audit.mjs` and `renderHtmlReport()` in `report-html.mjs`) — no duplicated
+comparison logic — and is fully deterministic (no timestamps; re-running
+against the same inputs produces a byte-identical file). `audit/report.html`
+is gitignored — it's a generated artifact, regenerate it any time with
+`npm run audit:report`.
 
 ## Roadmap
 

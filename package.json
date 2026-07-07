@@ -14,7 +14,8 @@
     "eval": "node eval/run.mjs",
     "eval:all": "node eval/run.mjs --all",
     "audit:fetch": "node audit/fetch-figma.mjs",
-    "audit": "node audit/audit.mjs"
+    "audit": "node audit/audit.mjs",
+    "audit:report": "node audit/audit.mjs --html"
   },
   "dependencies": {
     "react": "^19.0.0",

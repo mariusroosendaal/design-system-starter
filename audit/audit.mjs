@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import { CONFIG } from "./config.mjs";
 import { buildCodeInventory, fractalRootExists, REPO_ROOT } from "./code-inventory.mjs";
 import { runStaticChecks } from "../eval/static-checks.mjs";
+import { renderHtmlReport } from "./report-html.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INVENTORY_FILE = path.join(__dirname, "figma-inventory.json");
@@ -28,6 +29,66 @@ const INVENTORY_FILE = path.join(__dirname, "figma-inventory.json");
 // thing here as it does in `npm run eval`.
 const kebab = (n) => n.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 const SPEC_DIR = "design-system/components";
+
+// ---------------------------------------------------------------------------
+// Severity rules registry — one entry per finding `kind`.
+//
+// This is the explicit contract behind every finding's severity: `severity`
+// is either a fixed level or 'conditional' (meaning: it depends on the
+// instance — see each finding's own `why` field for the specific reason).
+// `rule` is the plain-language sentence printed once per kind-group in the
+// human report, the HTML report, and under `rules` in --json output.
+// ---------------------------------------------------------------------------
+const RULES = {
+  "figma-only": {
+    severity: "conditional",
+    rule: "warn when the section is marked READY_FOR_DEV/COMPLETED (design says ready, nothing built); info otherwise (backlog — expected).",
+  },
+  "code-only": {
+    severity: "warn",
+    rule: "a code component exists with no matching Figma component/set — either Figma is missing it or the names have drifted apart.",
+  },
+  "axis-missing-in-code": {
+    severity: "warn",
+    rule: "a Figma variant axis has no corresponding prop on the matched code component.",
+  },
+  "enum-mismatch": {
+    severity: "warn",
+    rule: "a Figma axis and its matched code prop both exist, but their value sets disagree.",
+  },
+  "prop-kind-mismatch": {
+    severity: "warn",
+    rule: "a Figma axis matches a code prop by name, but the prop's kind isn't enum/boolean as a variant axis needs.",
+  },
+  "eval-static-errors": {
+    severity: "error",
+    rule: "a matched react-tsx component fails eval/static-checks.mjs — the hard, deterministic style-guide rules from CLAUDE.md.",
+  },
+  "duplicate-figma-name": {
+    severity: "warn",
+    rule: "two or more Figma entries normalize to the same name, so the join can't tell them apart.",
+  },
+  "duplicate-code-name": {
+    severity: "warn",
+    rule: "two or more code entries normalize to the same name, so the join can't tell them apart.",
+  },
+  unmappedAxis: {
+    severity: "info",
+    rule: "a variant axis has no CONFIG.propertyRoles entry, so it's treated as 'prop' by default — a coverage gap in the map, not necessarily a bug.",
+  },
+  "responsive-axis": {
+    severity: "info",
+    rule: "a variant axis is a breakpoint/responsive concern, handled by CSS media queries rather than a component prop.",
+  },
+  "missing-text-prop": {
+    severity: "info",
+    rule: "a Figma TEXT property has no corresponding text/node prop on the matched code component — presence-only check, not a variant axis.",
+  },
+  "missing-slot-prop": {
+    severity: "info",
+    rule: "a Figma SLOT property has no corresponding node prop on the matched code component — presence-only check, not a variant axis.",
+  },
+};
 
 // ---------------------------------------------------------------------------
 // Name / key normalization
@@ -99,6 +160,7 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
         component: figmaEntry.name,
         kind: "responsive-axis",
         detail: `Axis "${axisName}" is a breakpoint/responsive concern (handled by CSS media queries), not a prop.`,
+        why: "CONFIG.propertyRoles marks this axis 'responsive'; SNAP components are responsive via CSS media queries, not a JS prop switch.",
       });
       continue;
     }
@@ -110,6 +172,7 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
         component: figmaEntry.name,
         kind: "unmappedAxis",
         detail: `Axis "${axisName}" has no CONFIG.propertyRoles entry; treated as 'prop' by default.`,
+        why: `No propertyRoles entry for "${axisName}" — defaulting to 'prop' so the gap in the map is visible instead of silently mis-scored.`,
       });
     }
 
@@ -123,6 +186,7 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
         component: figmaEntry.name,
         kind: "axis-missing-in-code",
         detail: `Figma axis "${axisName}" (values: ${values.join("/")}) has no matching prop on code component "${codeEntry.name}".`,
+        why: `Figma defines this axis but no code prop on "${codeEntry.name}" matches it under normalized-key comparison.`,
       });
     } else {
       entryResult.codeProp = codeProp.key;
@@ -148,6 +212,7 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
               `Axis "${axisName}" vs ${codeEntry.name}.${codeProp.key}: ` +
               `missing in code [${missingInCode.join(", ") || "none"}], ` +
               `extra in code [${extraInCode.join(", ") || "none"}].`,
+            why: `Both sides define this axis/prop, but their value sets disagree — a real gap unless the Figma/code naming convention is expected to differ.`,
           });
         } else {
           entryResult.status = "match";
@@ -159,6 +224,7 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
           component: figmaEntry.name,
           kind: "prop-kind-mismatch",
           detail: `Axis "${axisName}" (values: ${values.join("/")}) vs ${codeEntry.name}.${codeProp.key}: code prop is kind "${codeProp.kind}", expected enum or boolean.`,
+          why: `Code prop "${codeProp.key}" exists under this name but is kind "${codeProp.kind}", not the enum/boolean a variant axis needs.`,
         });
       }
     }
@@ -187,6 +253,7 @@ function compareTextSlotProps(figmaEntry, codeEntry, findings) {
         component: figmaEntry.name,
         kind: def.type === "TEXT" ? "missing-text-prop" : "missing-slot-prop",
         detail: `Figma ${def.type} property "${propName}" has no corresponding ${wantKind.join("/")} prop on code component "${codeEntry.name}".`,
+        why: `This is a presence-only check, not a variant axis: Figma exposes a ${def.type.toLowerCase()} to fill in, but "${codeEntry.name}" has no ${wantKind.join("/")} prop for it.`,
       });
     }
   }
@@ -223,6 +290,7 @@ function evalReactComponent(codeEntry, figmaName, findings) {
         .filter((f) => f.severity === "error")
         .map((f) => f.ruleId)
         .join(", ")}.`,
+      why: "Static style-guide checks (eval/static-checks.mjs) failed — these are the hard CLAUDE.md rules, always an error regardless of Figma state.",
     });
   }
   return { specRel, specExists, errors: sc.errors, warnings: sc.warnings, findings: sc.findings };
@@ -247,6 +315,30 @@ function propComparisonSummary(comparison) {
   return `${propAxes.length - bad.length}/${propAxes.length} match; issues: ${bad
     .map((p) => `${p.axis}:${p.status}`)
     .join(", ")}`;
+}
+
+// Group findings into the report's two buckets — ACTION NEEDED (error, then
+// warn) and FOR COMPLETENESS (info) — then by `kind` within each severity,
+// kinds sorted alphabetically so grouping is deterministic regardless of
+// insertion order. Shared by the human report and the HTML report.
+function groupFindingsForReport(findings) {
+  function groupSeverity(sevList) {
+    const byKind = new Map();
+    for (const f of findings) {
+      if (!sevList.includes(f.severity)) continue;
+      if (!byKind.has(f.kind)) byKind.set(f.kind, []);
+      byKind.get(f.kind).push(f);
+    }
+    return [...byKind.keys()].sort().map((kind) => ({
+      kind,
+      rule: RULES[kind]?.rule ?? "(no rule registered for this kind)",
+      findings: byKind.get(kind),
+    }));
+  }
+  return {
+    actionNeeded: [...groupSeverity(["error"]), ...groupSeverity(["warn"])],
+    forCompleteness: groupSeverity(["info"]),
+  };
 }
 
 function printHuman({ summary, componentRecords, findings, fractalAbsent }) {
@@ -286,16 +378,31 @@ function printHuman({ summary, componentRecords, findings, fractalAbsent }) {
     }
   }
 
-  const bySeverity = { error: [], warn: [], info: [] };
-  for (const f of findings) bySeverity[f.severity].push(f);
-  for (const sev of ["error", "warn", "info"]) {
-    if (bySeverity[sev].length === 0) continue;
-    console.log(`\n${sev.toUpperCase()} (${bySeverity[sev].length})`);
-    console.log("-".repeat(sev.length + 4 + String(bySeverity[sev].length).length + 2));
-    for (const f of bySeverity[sev]) {
-      console.log(`  [${f.kind}] ${f.component}: ${f.detail}`);
+  console.log("\nSeverity legend");
+  console.log("---------------");
+  console.log("  error = blocks --strict");
+  console.log("  warn  = contradiction someone should act on");
+  console.log("  info  = expected state, listed for completeness");
+
+  const { actionNeeded, forCompleteness } = groupFindingsForReport(findings);
+
+  function printFindingGroups(title, groups) {
+    if (!groups.length) return;
+    const total = groups.reduce((n, g) => n + g.findings.length, 0);
+    console.log(`\n${title} (${total})`);
+    console.log("=".repeat(title.length + 4 + String(total).length));
+    for (const g of groups) {
+      const sev = g.findings[0].severity.toUpperCase();
+      console.log(`\n${sev} — ${g.kind} (${g.findings.length})`);
+      console.log(`  rule: ${g.rule}`);
+      for (const f of g.findings) {
+        console.log(`  - ${f.component}: ${f.detail}`);
+        console.log(`      why: ${f.why}`);
+      }
     }
   }
+  printFindingGroups("ACTION NEEDED", actionNeeded);
+  printFindingGroups("FOR COMPLETENESS", forCompleteness);
 
   const figmaOnlyNames = componentRecords.filter((r) => !r.matched && r.figma).map((r) => r.name);
   const codeOnlyNames = componentRecords.filter((r) => !r.matched && r.code).map((r) => r.name);
@@ -314,14 +421,12 @@ function printHuman({ summary, componentRecords, findings, fractalAbsent }) {
 }
 
 // ---------------------------------------------------------------------------
-// Main
+// Report model — the one structure consumed by the human report, --json,
+// and the --html report. Comparison/join logic lives only here; every
+// output format renders from this, so they can never disagree.
 // ---------------------------------------------------------------------------
 
-function main() {
-  const args = process.argv.slice(2);
-  const jsonMode = args.includes("--json");
-  const strict = args.includes("--strict");
-
+function buildReportModel() {
   if (!fs.existsSync(INVENTORY_FILE)) {
     console.error(
       "audit/figma-inventory.json not found. Run `npm run audit:fetch` (requires FIGMA_TOKEN) to generate it first."
@@ -346,6 +451,7 @@ function main() {
         detail: `${group.length} Figma components normalize to "${key}": ${group
           .map((g) => `${g.name} [${g.kind}] (${g.nodeId})`)
           .join(", ")}.`,
+        why: `${group.length} Figma nodes share the normalized name "${key}"; the join can only match code by name, so this needs a rename or a CONFIG.aliases entry to disambiguate.`,
       });
     }
   }
@@ -359,6 +465,7 @@ function main() {
         detail: `${group.length} code components normalize to "${key}": ${group
           .map((g) => `${g.name} (${g.file})`)
           .join(", ")}.`,
+        why: `${group.length} code entries share the normalized name "${key}"; the join can only match Figma by name, so this needs a rename or a CONFIG.aliases entry to disambiguate.`,
       });
     }
   }
@@ -403,6 +510,9 @@ function main() {
       detail:
         `Figma ${f.kind} "${f.name}" (${f.nodeId}) has no matching code component.` +
         (readyForDev ? ` Section devStatus=${devStatus} says it's ready for dev.` : ""),
+      why: readyForDev
+        ? `Section says devStatus=${devStatus} but no code exists — design has signaled readiness, so this needs a build (or a status correction).`
+        : "No dev status set on the section; unbuilt backlog is the normal, default state.",
     });
     componentRecords.push({ name: f.name, matched: false, figma: f, code: null });
   }
@@ -412,6 +522,7 @@ function main() {
       component: c.name,
       kind: "code-only",
       detail: `Code component "${c.name}" (${c.file}) has no matching Figma component/set.`,
+      why: "No Figma component/set normalizes to this name — check for a rename, a missing alias, or a component built ahead of its Figma definition.",
     });
     componentRecords.push({ name: c.name, matched: false, figma: null, code: c });
   }
@@ -443,24 +554,60 @@ function main() {
     },
   };
 
+  const hasError = findings.some((f) => f.severity === "error");
+
+  return {
+    generatedFrom: {
+      fileKey: figmaInventory.fileKey,
+      fileName: figmaInventory.fileName,
+      fileVersion: figmaInventory.fileVersion,
+    },
+    summary,
+    componentRecords,
+    findings,
+    rules: RULES,
+    fractalAbsent,
+    hasError,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
+
+function main() {
+  const args = process.argv.slice(2);
+  const jsonMode = args.includes("--json");
+  const strict = args.includes("--strict");
+  const htmlMode = args.includes("--html");
+
+  const model = buildReportModel();
+
   if (jsonMode) {
     console.log(
       JSON.stringify(
         {
-          generatedFrom: { fileVersion: figmaInventory.fileVersion },
-          components: componentRecords,
-          findings,
+          generatedFrom: { fileVersion: model.generatedFrom.fileVersion },
+          components: model.componentRecords,
+          findings: model.findings,
+          rules: model.rules,
         },
         null,
         2
       )
     );
   } else {
-    printHuman({ summary, componentRecords, findings, fractalAbsent });
+    printHuman(model);
   }
 
-  const hasError = findings.some((f) => f.severity === "error");
-  process.exit(strict && hasError ? 1 : 0);
+  if (htmlMode) {
+    const html = renderHtmlReport(model, { groupFindingsForReport, axesSummary });
+    const outFile = path.join(__dirname, "report.html");
+    fs.writeFileSync(outFile, html);
+    console.error(`Wrote ${path.relative(REPO_ROOT, outFile)}`);
+  }
+
+  process.exit(strict && model.hasError ? 1 : 0);
 }
 
 main();
