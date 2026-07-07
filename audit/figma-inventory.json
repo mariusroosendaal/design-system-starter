@@ -1,0 +1,4801 @@
+{
+  "fileKey": "40hPEX7A9Wt5VsMHxk3xCr",
+  "fileName": "🟦 USCC — SNAP DS",
+  "fileVersion": "2373420549206700173",
+  "lastModified": "2026-07-07T09:51:25Z",
+  "pagesScanned": [
+    "└ accordion",
+    "└ avatar",
+    "└ alert",
+    "└ badge",
+    "└ button",
+    "└ chip",
+    "└ dropdown",
+    "└ input",
+    "└ link",
+    "└ menu",
+    "└ modal",
+    "└ spinner",
+    "└ tabs",
+    "└ tag",
+    "└ tooltip",
+    "└ banner",
+    "└ title",
+    "└ empty state",
+    "└ section",
+    "└ jump links",
+    "└ motion",
+    "└ lists",
+    "└ breadcrumb",
+    "└ navigation",
+    "└ card",
+    "└ containers",
+    "└ text"
+  ],
+  "components": [
+    {
+      "name": "accordion",
+      "nodeId": "2636:34402",
+      "kind": "component",
+      "page": "└ accordion",
+      "section": {
+        "name": "accordion",
+        "nodeId": "8060:424",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {},
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20842"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13586"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:31585"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13583"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31585"
+        ],
+        "size": [
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20838"
+        ]
+      }
+    },
+    {
+      "name": "accordion item",
+      "nodeId": "2306:133261",
+      "kind": "componentSet",
+      "page": "└ accordion",
+      "section": {
+        "name": "accordion",
+        "nodeId": "8060:424",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {
+        "heading": {
+          "type": "TEXT",
+          "default": "Accordion heading"
+        },
+        "is open": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "slot": {
+          "type": "SLOT"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered",
+            "pressed"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is open=false",
+        "state=default, is open=true",
+        "state=focused, is open=false",
+        "state=hovered, is open=false",
+        "state=pressed, is open=false"
+      ],
+      "variantCount": 5,
+      "axes": {
+        "is open": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered",
+          "pressed"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13586",
+          "VariableID:5609:13587",
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:31585",
+          "VariableID:3304:31588",
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31585",
+          "VariableID:3304:31586",
+          "VariableID:5609:13588"
+        ],
+        "size": [
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20838",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "alert",
+      "nodeId": "7027:45542",
+      "kind": "componentSet",
+      "page": "└ alert",
+      "section": {
+        "name": "alert",
+        "nodeId": "8097:90711",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {
+        "has actions": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has description": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has title": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "is dismissible": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "layout": {
+          "type": "VARIANT",
+          "values": [
+            "horizontal",
+            "vertical"
+          ],
+          "default": "vertical"
+        },
+        "style": {
+          "type": "VARIANT",
+          "values": [
+            "informative",
+            "negative",
+            "neutral",
+            "positive"
+          ],
+          "default": "neutral"
+        },
+        "↪︎ description": {
+          "type": "TEXT",
+          "default": "Fifty characters bibendum sit at est elit blandits"
+        },
+        "↪︎ icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "5384:7491"
+        },
+        "↪︎ title": {
+          "type": "TEXT",
+          "default": "Notification title"
+        }
+      },
+      "variants": [
+        "style=informative, layout=horizontal",
+        "style=informative, layout=vertical",
+        "style=negative, layout=horizontal",
+        "style=negative, layout=vertical",
+        "style=neutral, layout=horizontal",
+        "style=neutral, layout=vertical",
+        "style=positive, layout=horizontal",
+        "style=positive, layout=vertical"
+      ],
+      "variantCount": 8,
+      "axes": {
+        "layout": [
+          "horizontal",
+          "vertical"
+        ],
+        "style": [
+          "informative",
+          "negative",
+          "neutral",
+          "positive"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:137:51339",
+          "VariableID:137:51340",
+          "VariableID:137:51341",
+          "VariableID:3302:20825",
+          "VariableID:8008:24081",
+          "VariableID:8489:34370"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:29",
+          "VariableID:8307:30"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31585",
+          "VariableID:3304:31586",
+          "VariableID:5609:13582",
+          "VariableID:5609:13583",
+          "VariableID:5609:13584",
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:3402:42505",
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:31587",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:3304:31587",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:3402:42505",
+          "VariableID:5609:13588"
+        ],
+        "size": [
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20840",
+          "VariableID:5589:23357",
+          "VariableID:7263:138410",
+          "VariableID:7281:210072"
+        ]
+      }
+    },
+    {
+      "name": "avatar",
+      "nodeId": "7082:32249",
+      "kind": "componentSet",
+      "page": "└ avatar",
+      "section": {
+        "name": "avatar",
+        "nodeId": "8060:472",
+        "devStatus": null
+      },
+      "properties": {
+        "has notification": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "initials": {
+          "type": "TEXT",
+          "default": "V"
+        },
+        "size": {
+          "type": "VARIANT",
+          "values": [
+            "2x-large",
+            "3x-large",
+            "large",
+            "medium",
+            "small",
+            "x-large",
+            "x-small"
+          ],
+          "default": "x-small"
+        },
+        "variant": {
+          "type": "VARIANT",
+          "values": [
+            "image",
+            "initials",
+            "placeholder"
+          ],
+          "default": "image"
+        }
+      },
+      "variants": [
+        "has notification=false, size=2x-large, variant=image",
+        "has notification=false, size=2x-large, variant=initials",
+        "has notification=false, size=2x-large, variant=placeholder",
+        "has notification=false, size=3x-large, variant=image",
+        "has notification=false, size=3x-large, variant=initials",
+        "has notification=false, size=3x-large, variant=placeholder",
+        "has notification=false, size=large, variant=image",
+        "has notification=false, size=large, variant=initials",
+        "has notification=false, size=large, variant=placeholder",
+        "has notification=false, size=medium, variant=image",
+        "has notification=false, size=medium, variant=initials",
+        "has notification=false, size=medium, variant=placeholder",
+        "has notification=false, size=small, variant=image",
+        "has notification=false, size=small, variant=initials",
+        "has notification=false, size=small, variant=placeholder",
+        "has notification=false, size=x-large, variant=image",
+        "has notification=false, size=x-large, variant=initials",
+        "has notification=false, size=x-large, variant=placeholder",
+        "has notification=false, size=x-small, variant=image",
+        "has notification=false, size=x-small, variant=initials",
+        "has notification=false, size=x-small, variant=placeholder",
+        "has notification=true, size=2x-large, variant=image",
+        "has notification=true, size=3x-large, variant=image",
+        "has notification=true, size=large, variant=image",
+        "has notification=true, size=medium, variant=image",
+        "has notification=true, size=small, variant=image",
+        "has notification=true, size=x-large, variant=image",
+        "has notification=true, size=x-small, variant=image"
+      ],
+      "variantCount": 28,
+      "axes": {
+        "has notification": [
+          "false",
+          "true"
+        ],
+        "size": [
+          "2x-large",
+          "3x-large",
+          "large",
+          "medium",
+          "small",
+          "x-large",
+          "x-small"
+        ],
+        "variant": [
+          "image",
+          "initials",
+          "placeholder"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20893",
+          "VariableID:3302:20912",
+          "VariableID:4194:12645",
+          "VariableID:5563:8079",
+          "VariableID:5575:12939",
+          "VariableID:5666:16459"
+        ],
+        "fontFamily": [
+          "VariableID:5609:13578"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13588"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20830",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "avatar group",
+      "nodeId": "7242:96151",
+      "kind": "componentSet",
+      "page": "└ avatar",
+      "section": {
+        "name": "avatar",
+        "nodeId": "8060:472",
+        "devStatus": null
+      },
+      "properties": {
+        "order": {
+          "type": "VARIANT",
+          "values": [
+            "bottom to top",
+            "top to bottom"
+          ],
+          "default": "top to bottom"
+        },
+        "size": {
+          "type": "VARIANT",
+          "values": [
+            "medium",
+            "small",
+            "x-small"
+          ],
+          "default": "medium"
+        }
+      },
+      "variants": [
+        "order=bottom to top, size=medium",
+        "order=bottom to top, size=small",
+        "order=bottom to top, size=x-small",
+        "order=top to bottom, size=medium",
+        "order=top to bottom, size=small",
+        "order=top to bottom, size=x-small"
+      ],
+      "variantCount": 6,
+      "axes": {
+        "order": [
+          "bottom to top",
+          "top to bottom"
+        ],
+        "size": [
+          "medium",
+          "small",
+          "x-small"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:4194:12645"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20830",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "avatar with text",
+      "nodeId": "7097:39287",
+      "kind": "componentSet",
+      "page": "└ avatar",
+      "section": {
+        "name": "avatar",
+        "nodeId": "8060:472",
+        "devStatus": null
+      },
+      "properties": {
+        "label": {
+          "type": "TEXT",
+          "default": "Firstname Lastname"
+        },
+        "size": {
+          "type": "VARIANT",
+          "values": [
+            "small"
+          ],
+          "default": "small"
+        },
+        "supporting text": {
+          "type": "TEXT",
+          "default": "View profile"
+        }
+      },
+      "variants": [
+        "size=small"
+      ],
+      "variantCount": 1,
+      "axes": {
+        "size": [
+          "small"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20835",
+          "VariableID:4194:12645"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:29",
+          "VariableID:8307:30"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13585"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "badge",
+      "nodeId": "9:3653",
+      "kind": "componentSet",
+      "page": "└ badge",
+      "section": {
+        "name": "badge",
+        "nodeId": "8097:90744",
+        "devStatus": null
+      },
+      "properties": {
+        "label": {
+          "type": "TEXT",
+          "default": "Badge"
+        },
+        "style": {
+          "type": "VARIANT",
+          "values": [
+            "informative",
+            "negative",
+            "neutral",
+            "positive"
+          ],
+          "default": "neutral"
+        }
+      },
+      "variants": [
+        "style=informative",
+        "style=negative",
+        "style=neutral",
+        "style=positive"
+      ],
+      "variantCount": 4,
+      "axes": {
+        "style": [
+          "informative",
+          "negative",
+          "neutral",
+          "positive"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:137:51339",
+          "VariableID:137:51340",
+          "VariableID:137:51341",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:7176:112577",
+          "VariableID:7263:138409",
+          "VariableID:7281:210075"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13588"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
+        ]
+      }
+    },
+    {
+      "name": "banner",
+      "nodeId": "28:55077",
+      "kind": "componentSet",
+      "page": "└ banner",
+      "section": {
+        "name": "banner",
+        "nodeId": "8097:90797",
+        "devStatus": null
+      },
+      "properties": {
+        "breakpoint": {
+          "type": "VARIANT",
+          "values": [
+            "lg-xl",
+            "sm-md"
+          ],
+          "default": "sm-md"
+        },
+        "has action": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has description": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "is dismissible": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "title": {
+          "type": "TEXT",
+          "default": "We use cookies"
+        },
+        "variant": {
+          "type": "VARIANT",
+          "values": [
+            "floating at bottom",
+            "full width"
+          ],
+          "default": "full width"
+        },
+        "↪︎ description": {
+          "type": "TEXT",
+          "default": "Lorem ipsum dolor sit amet consectetur"
+        },
+        "↪︎ icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "5384:7491"
+        }
+      },
+      "variants": [
+        "variant=floating at bottom, breakpoint=lg-xl",
+        "variant=floating at bottom, breakpoint=sm-md",
+        "variant=full width, breakpoint=lg-xl",
+        "variant=full width, breakpoint=sm-md"
+      ],
+      "variantCount": 4,
+      "axes": {
+        "breakpoint": [
+          "lg-xl",
+          "sm-md"
+        ],
+        "variant": [
+          "floating at bottom",
+          "full width"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645",
+          "VariableID:8016:51032"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:29",
+          "VariableID:8307:30"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31584",
+          "VariableID:3304:31585",
+          "VariableID:3304:31586",
+          "VariableID:3402:42505",
+          "VariableID:5609:13583",
+          "VariableID:5609:13584",
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:31586",
+          "VariableID:3304:31587",
+          "VariableID:3402:42505",
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:31586",
+          "VariableID:3304:32281",
+          "VariableID:3402:42505",
+          "VariableID:5609:13584",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:3304:31586",
+          "VariableID:3304:32281",
+          "VariableID:3402:42505",
+          "VariableID:5609:13584",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31586",
+          "VariableID:3402:42505",
+          "VariableID:5609:13588"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:3308:31857",
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "button",
+      "nodeId": "2661:20766",
+      "kind": "componentSet",
+      "page": "└ button",
+      "section": {
+        "name": "button",
+        "nodeId": "8097:91066",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {
+        "has leading icon": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "has trailing icon": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "icon only": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Button text"
+        },
+        "size": {
+          "type": "VARIANT",
+          "values": [
+            "medium",
+            "small"
+          ],
+          "default": "medium"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered",
+            "pressed"
+          ],
+          "default": "default"
+        },
+        "variant": {
+          "type": "VARIANT",
+          "values": [
+            "destructive",
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
+          "default": "primary"
+        },
+        "↪︎ icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "5384:7491"
+        },
+        "↪︎ leading icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "5384:7491"
+        },
+        "↪︎ trailing icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "5384:7491"
+        }
+      },
+      "variants": [
+        "variant=destructive, state=default, size=medium, is disabled=false, icon only=false",
+        "variant=destructive, state=default, size=medium, is disabled=false, icon only=true",
+        "variant=destructive, state=default, size=medium, is disabled=true, icon only=false",
+        "variant=destructive, state=default, size=medium, is disabled=true, icon only=true",
+        "variant=destructive, state=default, size=small, is disabled=false, icon only=false",
+        "variant=destructive, state=default, size=small, is disabled=false, icon only=true",
+        "variant=destructive, state=focused, size=medium, is disabled=false, icon only=false",
+        "variant=destructive, state=focused, size=medium, is disabled=false, icon only=true",
+        "variant=destructive, state=hovered, size=medium, is disabled=false, icon only=false",
+        "variant=destructive, state=hovered, size=medium, is disabled=false, icon only=true",
+        "variant=destructive, state=pressed, size=medium, is disabled=false, icon only=false",
+        "variant=destructive, state=pressed, size=medium, is disabled=false, icon only=true",
+        "variant=primary, state=default, size=medium, is disabled=false, icon only=false",
+        "variant=primary, state=default, size=medium, is disabled=false, icon only=true",
+        "variant=primary, state=default, size=medium, is disabled=true, icon only=false",
+        "variant=primary, state=default, size=medium, is disabled=true, icon only=true",
+        "variant=primary, state=default, size=small, is disabled=false, icon only=false",
+        "variant=primary, state=default, size=small, is disabled=false, icon only=true",
+        "variant=primary, state=focused, size=medium, is disabled=false, icon only=false",
+        "variant=primary, state=focused, size=medium, is disabled=false, icon only=true",
+        "variant=primary, state=hovered, size=medium, is disabled=false, icon only=false",
+        "variant=primary, state=hovered, size=medium, is disabled=false, icon only=true",
+        "variant=primary, state=pressed, size=medium, is disabled=false, icon only=false",
+        "variant=primary, state=pressed, size=medium, is disabled=false, icon only=true",
+        "variant=secondary, state=default, size=medium, is disabled=false, icon only=false",
+        "variant=secondary, state=default, size=medium, is disabled=false, icon only=true",
+        "variant=secondary, state=default, size=medium, is disabled=true, icon only=false",
+        "variant=secondary, state=default, size=medium, is disabled=true, icon only=true",
+        "variant=secondary, state=default, size=small, is disabled=false, icon only=false",
+        "variant=secondary, state=default, size=small, is disabled=false, icon only=true",
+        "variant=secondary, state=focused, size=medium, is disabled=false, icon only=false",
+        "variant=secondary, state=focused, size=medium, is disabled=false, icon only=true",
+        "variant=secondary, state=hovered, size=medium, is disabled=false, icon only=false",
+        "variant=secondary, state=hovered, size=medium, is disabled=false, icon only=true",
+        "variant=secondary, state=pressed, size=medium, is disabled=false, icon only=false",
+        "variant=secondary, state=pressed, size=medium, is disabled=false, icon only=true",
+        "variant=tertiary, state=default, size=medium, is disabled=false, icon only=false",
+        "variant=tertiary, state=default, size=medium, is disabled=false, icon only=true",
+        "variant=tertiary, state=default, size=medium, is disabled=true, icon only=false",
+        "variant=tertiary, state=default, size=medium, is disabled=true, icon only=true",
+        "variant=tertiary, state=default, size=small, is disabled=false, icon only=false",
+        "variant=tertiary, state=default, size=small, is disabled=false, icon only=true",
+        "variant=tertiary, state=focused, size=medium, is disabled=false, icon only=false",
+        "variant=tertiary, state=focused, size=medium, is disabled=false, icon only=true",
+        "variant=tertiary, state=hovered, size=medium, is disabled=false, icon only=false",
+        "variant=tertiary, state=hovered, size=medium, is disabled=false, icon only=true",
+        "variant=tertiary, state=pressed, size=medium, is disabled=false, icon only=false",
+        "variant=tertiary, state=pressed, size=medium, is disabled=false, icon only=true"
+      ],
+      "variantCount": 48,
+      "axes": {
+        "icon only": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "size": [
+          "medium",
+          "small"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered",
+          "pressed"
+        ],
+        "variant": [
+          "destructive",
+          "primary",
+          "secondary",
+          "tertiary"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20842",
+          "VariableID:53:75387",
+          "VariableID:8016:51032",
+          "VariableID:8016:51334",
+          "VariableID:8321:54466",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13588"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:4199:27728",
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:3302:20830",
+          "VariableID:3302:20840",
+          "VariableID:8323:12607"
+        ]
+      }
+    },
+    {
+      "name": "button group",
+      "nodeId": "7038:95368",
+      "kind": "componentSet",
+      "page": "└ button",
+      "section": {
+        "name": "button group",
+        "nodeId": "8097:91065",
+        "devStatus": null
+      },
+      "properties": {
+        "actions": {
+          "type": "SLOT"
+        },
+        "is segmented": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "variant": {
+          "type": "VARIANT",
+          "values": [
+            "basic",
+            "icon only",
+            "with background"
+          ],
+          "default": "basic"
+        }
+      },
+      "variants": [
+        "variant=basic, is segmented=false",
+        "variant=basic, is segmented=true",
+        "variant=icon only, is segmented=false",
+        "variant=icon only, is segmented=true",
+        "variant=with background, is segmented=true"
+      ],
+      "variantCount": 5,
+      "axes": {
+        "is segmented": [
+          "false",
+          "true"
+        ],
+        "variant": [
+          "basic",
+          "icon only",
+          "with background"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20832",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645",
+          "VariableID:8016:51032"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31585",
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:31584",
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:31584",
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:3304:31584",
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31584",
+          "VariableID:5609:13588"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:4199:27728",
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20838",
+          "VariableID:3302:20840",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "segment button",
+      "nodeId": "7029:49770",
+      "kind": "componentSet",
+      "page": "└ button",
+      "section": {
+        "name": "button group",
+        "nodeId": "8097:91065",
+        "devStatus": null
+      },
+      "properties": {
+        "is active": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "true"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Button text"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "is active=false, state=default",
+        "is active=false, state=focused",
+        "is active=false, state=hovered",
+        "is active=true, state=default",
+        "is active=true, state=focused",
+        "is active=true, state=hovered"
+      ],
+      "variantCount": 6,
+      "axes": {
+        "is active": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20832",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13588"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20838",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "chip",
+      "nodeId": "355:10247",
+      "kind": "componentSet",
+      "page": "└ chip",
+      "section": {
+        "name": "chip",
+        "nodeId": "8097:92298",
+        "devStatus": null
+      },
+      "properties": {
+        "has image": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is cancellable": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered",
+            "pressed"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "is cancellable=false, has image=false, state=default",
+        "is cancellable=false, has image=false, state=focused",
+        "is cancellable=false, has image=false, state=hovered",
+        "is cancellable=false, has image=false, state=pressed",
+        "is cancellable=false, has image=true, state=default",
+        "is cancellable=false, has image=true, state=focused",
+        "is cancellable=false, has image=true, state=hovered",
+        "is cancellable=false, has image=true, state=pressed",
+        "is cancellable=true, has image=false, state=default",
+        "is cancellable=true, has image=false, state=focused",
+        "is cancellable=true, has image=false, state=hovered",
+        "is cancellable=true, has image=false, state=pressed",
+        "is cancellable=true, has image=true, state=default",
+        "is cancellable=true, has image=true, state=focused",
+        "is cancellable=true, has image=true, state=hovered",
+        "is cancellable=true, has image=true, state=pressed"
+      ],
+      "variantCount": 16,
+      "axes": {
+        "has image": [
+          "false",
+          "true"
+        ],
+        "is cancellable": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered",
+          "pressed"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20832",
+          "VariableID:3302:20842",
+          "VariableID:53:75387"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13585"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13585"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20840"
+        ]
+      }
+    },
+    {
+      "name": "dropdown",
+      "nodeId": "2011:65800",
+      "kind": "componentSet",
+      "page": "└ dropdown",
+      "section": {
+        "name": "dropdown",
+        "nodeId": "8097:91821",
+        "devStatus": null
+      },
+      "properties": {
+        "is expanded": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "true"
+        },
+        "is icon only": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        }
+      },
+      "variants": [
+        "is expanded=false, is icon only=false",
+        "is expanded=false, is icon only=true",
+        "is expanded=true, is icon only=false",
+        "is expanded=true, is icon only=true"
+      ],
+      "variantCount": 4,
+      "axes": {
+        "is expanded": [
+          "false",
+          "true"
+        ],
+        "is icon only": [
+          "false",
+          "true"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20832",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842"
+        ],
+        "fontFamily": [
+          "VariableID:2006:38070",
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259",
+          "VariableID:8306:62263"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29",
+          "VariableID:8307:31"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13584",
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20838",
+          "VariableID:3302:20840"
+        ]
+      }
+    },
+    {
+      "name": "empty state",
+      "nodeId": "5380:39402",
+      "kind": "component",
+      "page": "└ empty state",
+      "section": {
+        "name": "empty state",
+        "nodeId": "8466:50475",
+        "devStatus": null
+      },
+      "properties": {},
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:8016:51032"
+        ],
+        "fontFamily": [
+          "VariableID:2006:38070",
+          "VariableID:5607:2939",
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62243",
+          "VariableID:8306:62257",
+          "VariableID:8306:62263"
+        ],
+        "fontStyle": [
+          "VariableID:8307:19",
+          "VariableID:8307:27",
+          "VariableID:8307:31"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31585",
+          "VariableID:3304:31587",
+          "VariableID:3304:32280",
+          "VariableID:3402:42505",
+          "VariableID:5609:13582",
+          "VariableID:5609:13583"
+        ],
+        "layoutGrids": [
+          "VariableID:3304:32280",
+          "VariableID:5591:24548"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13585"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20840"
+        ]
+      }
+    },
+    {
+      "name": "checkbox",
+      "nodeId": "2636:37937",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "checkbox",
+        "nodeId": "8937:30106",
+        "devStatus": null
+      },
+      "properties": {
+        "is checked": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is intermediate": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is checked=false, is disabled=false, is invalid=false, is intermediate=false",
+        "state=default, is checked=false, is disabled=false, is invalid=false, is intermediate=true",
+        "state=default, is checked=false, is disabled=false, is invalid=true, is intermediate=false",
+        "state=default, is checked=false, is disabled=false, is invalid=true, is intermediate=true",
+        "state=default, is checked=true, is disabled=false, is invalid=false, is intermediate=false",
+        "state=focused, is checked=false, is disabled=false, is invalid=false, is intermediate=false",
+        "state=focused, is checked=false, is disabled=false, is invalid=false, is intermediate=true",
+        "state=focused, is checked=true, is disabled=false, is invalid=false, is intermediate=false",
+        "state=hovered, is checked=false, is disabled=false, is invalid=false, is intermediate=false",
+        "state=hovered, is checked=false, is disabled=true, is invalid=false, is intermediate=false"
+      ],
+      "variantCount": 10,
+      "axes": {
+        "is checked": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is intermediate": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:4194:12645"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "strokes": [
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "checkbox card",
+      "nodeId": "8079:55431",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "checkbox",
+        "nodeId": "8937:30324",
+        "devStatus": null
+      },
+      "properties": {
+        "Property 1": {
+          "type": "VARIANT",
+          "values": [
+            "1",
+            "1a"
+          ],
+          "default": "1"
+        }
+      },
+      "variants": [
+        "Property 1=1",
+        "Property 1=1a"
+      ],
+      "variantCount": 2,
+      "axes": {
+        "Property 1": [
+          "1",
+          "1a"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20830",
+          "VariableID:8009:10",
+          "VariableID:8009:11",
+          "VariableID:8009:12",
+          "VariableID:8009:9"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13584"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584"
+        ],
+        "size": [
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825"
+        ]
+      }
+    },
+    {
+      "name": "checkbox card",
+      "nodeId": "8088:1374",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "checkbox",
+        "nodeId": "8937:30182",
+        "devStatus": null
+      },
+      "properties": {
+        "is checked": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is disabled=false, is checked=false, is invalid=false",
+        "state=default, is disabled=false, is checked=true, is invalid=false",
+        "state=default, is disabled=false, is checked=true, is invalid=true",
+        "state=default, is disabled=true, is checked=false, is invalid=false",
+        "state=focused, is disabled=false, is checked=false, is invalid=false",
+        "state=focused, is disabled=false, is checked=true, is invalid=false",
+        "state=hovered, is disabled=false, is checked=false, is invalid=false"
+      ],
+      "variantCount": 7,
+      "axes": {
+        "is checked": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20832",
+          "VariableID:4194:12645",
+          "VariableID:8009:12"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13585"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "strokes": [
+          "VariableID:3302:20826",
+          "VariableID:3302:20840",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420"
+        ]
+      }
+    },
+    {
+      "name": "checkbox group",
+      "nodeId": "7253:105067",
+      "kind": "component",
+      "page": "└ input",
+      "section": {
+        "name": "checkbox",
+        "nodeId": "8937:30106",
+        "devStatus": null
+      },
+      "properties": {
+        "slot": {
+          "type": "SLOT"
+        }
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13584"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:31584"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31584"
+        ],
+        "strokes": [
+          "VariableID:7300:15420"
+        ]
+      }
+    },
+    {
+      "name": "checkbox item",
+      "nodeId": "2636:37707",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "checkbox",
+        "nodeId": "8937:30106",
+        "devStatus": null
+      },
+      "properties": {
+        "is checked": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is required": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is disabled=false, is checked=false, is invalid=false",
+        "state=default, is disabled=false, is checked=true, is invalid=false",
+        "state=default, is disabled=false, is checked=true, is invalid=true",
+        "state=default, is disabled=true, is checked=false, is invalid=false",
+        "state=focused, is disabled=false, is checked=false, is invalid=false",
+        "state=focused, is disabled=false, is checked=true, is invalid=false",
+        "state=hovered, is disabled=false, is checked=false, is invalid=false"
+      ],
+      "variantCount": 7,
+      "axes": {
+        "is checked": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:4194:12645",
+          "VariableID:8323:12607"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "strokes": [
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "form field",
+      "nodeId": "7249:101106",
+      "kind": "component",
+      "page": "└ input",
+      "section": {
+        "name": "form field",
+        "nodeId": "8937:30105",
+        "devStatus": null
+      },
+      "properties": {
+        "has hint": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has link": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has note": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "is invalid": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "is required": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "slot": {
+          "type": "SLOT"
+        },
+        "↪︎ hint": {
+          "type": "TEXT",
+          "default": "Hint"
+        },
+        "↪︎ note": {
+          "type": "TEXT",
+          "default": "Optional helper text"
+        }
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20835",
+          "VariableID:7176:112577",
+          "VariableID:8008:24081"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147",
+          "VariableID:5609:13076"
+        ],
+        "fontSize": [
+          "VariableID:8306:62259",
+          "VariableID:8306:62261"
+        ],
+        "fontStyle": [
+          "VariableID:5609:13077",
+          "VariableID:8307:29",
+          "VariableID:8307:30"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31584",
+          "VariableID:3304:31586",
+          "VariableID:5609:13582",
+          "VariableID:5609:13583"
+        ]
+      }
+    },
+    {
+      "name": "input",
+      "nodeId": "7249:101218",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "input",
+        "nodeId": "8937:30121",
+        "devStatus": null
+      },
+      "properties": {
+        "has clear": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "has element after": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has element before": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "placeholder": {
+          "type": "TEXT",
+          "default": "Value"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "active",
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        },
+        "↪︎ element after": {
+          "type": "INSTANCE_SWAP",
+          "default": "5384:7491"
+        },
+        "↪︎ element before": {
+          "type": "INSTANCE_SWAP",
+          "default": "5384:7491"
+        }
+      },
+      "variants": [
+        "state=active, is disabled=false, is invalid=false",
+        "state=default, is disabled=false, is invalid=false",
+        "state=default, is disabled=false, is invalid=true",
+        "state=default, is disabled=true, is invalid=false",
+        "state=focused, is disabled=false, is invalid=false",
+        "state=hovered, is disabled=false, is invalid=false"
+      ],
+      "variantCount": 6,
+      "axes": {
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "active",
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12607",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "password input",
+      "nodeId": "7263:137625",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "input",
+        "nodeId": "8937:30121",
+        "devStatus": null
+      },
+      "properties": {
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "active",
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        },
+        "variant": {
+          "type": "VARIANT",
+          "values": [
+            "password",
+            "text"
+          ],
+          "default": "password"
+        }
+      },
+      "variants": [
+        "variant=password, is disabled=false, state=active, is invalid=false",
+        "variant=password, is disabled=false, state=default, is invalid=false",
+        "variant=password, is disabled=false, state=default, is invalid=true",
+        "variant=password, is disabled=false, state=focused, is invalid=false",
+        "variant=password, is disabled=false, state=hovered, is invalid=false",
+        "variant=password, is disabled=true, state=default, is invalid=false",
+        "variant=text, is disabled=false, state=default, is invalid=false"
+      ],
+      "variantCount": 7,
+      "axes": {
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "active",
+          "default",
+          "focused",
+          "hovered"
+        ],
+        "variant": [
+          "password",
+          "text"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "radio",
+      "nodeId": "2636:37903",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "radio",
+        "nodeId": "8937:30136",
+        "devStatus": null
+      },
+      "properties": {
+        "is checked": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is checked=false, is disabled=false, is invalid=false",
+        "state=default, is checked=false, is disabled=true, is invalid=false",
+        "state=default, is checked=true, is disabled=false, is invalid=false",
+        "state=default, is checked=true, is disabled=false, is invalid=true",
+        "state=focused, is checked=false, is disabled=false, is invalid=false",
+        "state=focused, is checked=true, is disabled=false, is invalid=false",
+        "state=hovered, is checked=false, is disabled=false, is invalid=false"
+      ],
+      "variantCount": 7,
+      "axes": {
+        "is checked": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:4194:12645"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:3309:32735",
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "radio button",
+      "nodeId": "7250:102891",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "radio",
+        "nodeId": "8937:30136",
+        "devStatus": null
+      },
+      "properties": {
+        "is checked": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is required": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is disabled=false, is checked=false, is invalid=false",
+        "state=default, is disabled=false, is checked=true, is invalid=false",
+        "state=default, is disabled=false, is checked=true, is invalid=true",
+        "state=default, is disabled=true, is checked=false, is invalid=false",
+        "state=focused, is disabled=false, is checked=false, is invalid=false",
+        "state=focused, is disabled=false, is checked=true, is invalid=false",
+        "state=hovered, is disabled=false, is checked=false, is invalid=false"
+      ],
+      "variantCount": 7,
+      "axes": {
+        "is checked": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:4194:12645",
+          "VariableID:8323:12607"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13583"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:3309:32735",
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "radio group",
+      "nodeId": "8079:35710",
+      "kind": "component",
+      "page": "└ input",
+      "section": {
+        "name": "radio",
+        "nodeId": "8937:30136",
+        "devStatus": null
+      },
+      "properties": {},
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13583",
+          "VariableID:5609:13584"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:31584"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31584"
+        ],
+        "strokes": [
+          "VariableID:7300:15420"
+        ]
+      }
+    },
+    {
+      "name": "search input",
+      "nodeId": "5535:4169",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "input",
+        "nodeId": "8937:30121",
+        "devStatus": null
+      },
+      "properties": {
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "filled",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "is disabled=false, state=default",
+        "is disabled=false, state=filled",
+        "is disabled=false, state=focused",
+        "is disabled=false, state=hovered",
+        "is disabled=true, state=default"
+      ],
+      "variantCount": 5,
+      "axes": {
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "filled",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:7300:15420",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "select",
+      "nodeId": "7251:103756",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "select",
+        "nodeId": "8937:30151",
+        "devStatus": null
+      },
+      "properties": {
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "placeholder": {
+          "type": "TEXT",
+          "default": "Value"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "active",
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=active, is disabled=false, is invalid=false",
+        "state=default, is disabled=false, is invalid=false",
+        "state=default, is disabled=false, is invalid=true",
+        "state=default, is disabled=true, is invalid=false",
+        "state=focused, is disabled=false, is invalid=false",
+        "state=hovered, is disabled=false, is invalid=false"
+      ],
+      "variantCount": 6,
+      "axes": {
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "active",
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12607",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "text area",
+      "nodeId": "7252:103906",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "textarea",
+        "nodeId": "8937:30166",
+        "devStatus": null
+      },
+      "properties": {
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "placeholder": {
+          "type": "TEXT",
+          "default": "Text"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "active",
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=active, is disabled=false, is invalid=false",
+        "state=default, is disabled=false, is invalid=false",
+        "state=default, is disabled=false, is invalid=true",
+        "state=default, is disabled=true, is invalid=false",
+        "state=focused, is disabled=false, is invalid=false",
+        "state=hovered, is disabled=false, is invalid=false"
+      ],
+      "variantCount": 6,
+      "axes": {
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "active",
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147",
+          "VariableID:5609:13076"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62261"
+        ],
+        "fontStyle": [
+          "VariableID:5609:13077",
+          "VariableID:8307:27"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13584"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13584"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "strokes": [
+          "VariableID:3302:20826",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "toggle",
+      "nodeId": "8318:66385",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "toggle",
+        "nodeId": "8937:30181",
+        "devStatus": null
+      },
+      "properties": {
+        "is checked": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is checked=false, is disabled=false",
+        "state=default, is checked=false, is disabled=true",
+        "state=default, is checked=true, is disabled=false",
+        "state=default, is checked=true, is disabled=true",
+        "state=focused, is checked=false, is disabled=false",
+        "state=focused, is checked=true, is disabled=false",
+        "state=hovered, is checked=false, is disabled=false",
+        "state=hovered, is checked=true, is disabled=false"
+      ],
+      "variantCount": 8,
+      "axes": {
+        "is checked": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:8255173e203f852a242aaa3dfaf1d80d659e32b5/6120:3"
+        ],
+        "fills": [
+          "VariableID:3302:20842",
+          "VariableID:3302:20844",
+          "VariableID:8016:51032",
+          "VariableID:8323:12608",
+          "VariableID:a7a2967815075f92149cbab8731d4d77fc199b44/4380:4"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:51f949879e5adb5013d379f713368d10679a2f5b/2646:207",
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:664840b4666b525ab2c7dd89029c2db62bd1ed78/4380:3",
+          "VariableID:8323:12607"
+        ]
+      }
+    },
+    {
+      "name": "jump link",
+      "nodeId": "5045:3781",
+      "kind": "componentSet",
+      "page": "└ jump links",
+      "section": null,
+      "properties": {
+        "is current": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Anchor link"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        },
+        "style": {
+          "type": "VARIANT",
+          "values": [
+            "pill"
+          ],
+          "default": "pill"
+        }
+      },
+      "variants": [
+        "style=pill, is current=false, state=default",
+        "style=pill, is current=false, state=focused",
+        "style=pill, is current=false, state=hovered",
+        "style=pill, is current=true, state=default",
+        "style=pill, is current=true, state=focused",
+        "style=pill, is current=true, state=hovered"
+      ],
+      "variantCount": 6,
+      "axes": {
+        "is current": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ],
+        "style": [
+          "pill"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:28"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "strokes": [
+          "VariableID:3302:20826",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "jump links",
+      "nodeId": "5045:3685",
+      "kind": "componentSet",
+      "page": "└ jump links",
+      "section": null,
+      "properties": {
+        "breakpoint": {
+          "type": "VARIANT",
+          "values": [
+            "md-xl",
+            "sm"
+          ],
+          "default": "sm"
+        },
+        "is expanded": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "slot": {
+          "type": "SLOT"
+        }
+      },
+      "variants": [
+        "breakpoint=md-xl, is expanded=true",
+        "breakpoint=sm, is expanded=false",
+        "breakpoint=sm, is expanded=true"
+      ],
+      "variantCount": 3,
+      "axes": {
+        "breakpoint": [
+          "md-xl",
+          "sm"
+        ],
+        "is expanded": [
+          "false",
+          "true"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20832",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:28"
+        ],
+        "itemSpacing": [
+          "VariableID:3402:42505",
+          "VariableID:5609:13583",
+          "VariableID:5609:13584"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:31585",
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:3304:31585",
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700",
+          "VariableID:4199:33701",
+          "VariableID:5553:825"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:3302:20838",
+          "VariableID:3302:20840",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "link",
+      "nodeId": "2386:166158",
+      "kind": "componentSet",
+      "page": "└ link",
+      "section": {
+        "name": "link",
+        "nodeId": "8097:91927",
+        "devStatus": null
+      },
+      "properties": {
+        "icon": {
+          "type": "VARIANT",
+          "values": [
+            "after",
+            "before",
+            "none"
+          ],
+          "default": "none"
+        },
+        "size": {
+          "type": "VARIANT",
+          "values": [
+            "medium",
+            "small"
+          ],
+          "default": "small"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered",
+            "pressed"
+          ],
+          "default": "default"
+        },
+        "↪︎ icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "3384:42967"
+        }
+      },
+      "variants": [
+        "size=medium, state=default, icon=after",
+        "size=medium, state=default, icon=before",
+        "size=medium, state=default, icon=none",
+        "size=medium, state=focused, icon=after",
+        "size=medium, state=focused, icon=before",
+        "size=medium, state=focused, icon=none",
+        "size=medium, state=hovered, icon=after",
+        "size=medium, state=hovered, icon=before",
+        "size=medium, state=hovered, icon=none",
+        "size=medium, state=pressed, icon=after",
+        "size=medium, state=pressed, icon=before",
+        "size=medium, state=pressed, icon=none",
+        "size=small, state=default, icon=after",
+        "size=small, state=default, icon=before",
+        "size=small, state=default, icon=none",
+        "size=small, state=focused, icon=after",
+        "size=small, state=focused, icon=before",
+        "size=small, state=focused, icon=none",
+        "size=small, state=hovered, icon=after",
+        "size=small, state=hovered, icon=before",
+        "size=small, state=hovered, icon=none",
+        "size=small, state=pressed, icon=after",
+        "size=small, state=pressed, icon=before",
+        "size=small, state=pressed, icon=none"
+      ],
+      "variantCount": 24,
+      "axes": {
+        "icon": [
+          "after",
+          "before",
+          "none"
+        ],
+        "size": [
+          "medium",
+          "small"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered",
+          "pressed"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:8008:24081",
+          "VariableID:8016:51031"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13588"
+        ],
+        "strokes": [
+          "VariableID:3302:20825"
+        ]
+      }
+    },
+    {
+      "name": "menu",
+      "nodeId": "5704:20829",
+      "kind": "component",
+      "page": "└ menu",
+      "section": {
+        "name": "menu",
+        "nodeId": "8097:91870",
+        "devStatus": null
+      },
+      "properties": {
+        "slot": {
+          "type": "SLOT"
+        }
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20832",
+          "VariableID:3302:20835"
+        ],
+        "fontFamily": [
+          "VariableID:2006:38070",
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259",
+          "VariableID:8306:62263"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29",
+          "VariableID:8307:31"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13584"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13583"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20838"
+        ]
+      }
+    },
+    {
+      "name": "menu divider",
+      "nodeId": "7275:196266",
+      "kind": "component",
+      "page": "└ menu",
+      "section": {
+        "name": "menu",
+        "nodeId": "8097:91870",
+        "devStatus": null
+      },
+      "properties": {},
+      "boundVariables": {
+        "paddingBottom": [
+          "VariableID:5609:13583"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13583"
+        ],
+        "strokes": [
+          "VariableID:3302:20838"
+        ]
+      }
+    },
+    {
+      "name": "menu header",
+      "nodeId": "7038:98134",
+      "kind": "component",
+      "page": "└ menu",
+      "section": {
+        "name": "menu",
+        "nodeId": "8097:91870",
+        "devStatus": null
+      },
+      "properties": {
+        "label": {
+          "type": "TEXT",
+          "default": "Heading"
+        }
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825"
+        ],
+        "fontFamily": [
+          "VariableID:2006:38070"
+        ],
+        "fontSize": [
+          "VariableID:8306:62263"
+        ],
+        "fontStyle": [
+          "VariableID:8307:31"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13583"
+        ]
+      }
+    },
+    {
+      "name": "menu item",
+      "nodeId": "5600:25069",
+      "kind": "componentSet",
+      "page": "└ menu",
+      "section": {
+        "name": "menu",
+        "nodeId": "8097:91870",
+        "devStatus": null
+      },
+      "properties": {
+        "has element before": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has shortcut": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Menu item"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered",
+            "pressed"
+          ],
+          "default": "default"
+        },
+        "↪︎ element before": {
+          "type": "INSTANCE_SWAP",
+          "default": "3384:42967"
+        }
+      },
+      "variants": [
+        "state=default",
+        "state=focused",
+        "state=hovered",
+        "state=pressed"
+      ],
+      "variantCount": 4,
+      "axes": {
+        "state": [
+          "default",
+          "focused",
+          "hovered",
+          "pressed"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20832",
+          "VariableID:3302:20835",
+          "VariableID:4194:12645",
+          "VariableID:5573:3830",
+          "VariableID:8012:41523"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13588"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "modal",
+      "nodeId": "7176:111920",
+      "kind": "componentSet",
+      "page": "└ modal",
+      "section": {
+        "name": "modal",
+        "nodeId": "8614:41635",
+        "devStatus": null
+      },
+      "properties": {
+        "breakpoint": {
+          "type": "VARIANT",
+          "values": [
+            "lg",
+            "md",
+            "sm",
+            "xl"
+          ],
+          "default": "sm"
+        },
+        "slot": {
+          "type": "SLOT"
+        },
+        "variant": {
+          "type": "VARIANT",
+          "values": [
+            "centered",
+            "right side drawer"
+          ],
+          "default": "right side drawer"
+        }
+      },
+      "variants": [
+        "variant=centered, breakpoint=lg",
+        "variant=centered, breakpoint=md",
+        "variant=centered, breakpoint=sm",
+        "variant=centered, breakpoint=xl",
+        "variant=right side drawer, breakpoint=lg",
+        "variant=right side drawer, breakpoint=md",
+        "variant=right side drawer, breakpoint=sm",
+        "variant=right side drawer, breakpoint=xl"
+      ],
+      "variantCount": 8,
+      "axes": {
+        "breakpoint": [
+          "lg",
+          "md",
+          "sm",
+          "xl"
+        ],
+        "variant": [
+          "centered",
+          "right side drawer"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20842",
+          "VariableID:3302:20844",
+          "VariableID:4194:12645",
+          "VariableID:8016:51032"
+        ],
+        "fontFamily": [
+          "VariableID:5607:2939",
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62245",
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:20",
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31585",
+          "VariableID:3304:31587",
+          "VariableID:3304:31588",
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:31588",
+          "VariableID:3304:32281"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:31587",
+          "VariableID:3304:32281",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:3304:31587",
+          "VariableID:3304:32281",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31588",
+          "VariableID:3304:32281"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33701"
+        ],
+        "size": [
+          "VariableID:2674:5471",
+          "VariableID:3308:31857",
+          "VariableID:4158:10690",
+          "VariableID:4199:27728",
+          "VariableID:5045:7427"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20838",
+          "VariableID:3302:20840",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "modal footer",
+      "nodeId": "5641:1844",
+      "kind": "componentSet",
+      "page": "└ modal",
+      "section": {
+        "name": "modal",
+        "nodeId": "8614:41635",
+        "devStatus": null
+      },
+      "properties": {
+        "actions": {
+          "type": "SLOT"
+        },
+        "layout": {
+          "type": "VARIANT",
+          "values": [
+            "horizontal",
+            "vertical"
+          ],
+          "default": "vertical"
+        }
+      },
+      "variants": [
+        "layout=horizontal",
+        "layout=vertical"
+      ],
+      "variantCount": 2,
+      "axes": {
+        "layout": [
+          "horizontal",
+          "vertical"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20832",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645",
+          "VariableID:8016:51032"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31585",
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:32281"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:32281",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:3304:32281",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:3304:32281"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20838",
+          "VariableID:3302:20840",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "modal header",
+      "nodeId": "5567:22196",
+      "kind": "componentSet",
+      "page": "└ modal",
+      "section": {
+        "name": "modal",
+        "nodeId": "8614:41635",
+        "devStatus": null
+      },
+      "properties": {
+        "has back button": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "true"
+        },
+        "title": {
+          "type": "TEXT",
+          "default": "Title"
+        }
+      },
+      "variants": [
+        "has back button=false",
+        "has back button=true"
+      ],
+      "variantCount": 2,
+      "axes": {
+        "has back button": [
+          "false",
+          "true"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20842",
+          "VariableID:4194:12645"
+        ],
+        "fontFamily": [
+          "VariableID:5607:2939"
+        ],
+        "fontSize": [
+          "VariableID:8306:62245"
+        ],
+        "fontStyle": [
+          "VariableID:8307:20"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:32281"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:32281"
+        ],
+        "paddingRight": [
+          "VariableID:3304:32281"
+        ],
+        "paddingTop": [
+          "VariableID:3304:32281"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "form",
+      "nodeId": "8529:38782",
+      "kind": "component",
+      "page": "└ section",
+      "section": null,
+      "properties": {},
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:7176:112577",
+          "VariableID:8008:24081",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147",
+          "VariableID:5609:13076"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259",
+          "VariableID:8306:62261"
+        ],
+        "fontStyle": [
+          "VariableID:5609:13077",
+          "VariableID:8307:27",
+          "VariableID:8307:29",
+          "VariableID:8307:30"
+        ],
+        "gridColumnGap": [
+          "VariableID:3304:32280"
+        ],
+        "gridRowGap": [
+          "VariableID:3304:32280"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31584",
+          "VariableID:3304:31586",
+          "VariableID:5609:13582",
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:4199:33700"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420",
+          "VariableID:8323:12607",
+          "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "list item",
+      "nodeId": "8883:3551",
+      "kind": "componentSet",
+      "page": "└ section",
+      "section": null,
+      "properties": {
+        "is selectable": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        }
+      },
+      "variants": [
+        "is selectable=false",
+        "is selectable=true"
+      ],
+      "variantCount": 2,
+      "axes": {
+        "is selectable": [
+          "false",
+          "true"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20842"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:28",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:32280",
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:3402:42505"
+        ],
+        "paddingLeft": [
+          "VariableID:3402:42505",
+          "VariableID:5609:13584"
+        ],
+        "paddingRight": [
+          "VariableID:3402:42505",
+          "VariableID:5609:13584"
+        ],
+        "paddingTop": [
+          "VariableID:3402:42505"
+        ],
+        "size": [
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20838",
+          "VariableID:3302:20840",
+          "VariableID:7300:15420"
+        ]
+      }
+    },
+    {
+      "name": "section",
+      "nodeId": "8529:38483",
+      "kind": "component",
+      "page": "└ section",
+      "section": null,
+      "properties": {
+        "alerts": {
+          "type": "SLOT"
+        },
+        "content": {
+          "type": "SLOT"
+        },
+        "footer": {
+          "type": "SLOT"
+        },
+        "has alerts": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has footer": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:137:51340",
+          "VariableID:137:51341",
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:8008:24081",
+          "VariableID:8016:51032"
+        ],
+        "fontFamily": [
+          "VariableID:2006:38070",
+          "VariableID:5607:2939",
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62245",
+          "VariableID:8306:62257",
+          "VariableID:8306:62259",
+          "VariableID:8306:62263"
+        ],
+        "fontStyle": [
+          "VariableID:8307:20",
+          "VariableID:8307:27",
+          "VariableID:8307:29",
+          "VariableID:8307:30",
+          "VariableID:8307:31"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31585",
+          "VariableID:3304:31586",
+          "VariableID:3304:31587",
+          "VariableID:3402:42505",
+          "VariableID:5609:13582",
+          "VariableID:5609:13583",
+          "VariableID:5609:13584"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:32281",
+          "VariableID:3402:42505"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:31587",
+          "VariableID:3304:32281",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:3304:31587",
+          "VariableID:3304:32281",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31588",
+          "VariableID:3402:42505",
+          "VariableID:4071:31781"
+        ],
+        "size": [
+          "VariableID:4199:27728",
+          "VariableID:4199:27974"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20840",
+          "VariableID:5589:23357",
+          "VariableID:7263:138410"
+        ]
+      }
+    },
+    {
+      "name": "stack",
+      "nodeId": "8529:40428",
+      "kind": "component",
+      "page": "└ section",
+      "section": null,
+      "properties": {
+        "slot": {
+          "type": "SLOT"
+        }
+      },
+      "boundVariables": {
+        "strokes": [
+          "VariableID:3302:20838"
+        ]
+      }
+    },
+    {
+      "name": "toggle item",
+      "nodeId": "8487:34248",
+      "kind": "component",
+      "page": "└ section",
+      "section": null,
+      "properties": {
+        "supporting text": {
+          "type": "TEXT",
+          "default": "Supporting text"
+        },
+        "title": {
+          "type": "TEXT",
+          "default": "Title"
+        }
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20842",
+          "VariableID:8016:51032"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:28"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:32280"
+        ],
+        "paddingBottom": [
+          "VariableID:3402:42505"
+        ],
+        "paddingLeft": [
+          "VariableID:3402:42505"
+        ],
+        "paddingRight": [
+          "VariableID:3402:42505"
+        ],
+        "paddingTop": [
+          "VariableID:3402:42505"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20830",
+          "VariableID:3302:20838"
+        ]
+      }
+    },
+    {
+      "name": "spinner",
+      "nodeId": "7263:138360",
+      "kind": "componentSet",
+      "page": "└ spinner",
+      "section": {
+        "name": "spinner",
+        "nodeId": "8097:91960",
+        "devStatus": null
+      },
+      "properties": {
+        "size": {
+          "type": "VARIANT",
+          "values": [
+            "large",
+            "medium",
+            "small"
+          ],
+          "default": "small"
+        }
+      },
+      "variants": [
+        "size=large",
+        "size=medium",
+        "size=small"
+      ],
+      "variantCount": 3,
+      "axes": {
+        "size": [
+          "large",
+          "medium",
+          "small"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:4194:12645"
+        ],
+        "strokes": [
+          "VariableID:4380:7821"
+        ]
+      }
+    },
+    {
+      "name": "tab",
+      "nodeId": "7033:20605",
+      "kind": "componentSet",
+      "page": "└ tabs",
+      "section": {
+        "name": "tabs",
+        "nodeId": "8097:92274",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {
+        "has badge": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "has icon": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "is current": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Tab"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        },
+        "↪︎ icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "69:77940"
+        }
+      },
+      "variants": [
+        "is current=false, state=default",
+        "is current=false, state=focused",
+        "is current=false, state=hovered",
+        "is current=true, state=default",
+        "is current=true, state=focused",
+        "is current=true, state=hovered"
+      ],
+      "variantCount": 6,
+      "axes": {
+        "is current": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:3302:20842"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:28",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13585"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13585"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:3302:20840"
+        ]
+      }
+    },
+    {
+      "name": "tabs",
+      "nodeId": "7033:20580",
+      "kind": "component",
+      "page": "└ tabs",
+      "section": {
+        "name": "tabs",
+        "nodeId": "8097:92274",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {},
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:3302:20832",
+          "VariableID:3302:20842"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:28",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13585"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:32281",
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:3304:32281",
+          "VariableID:5609:13584",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:3304:32281",
+          "VariableID:5609:13585"
+        ],
+        "rectangleCornerRadii": [
+          "VariableID:5609:13601"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20826",
+          "VariableID:3302:20838"
+        ]
+      }
+    },
+    {
+      "name": "tag",
+      "nodeId": "8016:51034",
+      "kind": "componentSet",
+      "page": "└ tag",
+      "section": {
+        "name": "tag",
+        "nodeId": "8097:92322",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {
+        "label": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered",
+            "pressed"
+          ],
+          "default": "default"
+        },
+        "variant": {
+          "type": "VARIANT",
+          "values": [
+            "primary",
+            "secondary"
+          ],
+          "default": "primary"
+        }
+      },
+      "variants": [
+        "state=default, variant=primary",
+        "state=default, variant=secondary",
+        "state=focused, variant=primary",
+        "state=focused, variant=secondary",
+        "state=hovered, variant=primary",
+        "state=hovered, variant=secondary",
+        "state=pressed, variant=primary",
+        "state=pressed, variant=secondary"
+      ],
+      "variantCount": 8,
+      "axes": {
+        "state": [
+          "default",
+          "focused",
+          "hovered",
+          "pressed"
+        ],
+        "variant": [
+          "primary",
+          "secondary"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:4194:12645",
+          "VariableID:8008:24081",
+          "VariableID:8323:12610"
+        ],
+        "fontFamily": [
+          "VariableID:2006:38070"
+        ],
+        "fontSize": [
+          "VariableID:8306:62263",
+          "VariableID:8306:62265"
+        ],
+        "fontStyle": [
+          "VariableID:8307:31",
+          "VariableID:8307:32"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13582"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13585"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13585"
+        ],
+        "strokes": [
+          "VariableID:4380:7821",
+          "VariableID:8008:24082"
+        ]
+      }
+    },
+    {
+      "name": "rich text",
+      "nodeId": "338:10085",
+      "kind": "componentSet",
+      "page": "└ text",
+      "section": null,
+      "properties": {
+        "is first": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "text": {
+          "type": "TEXT",
+          "default": "Bibendum volutpat porttitor eros faucibus. Leo fusce praesent urna libero viverra libero sagittis montes turpis. Ante consectetur egestas nulla urna mauris massa. Ipsum nulla in imperdiet congue id ipsum ultrices luctus. Erat dui fermentum egestas lacus purus commodo phasellus semper lorem. Ac orci nunc a massa amet. Rutrum nulla facilisis vel adipiscing amet sed amet. Et consectetur sit lectus montes morbi purus mi. Viverra vitae ornare tortor cursus. Venenatis nulla et lectus magna ante nulla."
+        },
+        "variant": {
+          "type": "VARIANT",
+          "values": [
+            "block-quote",
+            "h1",
+            "h2",
+            "ordered list",
+            "paragraph",
+            "unordered list"
+          ],
+          "default": "paragraph"
+        }
+      },
+      "variants": [
+        "variant=block-quote, is first=false",
+        "variant=block-quote, is first=true",
+        "variant=h1, is first=false",
+        "variant=h1, is first=true",
+        "variant=h2, is first=false",
+        "variant=h2, is first=true",
+        "variant=ordered list, is first=false",
+        "variant=ordered list, is first=true",
+        "variant=paragraph, is first=false",
+        "variant=paragraph, is first=true",
+        "variant=unordered list, is first=false",
+        "variant=unordered list, is first=true"
+      ],
+      "variantCount": 12,
+      "axes": {
+        "is first": [
+          "false",
+          "true"
+        ],
+        "variant": [
+          "block-quote",
+          "h1",
+          "h2",
+          "ordered list",
+          "paragraph",
+          "unordered list"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20835"
+        ],
+        "fontFamily": [
+          "VariableID:5607:2939",
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62243",
+          "VariableID:8306:62245",
+          "VariableID:8306:62255"
+        ],
+        "fontStyle": [
+          "VariableID:8307:19",
+          "VariableID:8307:20",
+          "VariableID:8307:25"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:31588"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31588",
+          "VariableID:3306:31168"
+        ],
+        "size": [
+          "VariableID:5550:16032"
+        ],
+        "strokes": [
+          "VariableID:3302:20838"
+        ]
+      }
+    },
+    {
+      "name": "title lockup",
+      "nodeId": "7106:68721",
+      "kind": "componentSet",
+      "page": "└ title",
+      "section": {
+        "name": "title lockup",
+        "nodeId": "8323:17996",
+        "devStatus": null
+      },
+      "properties": {
+        "actions": {
+          "type": "SLOT"
+        },
+        "has actions": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has description": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has eyebrow": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "has subtitle": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "heading level": {
+          "type": "VARIANT",
+          "values": [
+            "display",
+            "large",
+            "medium",
+            "small"
+          ],
+          "default": "display"
+        },
+        "layout": {
+          "type": "VARIANT",
+          "values": [
+            "centered",
+            "default"
+          ],
+          "default": "default"
+        },
+        "style": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "expressive"
+          ],
+          "default": "default"
+        },
+        "subtitle": {
+          "type": "TEXT",
+          "default": "Title goes here"
+        },
+        "title": {
+          "type": "TEXT",
+          "default": "Title goes here"
+        },
+        "↪︎ description": {
+          "type": "TEXT",
+          "default": "Fifty characters bibendum sit at est elit blandits"
+        }
+      },
+      "variants": [
+        "heading level=display, layout=centered, style=default",
+        "heading level=display, layout=centered, style=expressive",
+        "heading level=display, layout=default, style=default",
+        "heading level=display, layout=default, style=expressive",
+        "heading level=large, layout=centered, style=default",
+        "heading level=large, layout=centered, style=expressive",
+        "heading level=large, layout=default, style=default",
+        "heading level=large, layout=default, style=expressive",
+        "heading level=medium, layout=centered, style=default",
+        "heading level=medium, layout=centered, style=expressive",
+        "heading level=medium, layout=default, style=default",
+        "heading level=medium, layout=default, style=expressive",
+        "heading level=small, layout=centered, style=default",
+        "heading level=small, layout=centered, style=expressive",
+        "heading level=small, layout=default, style=default",
+        "heading level=small, layout=default, style=expressive"
+      ],
+      "variantCount": 16,
+      "axes": {
+        "heading level": [
+          "display",
+          "large",
+          "medium",
+          "small"
+        ],
+        "layout": [
+          "centered",
+          "default"
+        ],
+        "style": [
+          "default",
+          "expressive"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20835",
+          "VariableID:3302:20842",
+          "VariableID:8016:51032"
+        ],
+        "fontFamily": [
+          "VariableID:2006:38070",
+          "VariableID:5607:2939",
+          "VariableID:5608:3147",
+          "VariableID:8004:16933"
+        ],
+        "fontSize": [
+          "VariableID:8306:62239",
+          "VariableID:8306:62241",
+          "VariableID:8306:62243",
+          "VariableID:8306:62245",
+          "VariableID:8306:62247",
+          "VariableID:8306:62249",
+          "VariableID:8306:62251",
+          "VariableID:8306:62253",
+          "VariableID:8306:62257",
+          "VariableID:8306:62263"
+        ],
+        "fontStyle": [
+          "VariableID:8307:17",
+          "VariableID:8307:18",
+          "VariableID:8307:19",
+          "VariableID:8307:20",
+          "VariableID:8307:21",
+          "VariableID:8307:22",
+          "VariableID:8307:23",
+          "VariableID:8307:24",
+          "VariableID:8307:27",
+          "VariableID:8307:31"
+        ],
+        "itemSpacing": [
+          "VariableID:3304:31585",
+          "VariableID:3304:31587",
+          "VariableID:3402:42505",
+          "VariableID:5609:13582",
+          "VariableID:5609:13583"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13585"
+        ],
+        "size": [
+          "VariableID:4199:27728"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20830",
+          "VariableID:3302:20840"
+        ]
+      }
+    },
+    {
+      "name": "tooltip",
+      "nodeId": "7176:110388",
+      "kind": "componentSet",
+      "page": "└ tooltip",
+      "section": {
+        "name": "tooltip",
+        "nodeId": "8097:92346",
+        "devStatus": null
+      },
+      "properties": {
+        "alignment": {
+          "type": "VARIANT",
+          "values": [
+            "center",
+            "end",
+            "start"
+          ],
+          "default": "center"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Tooltip text"
+        },
+        "position": {
+          "type": "VARIANT",
+          "values": [
+            "bottom",
+            "top"
+          ],
+          "default": "top"
+        }
+      },
+      "variants": [
+        "position=bottom, alignment=center",
+        "position=bottom, alignment=end",
+        "position=bottom, alignment=start",
+        "position=top, alignment=center",
+        "position=top, alignment=end",
+        "position=top, alignment=start"
+      ],
+      "variantCount": 6,
+      "axes": {
+        "alignment": [
+          "center",
+          "end",
+          "start"
+        ],
+        "position": [
+          "bottom",
+          "top"
+        ]
+      },
+      "boundVariables": {
+        "fills": [
+          "VariableID:3302:20827",
+          "VariableID:3302:20830",
+          "VariableID:4194:12645"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13588"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13588"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13583",
+          "VariableID:5609:13585",
+          "VariableID:5609:13588"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13582",
+          "VariableID:5609:13588"
+        ],
+        "strokes": [
+          "VariableID:4380:7821"
+        ]
+      }
+    }
+  ]
+}

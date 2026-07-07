@@ -1,8 +1,12 @@
 node_modules/
 /dist/
 *.log
+.env
 .DS_Store
 .vite/
 
 # Licensed brand fonts — self-host locally / via private store, do not commit
 design-system/fonts/files/
+
+# Audit spike raw dumps (large Figma API responses)
+audit/spike-output/

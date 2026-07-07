@@ -12,7 +12,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "eval": "node eval/run.mjs",
-    "eval:all": "node eval/run.mjs --all"
+    "eval:all": "node eval/run.mjs --all",
+    "audit:fetch": "node audit/fetch-figma.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",
