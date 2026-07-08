@@ -1839,10 +1839,10 @@
       "token": "--interactive-height-xs"
     },
     "VariableID:9039:25691": {
-      "name": "interactive/height-xs",
+      "name": "interactive/height-2xs",
       "collection": "size",
-      "kind": "var",
-      "token": "--interactive-height-xs"
+      "kind": "composite",
+      "token": null
     },
     "VariableID:9039:25692": {
       "name": "interactive/height-md",
@@ -1879,6 +1879,18 @@
       "collection": "size",
       "kind": "composite",
       "token": null
+    },
+    "VariableID:9039:26270": {
+      "name": "border/inverse-strong",
+      "collection": "color",
+      "kind": "var",
+      "token": "--border-inverse-strong"
+    },
+    "VariableID:9039:26304": {
+      "name": "interactive/height-xs",
+      "collection": "size",
+      "kind": "var",
+      "token": "--interactive-height-xs"
     }
   }
 }
