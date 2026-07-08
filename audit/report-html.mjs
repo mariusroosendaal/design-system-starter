@@ -328,7 +328,7 @@ function tokensCellHtml(record) {
     : `<span class="muted">0</span>`;
   const untracked = b.untracked.length
     ? ` <span class="chip chip-warn" title="${escapeHtml(
-        b.untracked.map((u) => `${u.collection}/${u.name}`).join("\n")
+        b.untracked.map((u) => `${u.collection}/${u.name} — bound as ${u.fields.join(", ")}`).join("\n")
       )}">${b.untracked.length} untracked</span>`
     : "";
   return `<div class="chip-row">${countHtml}${untracked}</div>`;

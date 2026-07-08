@@ -53,21 +53,28 @@ export function isRemoteVariableId(id) {
 }
 
 // Resolve one component's boundVariables (field → [ids]) against the map into
-// the tokens it consumes and the ids that didn't resolve. Pure; no findings.
+// the tokens it consumes and the ids that didn't resolve. Every non-token entry
+// carries `fields` — the boundVariables keys the id appears under (fills,
+// rectangleCornerRadii, …) — so a finding can say WHERE on the component the
+// designer should look. Pure; no findings.
 export function resolveBindings(boundVariables, varMap) {
-  const ids = [...new Set(Object.values(boundVariables || {}).flat())];
+  const fieldsById = new Map(); // id → sorted field names it's bound under
+  for (const [field, arr] of Object.entries(boundVariables || {})) {
+    for (const id of arr) fieldsById.set(id, [...(fieldsById.get(id) || []), field].sort());
+  }
   const tokens = new Set(); // published --vars + .type-* classes
-  const untracked = []; // { id, name, collection } — defined in Figma, unbuilt
-  const remote = []; // ids from a subscribed library (expected-absent)
-  const unresolved = []; // ids absent from the map for other reasons
-  for (const id of ids.sort()) {
+  const untracked = []; // { id, name, collection, fields } — defined in Figma, unbuilt
+  const remote = []; // { id, fields } from a subscribed library (expected-absent)
+  const unresolved = []; // { id, fields } absent from the map for other reasons
+  for (const id of [...fieldsById.keys()].sort()) {
+    const fields = fieldsById.get(id);
     const e = varMap.byId[id];
     if (!e) {
-      (isRemoteVariableId(id) ? remote : unresolved).push(id);
+      (isRemoteVariableId(id) ? remote : unresolved).push({ id, fields });
       continue;
     }
     if (e.token) tokens.add(e.token);
-    else if (e.kind === "untracked") untracked.push({ id, name: e.name, collection: e.collection });
+    else if (e.kind === "untracked") untracked.push({ id, name: e.name, collection: e.collection, fields });
     // composite inputs (ramp/utility/exploded) consume no standalone token — ignored.
   }
   return { tokens: [...tokens].sort(), untracked, remote, unresolved };

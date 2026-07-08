@@ -300,7 +300,7 @@ function resolveTokenBindings(figmaEntry, varMap, findings) {
       severity: RULES["binds-untracked-token"].severity,
       component: figmaEntry.name,
       kind: "binds-untracked-token",
-      detail: `binds Figma variable "${u.collection}/${u.name}" (${u.id}), which has no published token in the built stylesheet.`,
+      detail: `binds Figma variable "${u.collection}/${u.name}" (${u.id}) as ${u.fields.join(", ")}, which has no published token in the built stylesheet.`,
       why: `Figma defines "${u.collection}/${u.name}" and this component binds it, but the build emits no matching CSS custom property — either the token needs adding to the token JSON, or the Figma variable is stray. A faithful build can't reference it as a token until that's resolved.`,
     });
   }
@@ -314,7 +314,9 @@ function resolveTokenBindings(figmaEntry, varMap, findings) {
       severity: RULES["unresolved-binding"].severity,
       component: figmaEntry.name,
       kind: "unresolved-binding",
-      detail: `${absent} bound variable id(s) unresolved (${parts.join(", ")}): ${[...bindings.remote, ...bindings.unresolved].join(", ")}.`,
+      detail: `${absent} bound variable id(s) unresolved (${parts.join(", ")}): ${[...bindings.remote, ...bindings.unresolved]
+        .map((u) => `${u.id} (bound as ${u.fields.join(", ")})`)
+        .join("; ")}.`,
       why: bindings.remote.length
         ? "Remote ids come from a subscribed library file and aren't in the local plugin export by design; any non-remote ids mean either a stale variable map (regenerate with `npm run sync:map`) or — if they persist after a fresh sync — dangling bindings to variables deleted in Figma, which only rebinding/detaching in the design file can fix."
         : "These ids aren't in the variable map — either it's stale relative to the inventory (regenerate with `npm run sync:map`) or, if they persist after a fresh sync, the variables were deleted in Figma and the component carries dangling bindings; rebind or detach them in the design file.",
