@@ -1,9 +1,10 @@
 {
   "fileKey": "40hPEX7A9Wt5VsMHxk3xCr",
   "fileName": "🟦 USCC — SNAP DS",
-  "fileVersion": "2373489277786716005",
-  "lastModified": "2026-07-07T14:48:17Z",
+  "fileVersion": "2373839643512787137",
+  "lastModified": "2026-07-08T13:31:28Z",
   "pagesScanned": [
+    "notes",
     "└ accordion",
     "└ avatar",
     "└ alert",
@@ -76,7 +77,8 @@
           "VariableID:3304:31585"
         ],
         "size": [
-          "VariableID:4199:27974"
+          "VariableID:4199:27974",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -115,8 +117,7 @@
           "values": [
             "default",
             "focused",
-            "hovered",
-            "pressed"
+            "hovered"
           ],
           "default": "default"
         }
@@ -125,8 +126,7 @@
         "state=default, is open=false",
         "state=default, is open=true",
         "state=focused, is open=false",
-        "state=hovered, is open=false",
-        "state=pressed, is open=false"
+        "state=hovered, is open=false"
       ],
       "axes": {
         "is open": [
@@ -136,8 +136,7 @@
         "state": [
           "default",
           "focused",
-          "hovered",
-          "pressed"
+          "hovered"
         ]
       },
       "boundVariables": {
@@ -147,7 +146,8 @@
         "fills": [
           "VariableID:3302:20825",
           "VariableID:3302:20842",
-          "VariableID:4194:12645"
+          "VariableID:4194:12645",
+          "VariableID:53:75387"
         ],
         "fontFamily": [
           "VariableID:5608:3147"
@@ -183,7 +183,8 @@
           "VariableID:5609:13588"
         ],
         "size": [
-          "VariableID:4199:27974"
+          "VariableID:4199:27974",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -320,7 +321,8 @@
           "VariableID:5609:13588"
         ],
         "size": [
-          "VariableID:4199:27974"
+          "VariableID:4199:27974",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -423,12 +425,12 @@
       },
       "boundVariables": {
         "fills": [
-          "VariableID:3302:20893",
+          "VariableID:3302:20844",
           "VariableID:4194:12645",
-          "VariableID:5575:12939",
-          "VariableID:5666:16459",
+          "VariableID:7300:13004",
           "VariableID:8009:11",
-          "VariableID:8009:9"
+          "VariableID:8009:9",
+          "VariableID:9039:25703"
         ],
         "fontFamily": [
           "VariableID:5609:13578"
@@ -452,8 +454,8 @@
           "VariableID:5609:13601"
         ],
         "strokes": [
-          "VariableID:3302:20830",
-          "VariableID:4380:7821"
+          "VariableID:4380:7821",
+          "VariableID:9039:26270"
         ]
       }
     },
@@ -513,8 +515,8 @@
           "VariableID:5609:13601"
         ],
         "strokes": [
-          "VariableID:3302:20830",
-          "VariableID:4380:7821"
+          "VariableID:4380:7821",
+          "VariableID:9039:26270"
         ]
       }
     },
@@ -659,6 +661,9 @@
         ],
         "rectangleCornerRadii": [
           "VariableID:5609:13601"
+        ],
+        "size": [
+          "VariableID:9039:24008"
         ]
       }
     },
@@ -787,12 +792,10 @@
           "VariableID:3402:42505",
           "VariableID:5609:13588"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "size": [
           "VariableID:3308:31857",
-          "VariableID:4199:27974"
+          "VariableID:4199:27974",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -1035,12 +1038,10 @@
         "paddingTop": [
           "VariableID:5609:13588"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "size": [
           "VariableID:4199:27728",
-          "VariableID:4199:27974"
+          "VariableID:4199:27974",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -1145,12 +1146,10 @@
           "VariableID:3304:31584",
           "VariableID:5609:13588"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "size": [
           "VariableID:4199:27728",
-          "VariableID:4199:27974"
+          "VariableID:4199:27974",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -1247,9 +1246,6 @@
         "paddingTop": [
           "VariableID:5609:13588"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "size": [
           "VariableID:4199:27974"
         ],
@@ -1303,13 +1299,7 @@
       },
       "variants": [
         "is cancellable=false, has image=false, state=default",
-        "is cancellable=false, has image=false, state=focused",
-        "is cancellable=false, has image=false, state=hovered",
-        "is cancellable=false, has image=false, state=pressed",
         "is cancellable=false, has image=true, state=default",
-        "is cancellable=false, has image=true, state=focused",
-        "is cancellable=false, has image=true, state=hovered",
-        "is cancellable=false, has image=true, state=pressed",
         "is cancellable=true, has image=false, state=default",
         "is cancellable=true, has image=false, state=focused",
         "is cancellable=true, has image=false, state=hovered",
@@ -1360,7 +1350,8 @@
         ],
         "paddingBottom": [
           "VariableID:5609:13582",
-          "VariableID:5609:13585"
+          "VariableID:5609:13585",
+          "VariableID:9015:48910"
         ],
         "paddingLeft": [
           "VariableID:5609:13582",
@@ -1377,6 +1368,9 @@
         ],
         "rectangleCornerRadii": [
           "VariableID:5609:13601"
+        ],
+        "size": [
+          "VariableID:9039:18646"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -1395,6 +1389,14 @@
         "devStatus": null
       },
       "properties": {
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
         "is expanded": {
           "type": "VARIANT",
           "values": [
@@ -1410,15 +1412,37 @@
             "true"
           ],
           "default": "false"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered",
+            "pressed"
+          ],
+          "default": "default"
         }
       },
       "variants": [
-        "is expanded=false, is icon only=false",
-        "is expanded=false, is icon only=true",
-        "is expanded=true, is icon only=false",
-        "is expanded=true, is icon only=true"
+        "state=default, is icon only=false, is expanded=false, is disabled=false",
+        "state=default, is icon only=false, is expanded=false, is disabled=true",
+        "state=default, is icon only=false, is expanded=true, is disabled=false",
+        "state=default, is icon only=true, is expanded=false, is disabled=false",
+        "state=default, is icon only=true, is expanded=false, is disabled=true",
+        "state=default, is icon only=true, is expanded=true, is disabled=false",
+        "state=focused, is icon only=false, is expanded=false, is disabled=false",
+        "state=focused, is icon only=true, is expanded=false, is disabled=false",
+        "state=hovered, is icon only=false, is expanded=false, is disabled=false",
+        "state=hovered, is icon only=true, is expanded=false, is disabled=false",
+        "state=pressed, is icon only=false, is expanded=false, is disabled=false",
+        "state=pressed, is icon only=true, is expanded=false, is disabled=false"
       ],
       "axes": {
+        "is disabled": [
+          "false",
+          "true"
+        ],
         "is expanded": [
           "false",
           "true"
@@ -1426,28 +1450,37 @@
         "is icon only": [
           "false",
           "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered",
+          "pressed"
         ]
       },
       "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
         "fills": [
           "VariableID:3302:20825",
           "VariableID:3302:20832",
           "VariableID:3302:20835",
-          "VariableID:3302:20842"
+          "VariableID:3302:20842",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
         ],
         "fontFamily": [
-          "VariableID:2006:38070",
           "VariableID:5608:3147"
         ],
         "fontSize": [
           "VariableID:8306:62257",
-          "VariableID:8306:62259",
-          "VariableID:8306:62263"
+          "VariableID:8306:62259"
         ],
         "fontStyle": [
           "VariableID:8307:27",
-          "VariableID:8307:29",
-          "VariableID:8307:31"
+          "VariableID:8307:28",
+          "VariableID:8307:29"
         ],
         "itemSpacing": [
           "VariableID:5609:13583",
@@ -1472,12 +1505,16 @@
           "VariableID:5609:13588"
         ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18648",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
+          "VariableID:3302:20826",
           "VariableID:3302:20838",
-          "VariableID:3302:20840"
+          "VariableID:3302:20840",
+          "VariableID:8323:12607"
         ]
       }
     },
@@ -1534,7 +1571,8 @@
           "VariableID:5609:13585"
         ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -1551,7 +1589,7 @@
       "section": {
         "name": "checkbox",
         "nodeId": "8937:30106",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is checked": {
@@ -1639,15 +1677,132 @@
           "VariableID:3302:20825",
           "VariableID:4194:12645"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "strokes": [
           "VariableID:3302:20826",
           "VariableID:4380:7821",
           "VariableID:5589:23357",
           "VariableID:7300:15420",
           "VariableID:8323:12609"
+        ]
+      }
+    },
+    {
+      "name": "checkbox card",
+      "nodeId": "8088:1374",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "checkbox card",
+        "nodeId": "9021:19548",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {
+        "is checked": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is invalid": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is disabled=false, is checked=false, is invalid=false",
+        "state=default, is disabled=false, is checked=true, is invalid=false",
+        "state=default, is disabled=false, is checked=true, is invalid=true",
+        "state=default, is disabled=true, is checked=false, is invalid=false",
+        "state=focused, is disabled=false, is checked=false, is invalid=false",
+        "state=focused, is disabled=false, is checked=true, is invalid=false",
+        "state=hovered, is disabled=false, is checked=false, is invalid=false"
+      ],
+      "axes": {
+        "is checked": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "is invalid": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20825",
+          "VariableID:3302:20832",
+          "VariableID:4194:12645",
+          "VariableID:8009:12"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13584"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13585"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13585"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13584"
+        ],
+        "strokes": [
+          "VariableID:3302:20826",
+          "VariableID:3302:20840",
+          "VariableID:4380:7821",
+          "VariableID:5589:23357",
+          "VariableID:7300:15420"
         ]
       }
     },
@@ -1659,7 +1814,7 @@
       "section": {
         "name": "checkbox",
         "nodeId": "8937:30106",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "slot": {
@@ -1704,7 +1859,7 @@
       "section": {
         "name": "checkbox",
         "nodeId": "8937:30106",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is checked": {
@@ -1800,9 +1955,6 @@
         "itemSpacing": [
           "VariableID:5609:13583"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "strokes": [
           "VariableID:3302:20826",
           "VariableID:4380:7821",
@@ -1820,7 +1972,7 @@
       "section": {
         "name": "form field",
         "nodeId": "8937:30105",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "has hint": {
@@ -1895,7 +2047,7 @@
       "section": {
         "name": "input",
         "nodeId": "8937:30121",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "has clear": {
@@ -2003,11 +2155,9 @@
         "paddingRight": [
           "VariableID:5609:13584"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -2021,6 +2171,123 @@
       }
     },
     {
+      "name": "issue select card",
+      "nodeId": "9015:7025",
+      "kind": "componentSet",
+      "page": "└ input",
+      "section": {
+        "name": "issue select card",
+        "nodeId": "9021:19563",
+        "devStatus": "READY_FOR_DEV"
+      },
+      "properties": {
+        "is checked": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "is disabled": {
+          "type": "VARIANT",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        "label": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "state": {
+          "type": "VARIANT",
+          "values": [
+            "default",
+            "focused",
+            "hovered"
+          ],
+          "default": "default"
+        }
+      },
+      "variants": [
+        "state=default, is disabled=false, is checked=false",
+        "state=default, is disabled=false, is checked=true",
+        "state=default, is disabled=true, is checked=false",
+        "state=focused, is disabled=false, is checked=false",
+        "state=focused, is disabled=false, is checked=true",
+        "state=hovered, is disabled=false, is checked=false"
+      ],
+      "axes": {
+        "is checked": [
+          "false",
+          "true"
+        ],
+        "is disabled": [
+          "false",
+          "true"
+        ],
+        "state": [
+          "default",
+          "focused",
+          "hovered"
+        ]
+      },
+      "boundVariables": {
+        "effects": [
+          "VariableID:3302:20849"
+        ],
+        "fills": [
+          "VariableID:3302:20830",
+          "VariableID:4194:12645",
+          "VariableID:8009:10",
+          "VariableID:8009:11",
+          "VariableID:8009:12",
+          "VariableID:8009:9",
+          "VariableID:8323:12607",
+          "VariableID:8323:12608"
+        ],
+        "fontFamily": [
+          "VariableID:5608:3147"
+        ],
+        "fontSize": [
+          "VariableID:8306:62257",
+          "VariableID:8306:62259"
+        ],
+        "fontStyle": [
+          "VariableID:8307:27",
+          "VariableID:8307:29"
+        ],
+        "itemSpacing": [
+          "VariableID:5609:13583"
+        ],
+        "paddingBottom": [
+          "VariableID:3304:31585"
+        ],
+        "paddingLeft": [
+          "VariableID:3304:31586",
+          "VariableID:5609:13584"
+        ],
+        "paddingRight": [
+          "VariableID:3304:31585",
+          "VariableID:5609:13584"
+        ],
+        "paddingTop": [
+          "VariableID:3304:31585"
+        ],
+        "size": [
+          "VariableID:4199:27974",
+          "VariableID:9039:18649"
+        ],
+        "strokes": [
+          "VariableID:3302:20825",
+          "VariableID:4380:7821",
+          "VariableID:8323:12607"
+        ]
+      }
+    },
+    {
       "name": "password input",
       "nodeId": "7263:137625",
       "kind": "componentSet",
@@ -2028,7 +2295,7 @@
       "section": {
         "name": "input",
         "nodeId": "8937:30121",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is disabled": {
@@ -2125,11 +2392,9 @@
         "paddingRight": [
           "VariableID:5609:13584"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -2149,7 +2414,7 @@
       "section": {
         "name": "radio",
         "nodeId": "8937:30136",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is checked": {
@@ -2223,7 +2488,6 @@
           "VariableID:4194:12645"
         ],
         "rectangleCornerRadii": [
-          "VariableID:3309:32735",
           "VariableID:5609:13601"
         ],
         "strokes": [
@@ -2243,7 +2507,7 @@
       "section": {
         "name": "radio",
         "nodeId": "8937:30136",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is checked": {
@@ -2341,7 +2605,6 @@
           "VariableID:5609:13583"
         ],
         "rectangleCornerRadii": [
-          "VariableID:3309:32735",
           "VariableID:5609:13601"
         ],
         "strokes": [
@@ -2361,7 +2624,7 @@
       "section": {
         "name": "radio",
         "nodeId": "8937:30136",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {},
       "boundVariables": {
@@ -2403,7 +2666,7 @@
       "section": {
         "name": "input",
         "nodeId": "8937:30121",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is disabled": {
@@ -2469,22 +2732,21 @@
           "VariableID:5609:13583"
         ],
         "paddingLeft": [
-          "VariableID:5609:13585"
+          "VariableID:5609:13584"
         ],
         "paddingRight": [
           "VariableID:5609:13584"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
           "VariableID:3302:20826",
           "VariableID:4380:7821",
           "VariableID:7300:15420",
+          "VariableID:8323:12607",
           "VariableID:8323:12609"
         ]
       }
@@ -2497,7 +2759,7 @@
       "section": {
         "name": "select",
         "nodeId": "8937:30151",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is disabled": {
@@ -2584,11 +2846,9 @@
         "paddingRight": [
           "VariableID:5609:13584"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -2609,7 +2869,7 @@
       "section": {
         "name": "textarea",
         "nodeId": "8937:30166",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is disabled": {
@@ -2703,9 +2963,6 @@
         "paddingTop": [
           "VariableID:5609:13584"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "strokes": [
           "VariableID:3302:20826",
           "VariableID:4380:7821",
@@ -2723,7 +2980,7 @@
       "section": {
         "name": "toggle",
         "nodeId": "8937:30181",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is checked": {
@@ -2779,23 +3036,43 @@
       },
       "boundVariables": {
         "effects": [
-          "VariableID:8255173e203f852a242aaa3dfaf1d80d659e32b5/6120:3"
+          "VariableID:3302:20849"
         ],
         "fills": [
           "VariableID:3302:20842",
           "VariableID:3302:20844",
+          "VariableID:4194:12645",
+          "VariableID:53:75387",
+          "VariableID:7300:13004",
           "VariableID:8016:51032",
-          "VariableID:8323:12608",
-          "VariableID:a7a2967815075f92149cbab8731d4d77fc199b44/4380:4"
+          "VariableID:8323:12608"
+        ],
+        "paddingBottom": [
+          "VariableID:5609:13582",
+          "VariableID:9015:48910"
+        ],
+        "paddingLeft": [
+          "VariableID:5609:13582",
+          "VariableID:9015:48910"
+        ],
+        "paddingRight": [
+          "VariableID:5609:13582",
+          "VariableID:9015:48910"
+        ],
+        "paddingTop": [
+          "VariableID:5609:13582",
+          "VariableID:9015:48910"
         ],
         "rectangleCornerRadii": [
-          "VariableID:51f949879e5adb5013d379f713368d10679a2f5b/2646:207",
           "VariableID:5609:13601"
+        ],
+        "size": [
+          "VariableID:9039:18647"
         ],
         "strokes": [
           "VariableID:3302:20825",
           "VariableID:3302:20830",
-          "VariableID:664840b4666b525ab2c7dd89029c2db62bd1ed78/4380:3",
+          "VariableID:4380:7821",
           "VariableID:8323:12607"
         ]
       }
@@ -2896,9 +3173,6 @@
           "VariableID:5609:13584",
           "VariableID:5609:13585"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700"
-        ],
         "strokes": [
           "VariableID:3302:20826",
           "VariableID:4380:7821"
@@ -2989,13 +3263,9 @@
           "VariableID:5609:13584",
           "VariableID:5609:13585"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33700",
-          "VariableID:4199:33701",
-          "VariableID:5553:825"
-        ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -3014,7 +3284,7 @@
       "section": {
         "name": "link",
         "nodeId": "8097:91927",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "icon": {
@@ -3127,6 +3397,9 @@
         "paddingTop": [
           "VariableID:5609:13588"
         ],
+        "size": [
+          "VariableID:9039:18648"
+        ],
         "strokes": [
           "VariableID:3302:20825"
         ]
@@ -3140,7 +3413,7 @@
       "section": {
         "name": "menu",
         "nodeId": "8097:91870",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "slot": {
@@ -3154,18 +3427,16 @@
           "VariableID:3302:20835"
         ],
         "fontFamily": [
-          "VariableID:2006:38070",
           "VariableID:5608:3147"
         ],
         "fontSize": [
           "VariableID:8306:62257",
-          "VariableID:8306:62259",
-          "VariableID:8306:62263"
+          "VariableID:8306:62259"
         ],
         "fontStyle": [
           "VariableID:8307:27",
-          "VariableID:8307:29",
-          "VariableID:8307:31"
+          "VariableID:8307:28",
+          "VariableID:8307:29"
         ],
         "itemSpacing": [
           "VariableID:5609:13584"
@@ -3182,6 +3453,9 @@
         "paddingTop": [
           "VariableID:5609:13583"
         ],
+        "size": [
+          "VariableID:9039:18648"
+        ],
         "strokes": [
           "VariableID:3302:20825",
           "VariableID:3302:20838"
@@ -3196,7 +3470,7 @@
       "section": {
         "name": "menu",
         "nodeId": "8097:91870",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {},
       "boundVariables": {
@@ -3219,7 +3493,7 @@
       "section": {
         "name": "menu",
         "nodeId": "8097:91870",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "label": {
@@ -3232,13 +3506,13 @@
           "VariableID:3302:20825"
         ],
         "fontFamily": [
-          "VariableID:2006:38070"
+          "VariableID:5608:3147"
         ],
         "fontSize": [
-          "VariableID:8306:62263"
+          "VariableID:8306:62257"
         ],
         "fontStyle": [
-          "VariableID:8307:31"
+          "VariableID:8307:28"
         ],
         "paddingBottom": [
           "VariableID:5609:13583"
@@ -3262,7 +3536,7 @@
       "section": {
         "name": "menu",
         "nodeId": "8097:91870",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "has element before": {
@@ -3348,6 +3622,9 @@
         "paddingTop": [
           "VariableID:5609:13583",
           "VariableID:5609:13588"
+        ],
+        "size": [
+          "VariableID:9039:18648"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -3455,15 +3732,11 @@
           "VariableID:3304:31588",
           "VariableID:3304:32281"
         ],
-        "rectangleCornerRadii": [
-          "VariableID:4199:33701"
-        ],
         "size": [
-          "VariableID:2674:5471",
           "VariableID:3308:31857",
-          "VariableID:4158:10690",
           "VariableID:4199:27728",
-          "VariableID:5045:7427"
+          "VariableID:5045:7427",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -3544,7 +3817,8 @@
           "VariableID:3304:32281"
         ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -3620,7 +3894,8 @@
           "VariableID:3304:32281"
         ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -3634,9 +3909,9 @@
       "kind": "component",
       "page": "└ progression",
       "section": {
-        "name": "Section 1",
+        "name": "progression",
         "nodeId": "9015:6673",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "slot": {
@@ -3661,9 +3936,9 @@
       "kind": "componentSet",
       "page": "└ progression",
       "section": {
-        "name": "Section 1",
+        "name": "progression",
         "nodeId": "9015:6673",
-        "devStatus": null
+        "devStatus": "READY_FOR_DEV"
       },
       "properties": {
         "is current": {
@@ -3844,6 +4119,9 @@
         "rectangleCornerRadii": [
           "VariableID:5609:13601"
         ],
+        "size": [
+          "VariableID:9039:18647"
+        ],
         "strokes": [
           "VariableID:3302:20825",
           "VariableID:3302:20826",
@@ -3904,6 +4182,9 @@
         ],
         "rectangleCornerRadii": [
           "VariableID:5609:13601"
+        ],
+        "size": [
+          "VariableID:9039:18647"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -4006,6 +4287,9 @@
         ],
         "paddingTop": [
           "VariableID:5609:13585"
+        ],
+        "size": [
+          "VariableID:9039:24008"
         ],
         "strokes": [
           "VariableID:4380:7821",
@@ -4135,7 +4419,7 @@
         },
         "has subtitle": {
           "type": "BOOLEAN",
-          "default": false
+          "default": true
         },
         "heading level": {
           "type": "VARIANT",
@@ -4163,10 +4447,6 @@
           ],
           "default": "default"
         },
-        "subtitle": {
-          "type": "TEXT",
-          "default": "Title goes here"
-        },
         "title": {
           "type": "TEXT",
           "default": "Title goes here"
@@ -4174,6 +4454,10 @@
         "↪︎ description": {
           "type": "TEXT",
           "default": "Fifty characters bibendum sit at est elit blandits"
+        },
+        "↪︎ subtitle": {
+          "type": "TEXT",
+          "default": "Title goes here"
         }
       },
       "variants": [
@@ -4262,7 +4546,8 @@
           "VariableID:5609:13585"
         ],
         "size": [
-          "VariableID:4199:27728"
+          "VariableID:4199:27728",
+          "VariableID:9039:18649"
         ],
         "strokes": [
           "VariableID:3302:20825",
@@ -4341,7 +4626,11 @@
         "itemSpacing": [
           "VariableID:5609:13588"
         ],
+        "maxWidth": [
+          "VariableID:9039:25720"
+        ],
         "paddingBottom": [
+          "VariableID:5609:13582",
           "VariableID:5609:13588"
         ],
         "paddingLeft": [
