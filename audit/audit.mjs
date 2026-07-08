@@ -29,10 +29,12 @@ const INVENTORY_FILE = path.join(__dirname, "figma-inventory.json");
 // Severity rules registry — one entry per finding `kind`.
 //
 // This is the explicit contract behind every finding's severity: `severity`
-// is either a fixed level or 'conditional' (meaning: it depends on the
-// instance — see each finding's own `why` field for the specific reason).
+// is either a fixed level or 'conditional' (it depends on the instance).
 // `rule` is the plain-language sentence printed once per kind-group in the
-// human report, the HTML report, and under `rules` in --json output.
+// human report, the HTML report, and under `rules` in --json output — it IS
+// the "why" for most findings. A finding carries its own `why` only when the
+// reason is genuinely instance-specific (conditional severity, cause
+// diagnosis); the reports print it only then.
 // ---------------------------------------------------------------------------
 const RULES = {
   "figma-only": {
@@ -41,7 +43,7 @@ const RULES = {
   },
   "code-only": {
     severity: "warn",
-    rule: "a code component exists with no matching Figma component/set — either Figma is missing it or the names have drifted apart.",
+    rule: "a code component exists with no matching Figma component/set — check for a rename, a missing CONFIG.aliases entry, or a component built ahead of its Figma definition.",
   },
   "axis-missing-in-code": {
     severity: "warn",
@@ -61,11 +63,11 @@ const RULES = {
   },
   "duplicate-figma-name": {
     severity: "warn",
-    rule: "two or more Figma entries normalize to the same name, so the join can't tell them apart.",
+    rule: "two or more Figma entries normalize to the same name, so the join can't tell them apart — rename one or disambiguate via CONFIG.aliases.",
   },
   "duplicate-code-name": {
     severity: "warn",
-    rule: "two or more code entries normalize to the same name, so the join can't tell them apart.",
+    rule: "two or more code entries normalize to the same name, so the join can't tell them apart — rename one or disambiguate via CONFIG.aliases.",
   },
   "unmapped-axis": {
     severity: "info",
@@ -89,13 +91,23 @@ const RULES = {
   },
   "binds-untracked-token": {
     severity: "warn",
-    rule: "a component binds a Figma variable that names a real token but has no published CSS custom property — Figma defines it, the build doesn't emit it (design ahead of code, or an intentional exclusion).",
+    rule: "a component binds a Figma variable that names a real token but has no published CSS custom property — either the token needs adding to the token JSON, or the Figma variable is stray; a faithful build can't reference it until that's resolved.",
   },
   "unresolved-binding": {
     severity: "info",
     rule: "a component binds variable ids the token map couldn't resolve — remote/library variables (not in the local plugin export), a variable map that's stale relative to the inventory (regenerate: `npm run sync:map`), or a dangling binding to a variable deleted in Figma (persists after a fresh sync — rebind or detach it in the design file).",
   },
 };
+
+// Append one finding. Severity comes from the registry unless the kind is
+// conditional, in which case opts.severity is required. opts.why is only for
+// instance-specific reasons — omit it when the kind's rule says it all.
+function pushFinding(findings, kind, component, detail, opts = {}) {
+  const severity = opts.severity ?? RULES[kind].severity;
+  const f = { severity, component, kind, detail };
+  if (opts.why) f.why = opts.why;
+  findings.push(f);
+}
 
 // ---------------------------------------------------------------------------
 // Name / key normalization
@@ -174,25 +186,15 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
     }
     if (role === "responsive") {
       result.responsiveAxes.push(axisName);
-      findings.push({
-        severity: RULES["responsive-axis"].severity,
-        component: figmaEntry.name,
-        kind: "responsive-axis",
-        detail: `Axis "${axisName}" is a breakpoint/responsive concern (handled by CSS media queries), not a prop.`,
-        why: "CONFIG.propertyRoles marks this axis 'responsive'; SNAP components are responsive via CSS media queries, not a JS prop switch.",
-      });
+      pushFinding(findings, "responsive-axis", figmaEntry.name,
+        `Axis "${axisName}" is a breakpoint/responsive concern (handled by CSS media queries), not a prop.`);
       continue;
     }
 
     // role === 'prop', either declared or defaulted.
     if (!declaredRole) {
-      findings.push({
-        severity: RULES["unmapped-axis"].severity,
-        component: figmaEntry.name,
-        kind: "unmapped-axis",
-        detail: `Axis "${axisName}" has no CONFIG.propertyRoles entry; treated as 'prop' by default.`,
-        why: `No propertyRoles entry for "${axisName}" — defaulting to 'prop' so the gap in the map is visible instead of silently mis-scored.`,
-      });
+      pushFinding(findings, "unmapped-axis", figmaEntry.name,
+        `Axis "${axisName}" has no CONFIG.propertyRoles entry; treated as 'prop' by default.`);
     }
 
     const codeProp = findCodeProp(codeEntry, axisName);
@@ -200,13 +202,8 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
 
     if (!codeProp) {
       entryResult.status = "missing-in-code";
-      findings.push({
-        severity: RULES["axis-missing-in-code"].severity,
-        component: figmaEntry.name,
-        kind: "axis-missing-in-code",
-        detail: `Figma axis "${axisName}" (values: ${values.join("/")}) has no matching prop on code component "${codeEntry.name}".`,
-        why: `Figma defines this axis but no code prop on "${codeEntry.name}" matches it under normalized-key comparison.`,
-      });
+      pushFinding(findings, "axis-missing-in-code", figmaEntry.name,
+        `Figma axis "${axisName}" (values: ${values.join("/")}) has no matching prop on code component "${codeEntry.name}".`);
       result.propAxes.push(entryResult);
       continue;
     }
@@ -227,28 +224,17 @@ function compareComponentAxes(figmaEntry, codeEntry, findings) {
       entryResult.codeValues = [...codeSet].sort();
       if (missingInCode.length || extraInCode.length) {
         entryResult.status = "value-mismatch";
-        findings.push({
-          severity: RULES["enum-mismatch"].severity,
-          component: figmaEntry.name,
-          kind: "enum-mismatch",
-          detail:
-            `Axis "${axisName}" vs ${codeEntry.name}.${codeProp.key}: ` +
+        pushFinding(findings, "enum-mismatch", figmaEntry.name,
+          `Axis "${axisName}" vs ${codeEntry.name}.${codeProp.key}: ` +
             `missing in code [${missingInCode.join(", ") || "none"}], ` +
-            `extra in code [${extraInCode.join(", ") || "none"}].`,
-          why: `Both sides define this axis/prop, but their value sets disagree — a real gap unless the Figma/code naming convention is expected to differ.`,
-        });
+            `extra in code [${extraInCode.join(", ") || "none"}].`);
       } else {
         entryResult.status = "match";
       }
     } else {
       entryResult.status = "kind-mismatch";
-      findings.push({
-        severity: RULES["prop-kind-mismatch"].severity,
-        component: figmaEntry.name,
-        kind: "prop-kind-mismatch",
-        detail: `Axis "${axisName}" (values: ${values.join("/")}) vs ${codeEntry.name}.${codeProp.key}: code prop is kind "${codeProp.kind}", expected enum or boolean.`,
-        why: `Code prop "${codeProp.key}" exists under this name but is kind "${codeProp.kind}", not the enum/boolean a variant axis needs.`,
-      });
+      pushFinding(findings, "prop-kind-mismatch", figmaEntry.name,
+        `Axis "${axisName}" (values: ${values.join("/")}) vs ${codeEntry.name}.${codeProp.key}: code prop is kind "${codeProp.kind}", expected enum or boolean.`);
     }
     result.propAxes.push(entryResult);
   }
@@ -270,39 +256,25 @@ function compareTextSlotProps(figmaEntry, codeEntry, findings) {
       ok,
     });
     if (!ok) {
-      findings.push({
-        severity: RULES[def.type === "TEXT" ? "missing-text-prop" : "missing-slot-prop"].severity,
-        component: figmaEntry.name,
-        kind: def.type === "TEXT" ? "missing-text-prop" : "missing-slot-prop",
-        detail: `Figma ${def.type} property "${propName}" has no corresponding ${wantKind.join("/")} prop on code component "${codeEntry.name}".`,
-        why: `This is a presence-only check, not a variant axis: Figma exposes a ${def.type.toLowerCase()} to fill in, but "${codeEntry.name}" has no ${wantKind.join("/")} prop for it.`,
-      });
+      pushFinding(findings, def.type === "TEXT" ? "missing-text-prop" : "missing-slot-prop", figmaEntry.name,
+        `Figma ${def.type} property "${propName}" has no corresponding ${wantKind.join("/")} prop on code component "${codeEntry.name}".`);
     }
   }
   return results;
 }
 
 // ---------------------------------------------------------------------------
-// Token-binding join — resolve a Figma component's boundVariables (raw
-// VariableIDs) against the committed variable map (design-system/dist/variable-map.json) into
-// the semantic tokens it actually consumes. Surfaces two things the structural
-// join can't: a component that binds a token Figma defines but the build never
-// published (`binds-untracked-token`), and ids the local map can't resolve
-// (`unresolved-binding` — remote/library variables or a stale map). Attaches a
-// `bindings` block to the record; pushes findings as a side effect.
+// Token-binding join — resolve a component's boundVariables against the
+// variable map (see README "The variable map"). Attaches a `bindings` block
+// to the record; pushes findings as a side effect.
 // ---------------------------------------------------------------------------
 
 function resolveTokenBindings(figmaEntry, varMap, findings) {
   const bindings = resolveBindings(figmaEntry.boundVariables, varMap);
 
   for (const u of bindings.untracked) {
-    findings.push({
-      severity: RULES["binds-untracked-token"].severity,
-      component: figmaEntry.name,
-      kind: "binds-untracked-token",
-      detail: `binds Figma variable "${u.collection}/${u.name}" (${u.id}) as ${u.fields.join(", ")}, which has no published token in the built stylesheet.`,
-      why: `Figma defines "${u.collection}/${u.name}" and this component binds it, but the build emits no matching CSS custom property — either the token needs adding to the token JSON, or the Figma variable is stray. A faithful build can't reference it as a token until that's resolved.`,
-    });
+    pushFinding(findings, "binds-untracked-token", figmaEntry.name,
+      `binds Figma variable "${u.collection}/${u.name}" (${u.id}) as ${u.fields.join(", ")}, which has no published token in the built stylesheet.`);
   }
 
   const absent = bindings.unresolved.length + bindings.remote.length;
@@ -310,17 +282,16 @@ function resolveTokenBindings(figmaEntry, varMap, findings) {
     const parts = [];
     if (bindings.remote.length) parts.push(`${bindings.remote.length} remote/library`);
     if (bindings.unresolved.length) parts.push(`${bindings.unresolved.length} not in the local map`);
-    findings.push({
-      severity: RULES["unresolved-binding"].severity,
-      component: figmaEntry.name,
-      kind: "unresolved-binding",
-      detail: `${absent} bound variable id(s) unresolved (${parts.join(", ")}): ${[...bindings.remote, ...bindings.unresolved]
+    pushFinding(findings, "unresolved-binding", figmaEntry.name,
+      `${absent} bound variable id(s) unresolved (${parts.join(", ")}): ${[...bindings.remote, ...bindings.unresolved]
         .map((u) => `${u.id} (bound as ${u.fields.join(", ")})`)
         .join("; ")}.`,
-      why: bindings.remote.length
-        ? "Remote ids come from a subscribed library file and aren't in the local plugin export by design; any non-remote ids mean either a stale variable map (regenerate with `npm run sync:map`) or — if they persist after a fresh sync — dangling bindings to variables deleted in Figma, which only rebinding/detaching in the design file can fix."
-        : "These ids aren't in the variable map — either it's stale relative to the inventory (regenerate with `npm run sync:map`) or, if they persist after a fresh sync, the variables were deleted in Figma and the component carries dangling bindings; rebind or detach them in the design file.",
-    });
+      {
+        // Which of the rule's three causes applies is per-instance — say so.
+        why: bindings.remote.length
+          ? "Remote ids come from a subscribed library file and aren't in the local plugin export by design; any non-remote ids mean either a stale variable map (regenerate with `npm run sync:map`) or — if they persist after a fresh sync — dangling bindings to variables deleted in Figma, which only rebinding/detaching in the design file can fix."
+          : "These ids aren't in the variable map — either it's stale relative to the inventory (regenerate with `npm run sync:map`) or, if they persist after a fresh sync, the variables were deleted in Figma and the component carries dangling bindings; rebind or detach them in the design file.",
+      });
   }
 
   return bindings;
@@ -337,16 +308,11 @@ function resolveTokenBindings(figmaEntry, varMap, findings) {
 function evalReactComponent(codeEntry, figmaName, findings) {
   const sc = runStaticChecksWithSpecGate(codeEntry.rawSource, codeEntry.name);
   if (sc.errors > 0) {
-    findings.push({
-      severity: RULES["eval-static-errors"].severity,
-      component: figmaName || codeEntry.name,
-      kind: "eval-static-errors",
-      detail: `${sc.errors} static error(s) on ${codeEntry.file}: ${sc.findings
+    pushFinding(findings, "eval-static-errors", figmaName || codeEntry.name,
+      `${sc.errors} static error(s) on ${codeEntry.file}: ${sc.findings
         .filter((f) => f.severity === "error")
         .map((f) => f.ruleId)
-        .join(", ")}.`,
-      why: "Static style-guide checks (eval/static-checks.mjs) failed — these are the hard CLAUDE.md rules, always an error regardless of Figma state.",
-    });
+        .join(", ")}.`);
   }
   return { errors: sc.errors, warnings: sc.warnings, findings: sc.findings };
 }
@@ -454,7 +420,7 @@ function printHuman({ summary, componentRecords, findings, fractalAbsent, variab
       console.log(`  rule: ${g.rule}`);
       for (const f of g.findings) {
         console.log(`  - ${f.component}: ${f.detail}`);
-        console.log(`      why: ${f.why}`);
+        if (f.why) console.log(`      why: ${f.why}`);
       }
     }
   }
@@ -501,32 +467,20 @@ function buildReportModel() {
   const findings = [];
 
   // --- duplicate normalized names (either side) --------------------------
-  const figmaGroups = groupBy(figmaComponents, (c) => normalizeName(c.name));
-  for (const [key, group] of figmaGroups) {
+  for (const [key, group] of groupBy(figmaComponents, (c) => normalizeName(c.name))) {
     if (group.length > 1) {
-      findings.push({
-        severity: RULES["duplicate-figma-name"].severity,
-        component: group[0].name,
-        kind: "duplicate-figma-name",
-        detail: `${group.length} Figma components normalize to "${key}": ${group
+      pushFinding(findings, "duplicate-figma-name", group[0].name,
+        `${group.length} Figma components normalize to "${key}": ${group
           .map((g) => `${g.name} [${g.kind}] (${g.nodeId})`)
-          .join(", ")}.`,
-        why: `${group.length} Figma nodes share the normalized name "${key}"; the join can only match code by name, so this needs a rename or a CONFIG.aliases entry to disambiguate.`,
-      });
+          .join(", ")}.`);
     }
   }
-  const codeGroups = groupBy(codeEntries, (c) => normalizeName(c.name));
-  for (const [key, group] of codeGroups) {
+  for (const [key, group] of groupBy(codeEntries, (c) => normalizeName(c.name))) {
     if (group.length > 1) {
-      findings.push({
-        severity: RULES["duplicate-code-name"].severity,
-        component: group[0].name,
-        kind: "duplicate-code-name",
-        detail: `${group.length} code components normalize to "${key}": ${group
+      pushFinding(findings, "duplicate-code-name", group[0].name,
+        `${group.length} code components normalize to "${key}": ${group
           .map((g) => `${g.name} (${g.file})`)
-          .join(", ")}.`,
-        why: `${group.length} code entries share the normalized name "${key}"; the join can only match Figma by name, so this needs a rename or a CONFIG.aliases entry to disambiguate.`,
-      });
+          .join(", ")}.`);
     }
   }
 
@@ -560,13 +514,7 @@ function buildReportModel() {
     const textSlot = compareTextSlotProps(figma, code, findings);
     const evalStatic = code.source === "react-tsx" ? evalReactComponent(code, figma.name, findings) : null;
     if (code.parseWarning) {
-      findings.push({
-        severity: RULES["parse-warning"].severity,
-        component: figma.name,
-        kind: "parse-warning",
-        detail: `${code.file}: ${code.parseWarning}`,
-        why: "The react-tsx adapter couldn't parse this component's props; its comparison is incomplete.",
-      });
+      pushFinding(findings, "parse-warning", figma.name, `${code.file}: ${code.parseWarning}`);
     }
     const bindings = varMap ? resolveTokenBindings(figma, varMap, findings) : null;
     componentRecords.push({
@@ -585,36 +533,23 @@ function buildReportModel() {
   for (const f of figmaOnly) {
     const devStatus = f.section?.devStatus;
     const readyForDev = READY_DEV_STATUSES.includes(devStatus);
-    findings.push({
-      severity: readyForDev ? "warn" : "info",
-      component: f.name,
-      kind: "figma-only",
-      detail:
-        `Figma ${f.kind} "${f.name}" (${f.nodeId}) has no matching code component.` +
+    pushFinding(findings, "figma-only", f.name,
+      `Figma ${f.kind} "${f.name}" (${f.nodeId}) has no matching code component.` +
         (readyForDev ? ` Section devStatus=${devStatus} says it's ready for dev.` : ""),
-      why: readyForDev
-        ? `Section says devStatus=${devStatus} but no code exists — design has signaled readiness, so this needs a build (or a status correction).`
-        : "No dev status set on the section; unbuilt backlog is the normal, default state.",
-    });
+      {
+        severity: readyForDev ? "warn" : "info",
+        why: readyForDev
+          ? `Section says devStatus=${devStatus} but no code exists — design has signaled readiness, so this needs a build (or a status correction).`
+          : "No dev status set on the section; unbuilt backlog is the normal, default state.",
+      });
     const bindings = varMap ? resolveTokenBindings(f, varMap, findings) : null;
     componentRecords.push({ name: f.name, matched: false, figma: f, code: null, bindings });
   }
   for (const c of codeOnly) {
-    findings.push({
-      severity: RULES["code-only"].severity,
-      component: c.name,
-      kind: "code-only",
-      detail: `Code component "${c.name}" (${c.file}) has no matching Figma component/set.`,
-      why: "No Figma component/set normalizes to this name — check for a rename, a missing alias, or a component built ahead of its Figma definition.",
-    });
+    pushFinding(findings, "code-only", c.name,
+      `Code component "${c.name}" (${c.file}) has no matching Figma component/set.`);
     if (c.parseWarning) {
-      findings.push({
-        severity: RULES["parse-warning"].severity,
-        component: c.name,
-        kind: "parse-warning",
-        detail: `${c.file}: ${c.parseWarning}`,
-        why: "The react-tsx adapter couldn't parse this component's props; its comparison is incomplete.",
-      });
+      pushFinding(findings, "parse-warning", c.name, `${c.file}: ${c.parseWarning}`);
     }
     componentRecords.push({ name: c.name, matched: false, figma: null, code: c });
   }

@@ -377,7 +377,7 @@ function findingGroupHtml(group) {
       <div class="finding" data-component="${escapeHtml(f.component)}" data-severity="${f.severity}">
         <div class="finding-component mono">${escapeHtml(f.component)}</div>
         <div class="finding-detail">${escapeHtml(f.detail)}</div>
-        <div class="finding-why muted">why: ${escapeHtml(f.why)}</div>
+        ${f.why ? `<div class="finding-why muted">why: ${escapeHtml(f.why)}</div>` : ""}
       </div>`
     )
     .join("");
