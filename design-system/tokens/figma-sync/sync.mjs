@@ -18,10 +18,12 @@ import { dirname, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { transform, TOKEN_FILES } from './transform.mjs';
+import { buildVariableMap, readPublishedTokens, serializeVariableMap, TOKENS_CSS, VARIABLE_MAP } from './variable-map.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const TOKENS_DIR = join(HERE, '..');            // design-system/tokens
 const BUILD = join(TOKENS_DIR, 'build.mjs');
+const REPO_ROOT = join(HERE, '..', '..', '..');
 
 export function runSync({ exportData, report = false, dryRun = false, onlyFiles = null, build = true, log = console.log }) {
   const existing = {};
@@ -31,7 +33,7 @@ export function runSync({ exportData, report = false, dryRun = false, onlyFiles 
   }
 
   const warnings = [];
-  const { files, report: rpt } = transform(exportData, { existing, onWarn: (m) => warnings.push(m) });
+  const { files, report: rpt, variables } = transform(exportData, { existing, onWarn: (m) => warnings.push(m) });
 
   if (report) {
     log('\nCollections:');
@@ -69,9 +71,21 @@ export function runSync({ exportData, report = false, dryRun = false, onlyFiles 
 
   warnings.forEach((w) => log(`  ⚠ ${w}`));
 
-  if (!dryRun && build && written.length) {
-    log('\nRebuilding tokens.css …');
-    execFileSync('node', [BUILD], { stdio: 'inherit' });
+  if (!dryRun && build) {
+    if (written.length) {
+      log('\nRebuilding tokens.css …');
+      execFileSync('node', [BUILD], { stdio: 'inherit' });
+    }
+    // Regenerate the token-binding map (dist/variable-map.json) from the same
+    // export + the current build, so the drift audit stays in lockstep with the
+    // tokens. The id→token table comes from transform() above — no re-parse, no
+    // need to persist the raw export.
+    if (existsSync(TOKENS_CSS)) {
+      const published = readPublishedTokens(readFileSync(TOKENS_CSS, 'utf8'));
+      const map = buildVariableMap(variables, published, { fileName: exportData.fileName, version: exportData.version });
+      writeFileSync(VARIABLE_MAP, serializeVariableMap(map));
+      log(`  ✓ ${VARIABLE_MAP.replace(REPO_ROOT + '/', '')} (token-binding map)`);
+    }
   } else if (dryRun) {
     log(`\nDry run: ${changedFiles.length} file(s) would change. Nothing written.`);
   }

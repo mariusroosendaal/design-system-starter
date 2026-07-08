@@ -102,8 +102,10 @@ export const TOKEN_FILES = ['primitives.json', 'color.json', 'dimension.json', '
 // ──────────────────────────────────────────────────────────────────────────
 const lc = (s) => (s || '').toLowerCase();
 
-// variable name → dotted token path, applying segment renames + collection prefix
-function tokenPath(collectionName, varName) {
+// variable name → dotted token path, applying segment renames + collection prefix.
+// Exported so the audit's variable-map builder derives token names from the
+// exact same logic the token files themselves are generated with.
+export function tokenPath(collectionName, varName) {
   const cfg = CONFIG.collections[lc(collectionName)];
   const segs = varName.split('/').map((s) => s.trim()).map((s) => CONFIG.segmentRename[lc(s)] || s);
   const path = segs.join('.');
@@ -160,10 +162,13 @@ export function transform(fig, opts = {}) {
   // indices across every collection
   const idToPath = new Map();        // varId → dotted token path (normalized + prefixed)
   const byId = new Map();            // varId → { v, col }
+  const variables = [];              // flat id→name table, handed out for the audit's token-binding map
   for (const col of fig.collections || []) {
     for (const v of col.variables || []) {
-      idToPath.set(v.id, tokenPath(col.name, v.name));
+      const path = tokenPath(col.name, v.name);
+      idToPath.set(v.id, path);
       byId.set(v.id, { v, col });
+      variables.push({ id: v.id, collection: col.name, name: v.name, path });
     }
   }
 
@@ -297,7 +302,7 @@ export function transform(fig, opts = {}) {
   }
 
   finalizeFiles(files, fig, existing, warn);
-  return { files, report };
+  return { files, report, variables };
 }
 
 // ── ramp builder ────────────────────────────────────────────────────────────

@@ -10,3 +10,9 @@ design-system/fonts/files/
 
 # Generated audit HTML report (regenerate with `npm run audit:report`)
 audit/report.html
+
+# Raw token-sync plugin export — the INPUT to `npm run sync` (and `sync:map`).
+# The committed artifacts are the derived token files + dist/variable-map.json;
+# this raw dump is re-exported from Figma when variables change, like a fetch
+# response, and never committed.
+design-system/tokens/figma-export.json

@@ -10,6 +10,15 @@ export const CONFIG = {
   // The SNAP Figma file (see CLAUDE.md at repo root for the design-file URL).
   fileKey: "40hPEX7A9Wt5VsMHxk3xCr",
 
+  // Where the token-binding join reads its map from (relative to the repo
+  // root). The map — Figma VariableID → published token name — is PRODUCED by
+  // the token sync (design-system/tokens/figma-sync/variable-map.mjs) as a
+  // by-product of `npm run sync`, and committed alongside dist/tokens.css. The
+  // audit only consumes it; it's regenerated from Figma, never hand-edited.
+  paths: {
+    variableMap: "design-system/dist/variable-map.json",
+  },
+
   // Pages to skip when walking the file. Each entry is tested with
   // RegExp#test() against the raw page name (no anchoring assumptions
   // beyond what's written into the pattern itself — some intentionally

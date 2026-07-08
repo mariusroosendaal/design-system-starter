@@ -21,7 +21,8 @@ Two delivery paths, same deterministic core (`transform.mjs`):
 figma-sync/
   transform.mjs       the deterministic core: Figma export → 5 token files (pure, testable)
   transform.test.mjs  offline proof of the core (npm run sync:test)
-  sync.mjs            CLI: export.json → token files → tokens.css  (npm run sync)
+  variable-map.mjs    Figma VariableID → published token name → dist/variable-map.json  (npm run sync:map)
+  sync.mjs            CLI: export.json → token files → tokens.css (+ variable-map.json)  (npm run sync)
   sync-server.mjs     localhost receiver the plugin posts to       (npm run sync:serve)
   plugin/             the Figma plugin (vanilla JS, no build step)
     manifest.json · code.js · ui.html
@@ -58,7 +59,9 @@ The Action lives at `.github/workflows/figma-token-sync.yml`.
 2. **In Figma**, run the **SNAP Token Sync** plugin → click **Read & Sync to repo**.
    (Use **Dry run** first to preview, or **Download export JSON** to sync via CLI.)
 3. **Review** the diff: `git diff design-system/tokens` then `npm run eval:all`.
-4. **Commit** the token JSON and the regenerated `dist/tokens.css`.
+4. **Commit** the token JSON and the regenerated `dist/tokens.css` +
+   `dist/variable-map.json` (the id→token map the drift audit reads — written in
+   the same step; see `variable-map.mjs`).
 
 > **Restart the server after editing any `figma-sync/*.mjs`.** Node caches modules
 > at process start, so a long-running `npm run sync:serve` keeps using the code it

@@ -19,7 +19,7 @@ import { fileURLToPath } from "node:url";
 import { CONFIG } from "./config.mjs";
 import { buildCodeInventory, fractalRootExists } from "./code-inventory.mjs";
 import { repoRoot as REPO_ROOT, runStaticChecksWithSpecGate } from "../eval/lib/context.mjs";
-import { normalizeName, axesSummary, READY_DEV_STATUSES } from "./lib.mjs";
+import { normalizeName, axesSummary, READY_DEV_STATUSES, loadVariableMap, resolveBindings } from "./lib.mjs";
 import { renderHtmlReport } from "./report-html.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -86,6 +86,14 @@ const RULES = {
   "parse-warning": {
     severity: "info",
     rule: "the react-tsx adapter couldn't parse this component's props; its comparison is incomplete.",
+  },
+  "binds-untracked-token": {
+    severity: "warn",
+    rule: "a component binds a Figma variable that names a real token but has no published CSS custom property — Figma defines it, the build doesn't emit it (design ahead of code, or an intentional exclusion).",
+  },
+  "unresolved-binding": {
+    severity: "info",
+    rule: "a component binds variable ids the token map couldn't resolve — remote/library variables (not in the local plugin export), a variable map that's stale relative to the inventory (regenerate: `npm run sync:map`), or a dangling binding to a variable deleted in Figma (persists after a fresh sync — rebind or detach it in the design file).",
   },
 };
 
@@ -275,6 +283,48 @@ function compareTextSlotProps(figmaEntry, codeEntry, findings) {
 }
 
 // ---------------------------------------------------------------------------
+// Token-binding join — resolve a Figma component's boundVariables (raw
+// VariableIDs) against the committed variable map (design-system/dist/variable-map.json) into
+// the semantic tokens it actually consumes. Surfaces two things the structural
+// join can't: a component that binds a token Figma defines but the build never
+// published (`binds-untracked-token`), and ids the local map can't resolve
+// (`unresolved-binding` — remote/library variables or a stale map). Attaches a
+// `bindings` block to the record; pushes findings as a side effect.
+// ---------------------------------------------------------------------------
+
+function resolveTokenBindings(figmaEntry, varMap, findings) {
+  const bindings = resolveBindings(figmaEntry.boundVariables, varMap);
+
+  for (const u of bindings.untracked) {
+    findings.push({
+      severity: RULES["binds-untracked-token"].severity,
+      component: figmaEntry.name,
+      kind: "binds-untracked-token",
+      detail: `binds Figma variable "${u.collection}/${u.name}" (${u.id}), which has no published token in the built stylesheet.`,
+      why: `Figma defines "${u.collection}/${u.name}" and this component binds it, but the build emits no matching CSS custom property — either the token needs adding to the token JSON, or the Figma variable is stray. A faithful build can't reference it as a token until that's resolved.`,
+    });
+  }
+
+  const absent = bindings.unresolved.length + bindings.remote.length;
+  if (absent > 0) {
+    const parts = [];
+    if (bindings.remote.length) parts.push(`${bindings.remote.length} remote/library`);
+    if (bindings.unresolved.length) parts.push(`${bindings.unresolved.length} not in the local map`);
+    findings.push({
+      severity: RULES["unresolved-binding"].severity,
+      component: figmaEntry.name,
+      kind: "unresolved-binding",
+      detail: `${absent} bound variable id(s) unresolved (${parts.join(", ")}): ${[...bindings.remote, ...bindings.unresolved].join(", ")}.`,
+      why: bindings.remote.length
+        ? "Remote ids come from a subscribed library file and aren't in the local plugin export by design; any non-remote ids mean either a stale variable map (regenerate with `npm run sync:map`) or — if they persist after a fresh sync — dangling bindings to variables deleted in Figma, which only rebinding/detaching in the design file can fix."
+        : "These ids aren't in the variable map — either it's stale relative to the inventory (regenerate with `npm run sync:map`) or, if they persist after a fresh sync, the variables were deleted in Figma and the component carries dangling bindings; rebind or detach them in the design file.",
+    });
+  }
+
+  return bindings;
+}
+
+// ---------------------------------------------------------------------------
 // Eval static gate (react-tsx only) — reuses eval/static-checks.mjs (via the
 // shared eval/lib/context.mjs helper) exactly the way eval/run.mjs does, so
 // "passes the audit" and "passes `npm run eval`" agree on what a static
@@ -338,7 +388,7 @@ function groupFindingsForReport(findings) {
   };
 }
 
-function printHuman({ summary, componentRecords, findings, fractalAbsent, groupedFindings }) {
+function printHuman({ summary, componentRecords, findings, fractalAbsent, variableMapAbsent, groupedFindings }) {
   console.log("Design-system drift audit");
   console.log("==========================");
   console.log(`Figma components: ${summary.figmaComponents}`);
@@ -349,6 +399,14 @@ function printHuman({ summary, componentRecords, findings, fractalAbsent, groupe
   console.log(`Matched:          ${summary.matched}`);
   console.log(`Figma-only:       ${summary.figmaOnly}`);
   console.log(`Code-only:        ${summary.codeOnly}`);
+  if (variableMapAbsent) {
+    console.log(`Token bindings:   (skipped — no ${CONFIG.paths.variableMap}; run \`npm run sync\` or \`npm run sync:map\` to generate it)`);
+  } else {
+    const tb = summary.tokenBindings;
+    console.log(
+      `Token bindings:   ${tb.distinctTokens} distinct token(s) across ${tb.componentsResolved} component(s); ${tb.untracked} untracked, ${tb.unresolved} unresolved`
+    );
+  }
   console.log(
     `Findings:         ${summary.findingsBySeverity.error} error(s), ${summary.findingsBySeverity.warn} warn(s), ${summary.findingsBySeverity.info} info`
   );
@@ -434,6 +492,9 @@ function buildReportModel() {
   const figmaComponents = figmaInventory.components;
   const codeEntries = buildCodeInventory(CONFIG);
   const fractalAbsent = !fractalRootExists(CONFIG);
+  // Optional: the token-binding map. Absent until `npm run sync:map` is run —
+  // the binding join is simply skipped when it's missing (like fractalRoot).
+  const varMap = loadVariableMap();
 
   const findings = [];
 
@@ -505,6 +566,7 @@ function buildReportModel() {
         why: "The react-tsx adapter couldn't parse this component's props; its comparison is incomplete.",
       });
     }
+    const bindings = varMap ? resolveTokenBindings(figma, varMap, findings) : null;
     componentRecords.push({
       name: figma.name,
       matched: true,
@@ -513,6 +575,7 @@ function buildReportModel() {
       comparison,
       textSlot,
       evalStatic,
+      bindings,
     });
   }
 
@@ -531,7 +594,8 @@ function buildReportModel() {
         ? `Section says devStatus=${devStatus} but no code exists — design has signaled readiness, so this needs a build (or a status correction).`
         : "No dev status set on the section; unbuilt backlog is the normal, default state.",
     });
-    componentRecords.push({ name: f.name, matched: false, figma: f, code: null });
+    const bindings = varMap ? resolveTokenBindings(f, varMap, findings) : null;
+    componentRecords.push({ name: f.name, matched: false, figma: f, code: null, bindings });
   }
   for (const c of codeOnly) {
     findings.push({
@@ -566,6 +630,16 @@ function buildReportModel() {
   const codeBySource = {};
   for (const c of codeEntries) codeBySource[c.source] = (codeBySource[c.source] || 0) + 1;
 
+  // Token-binding rollup across every component that has a resolved `bindings`
+  // block (null when the map is absent, so this stays 0/0/0 in that case).
+  const bound = componentRecords.filter((r) => r.bindings);
+  const tokenBindings = {
+    componentsResolved: bound.length,
+    distinctTokens: new Set(bound.flatMap((r) => r.bindings.tokens)).size,
+    untracked: bound.reduce((n, r) => n + r.bindings.untracked.length, 0),
+    unresolved: bound.reduce((n, r) => n + r.bindings.unresolved.length + r.bindings.remote.length, 0),
+  };
+
   const summary = {
     figmaComponents: figmaComponents.length,
     codeComponents: codeEntries.length,
@@ -573,6 +647,7 @@ function buildReportModel() {
     matched: matched.length,
     figmaOnly: figmaOnly.length,
     codeOnly: codeOnly.length,
+    tokenBindings,
     findingsBySeverity: {
       error: findings.filter((f) => f.severity === "error").length,
       warn: findings.filter((f) => f.severity === "warn").length,
@@ -594,6 +669,7 @@ function buildReportModel() {
     groupedFindings: groupFindingsForReport(findings),
     rules: RULES,
     fractalAbsent,
+    variableMapAbsent: !varMap,
     hasError,
   };
 }

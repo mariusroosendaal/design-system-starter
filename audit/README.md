@@ -7,11 +7,16 @@ No LLM anywhere; every output is byte-stable, so drift shows up as a git diff.
 
 ```bash
 npm run audit:fetch     # snapshot Figma → audit/figma-inventory.json (committed)
-npm run audit           # offline join + drift report (reads the snapshot only)
+npm run audit           # offline join + drift report (reads the snapshots only)
 npm run audit:report    # same, plus self-contained audit/report.html
 node audit/audit.mjs --json     # machine-readable report
 node audit/audit.mjs --strict   # exit 1 on any error-severity finding (CI gate)
 ```
+
+The token-binding half of the join reads `design-system/dist/variable-map.json`,
+which is produced by the **token sync** (`npm run sync`), not the audit — see
+"The variable map" below. `npm run sync:map` regenerates just that file from a
+saved export against the current build.
 
 **Token setup:** `FIGMA_TOKEN=figd_...` in the repo-root `.env` (personal access
 token, **File content** read scope). All tuning — file key, page filters,
@@ -31,6 +36,45 @@ How to read `devStatus`: absence of a status is the default state, not a
 Figma's Dev-Mode "changed since marked ready" badge is not exposed via REST;
 the committed inventory replaces it — a git diff touching a component whose
 section still says `READY_FOR_DEV` *is* that signal, per component.
+
+## The variable map (`design-system/dist/variable-map.json`)
+
+Turns the raw Figma `VariableID`s the inventory records in each component's
+`boundVariables` (`VariableID:3302:20825`) into real token names
+(`--background-surface`), so the join can report which semantic tokens a
+component actually consumes — the deterministic answer to a spec's "Tokens
+used" section.
+
+**It's produced by the token sync, not the audit.** The sync already parses the
+Figma export and knows every variable's id *and* the token path it maps to
+(`transform()` hands out that table); `figma-sync/variable-map.mjs` joins it
+against the freshly-built `dist/tokens.css` and writes
+`dist/variable-map.json` as a by-product of every `npm run sync` — committed
+alongside `tokens.css`, regenerated from the same export, never hand-edited. So
+there's no separate export to keep around and no way for the map and the tokens
+to disagree (same `tokenPath()`, same build). The audit only *reads* it.
+
+`npm run sync:map <export.json>` rebuilds just the map against the current
+`tokens.css` (handy when only the map, not the tokens, needs refreshing). No
+Enterprise Variables REST plan is needed — the plugin export the sync already
+consumes is the id→name source.
+
+Each entry is `{ name, collection, kind, token }`, where `kind` is:
+
+- **`var`** — ships as a `--custom-property` (`token` set).
+- **`type-class`** — ships as a `.type-*` ramp class (`token` set).
+- **`untracked`** — a real token-collection variable with **no** published
+  token: Figma defines it, the build doesn't emit it (`token: null`).
+- **`composite`** — an input, never a standalone token: a `_utility`/doc
+  collection, a ramp input (family/size/weight), an excluded/exploded/`_`-private
+  variable, or a `*-stack` font fallback (`token: null`).
+
+The join step resolves each component's bound ids against this map; ids absent
+from it are either **remote** (a `VariableID:<file-key>/…` from a subscribed
+library, never in a local export) or genuinely **unresolved** — a map stale vs
+the inventory (regenerate), or, when an id survives a fresh sync, a **dangling
+binding** to a variable deleted in Figma (only rebinding/detaching the layer in
+the design file clears it).
 
 ## The code inventory (`code-inventory.mjs`)
 
@@ -92,6 +136,8 @@ Every finding carries a per-instance `why`; the `RULES` registry in
 | `responsive-axis` | info | breakpoint axis, handled by media queries rather than a prop. |
 | `missing-text-prop` / `missing-slot-prop` | info | Figma TEXT/SLOT property with no text/node prop; presence-only check. |
 | `parse-warning` | info | the react-tsx adapter couldn't parse this component's props; its comparison is incomplete. |
+| `binds-untracked-token` | warn | a component binds a Figma variable that names a real token but has no published CSS custom property — design ahead of code, or an intentional exclusion. |
+| `unresolved-binding` | info | a component binds variable ids the map couldn't resolve — remote/library variables, a map stale vs the inventory (re-sync: `npm run sync` / `sync:map`), or a dangling binding to a Figma-deleted variable (persists after a fresh sync). |
 
 A finding isn't necessarily a code bug — e.g. Button's `ghost` variant is a
 known, documented gap (`design-system/components/button.md`). Surfacing that
@@ -108,8 +154,10 @@ grouped findings with their whys. Built from the same report model as
 
 ## Roadmap
 
-1. **Token-binding drift** — join `boundVariables` ids against the token-sync
-   plugin's id→name map.
+1. ~~**Token-binding drift** — join `boundVariables` ids against the token-sync
+   plugin's id→name map.~~ Done — see "The variable map" above
+   (`binds-untracked-token` / `unresolved-binding` findings, per-component token
+   lists in `--json` and the HTML board).
 2. **Sync freshness** — record `fileVersion` at token-sync time to flag
    "tokens stale relative to Figma".
 3. **CI wiring** — `audit --strict` alongside `eval:all` once tested against

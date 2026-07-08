@@ -315,6 +315,25 @@ function severityChipsHtml(name, counts) {
   return chips.length ? `<div class="chip-row">${chips.join("")}</div>` : `<span class="muted">—</span>`;
 }
 
+// Token-bindings cell: the count of resolved semantic tokens (full list in a
+// hover tooltip — deterministic, no JS), plus an "untracked" badge when the
+// component binds a Figma variable the build never published. A muted dash
+// when the variable map hasn't been generated (record.bindings === null).
+function tokensCellHtml(record) {
+  const b = record.bindings;
+  if (!b) return `<span class="muted">—</span>`;
+  const count = b.tokens.length;
+  const countHtml = count
+    ? `<span class="chip chip-info" title="${escapeHtml(b.tokens.join("\n"))}">${count}</span>`
+    : `<span class="muted">0</span>`;
+  const untracked = b.untracked.length
+    ? ` <span class="chip chip-warn" title="${escapeHtml(
+        b.untracked.map((u) => `${u.collection}/${u.name}`).join("\n")
+      )}">${b.untracked.length} untracked</span>`
+    : "";
+  return `<div class="chip-row">${countHtml}${untracked}</div>`;
+}
+
 function componentRowHtml(record, model, countsByComponent, helpers) {
   const name = record.name;
   const kindTag = record.figma ? (record.figma.kind === "componentSet" ? "set" : "component") : record.code ? "code" : "";
@@ -345,6 +364,7 @@ function componentRowHtml(record, model, countsByComponent, helpers) {
       <td>${devChip}</td>
       <td>${codeStatusCell}</td>
       <td>${variantsCellHtml(record, helpers)}</td>
+      <td>${tokensCellHtml(record)}</td>
       <td>${severityChipsHtml(name, counts)}</td>
     </tr>`;
 }
@@ -421,6 +441,7 @@ export function renderHtmlReport(model, helpers) {
       ${statTile(summary.figmaComponents, "Figma components")}
       ${statTile(summary.codeComponents, "Code components")}
       ${statTile(summary.matched, "Matched")}
+      ${model.variableMapAbsent ? "" : statTile(summary.tokenBindings.distinctTokens, "Bound tokens")}
       ${statTile(summary.findingsBySeverity.warn, "Warns")}
       ${statTile(summary.findingsBySeverity.error, "Errors")}
     </div>
@@ -453,6 +474,7 @@ export function renderHtmlReport(model, helpers) {
           <th>Dev status</th>
           <th>Code status</th>
           <th>Variants</th>
+          <th>Tokens</th>
           <th>Findings</th>
         </tr>
       </thead>
