@@ -81,6 +81,9 @@
     "inverse": {
       "$value": "{color.white.20}"
     },
+    "inverse-strong": {
+      "$value": "{color.white.white}"
+    },
     "info": {
       "$value": "{color.blue.insightful}"
     },

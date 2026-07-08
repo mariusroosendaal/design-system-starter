@@ -28,6 +28,7 @@
   --border-input: var(--color-ink-40);
   --border-strong: var(--color-ink-90);
   --border-inverse: var(--color-white-20);
+  --border-inverse-strong: var(--color-white-white);
   --border-info: var(--color-blue-insightful);
   --border-positive: var(--color-green-insightful);
   --border-negative: var(--color-red-insightful);
