@@ -12,6 +12,9 @@
     "default": {
       "$value": "{color.gray.gray}"
     },
+    "secondary": {
+      "$value": "{color.ink.4}"
+    },
     "surface": {
       "$value": "{color.white.white}"
     },
@@ -36,11 +39,14 @@
     "positive": {
       "$value": "{color.green.optimistic}"
     },
+    "notification": {
+      "$value": "{color.green.bold}"
+    },
     "negative": {
       "$value": "{color.red.optimistic}"
     },
     "disabled": {
-      "$value": "{color.ink.12}"
+      "$value": "{color.ink.4}"
     },
     "interactive-primary": {
       "$value": "{color.blue.impactful}"
