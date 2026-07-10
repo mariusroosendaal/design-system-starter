@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fileName": "🎨 USCC — SNAP DS",
+  "fileName": "🟦 USCC — SNAP DS",
   "collections": [
     {
       "id": "VariableCollectionId:3302:20822",
@@ -21,6 +21,17 @@
             "3302:0": {
               "type": "ALIAS",
               "id": "VariableID:5563:8079"
+            }
+          }
+        },
+        {
+          "id": "VariableID:8489:34370",
+          "name": "background/secondary",
+          "resolvedType": "COLOR",
+          "valuesByMode": {
+            "3302:0": {
+              "type": "ALIAS",
+              "id": "VariableID:5573:3830"
             }
           }
         },
@@ -124,6 +135,17 @@
           }
         },
         {
+          "id": "VariableID:9039:26270",
+          "name": "border/inverse-strong",
+          "resolvedType": "COLOR",
+          "valuesByMode": {
+            "3302:0": {
+              "type": "ALIAS",
+              "id": "VariableID:5762:1835"
+            }
+          }
+        },
+        {
           "id": "VariableID:3302:20825",
           "name": "text/default",
           "resolvedType": "COLOR",
@@ -223,6 +245,17 @@
           }
         },
         {
+          "id": "VariableID:9039:25703",
+          "name": "background/notification",
+          "resolvedType": "COLOR",
+          "valuesByMode": {
+            "3302:0": {
+              "type": "ALIAS",
+              "id": "VariableID:8007:24"
+            }
+          }
+        },
+        {
           "id": "VariableID:137:51341",
           "name": "background/negative",
           "resolvedType": "COLOR",
@@ -278,17 +311,6 @@
           }
         },
         {
-          "id": "VariableID:8323:12607",
-          "name": "text/disabled",
-          "resolvedType": "COLOR",
-          "valuesByMode": {
-            "3302:0": {
-              "type": "ALIAS",
-              "id": "VariableID:8008:23858"
-            }
-          }
-        },
-        {
           "id": "VariableID:7263:138410",
           "name": "border/positive",
           "resolvedType": "COLOR",
@@ -300,8 +322,19 @@
           }
         },
         {
-          "id": "VariableID:5589:23357",
-          "name": "border/negative",
+          "id": "VariableID:8323:12607",
+          "name": "text/disabled",
+          "resolvedType": "COLOR",
+          "valuesByMode": {
+            "3302:0": {
+              "type": "ALIAS",
+              "id": "VariableID:8008:23858"
+            }
+          }
+        },
+        {
+          "id": "VariableID:8008:24081",
+          "name": "text/interactive-accent",
           "resolvedType": "COLOR",
           "valuesByMode": {
             "3302:0": {
@@ -311,8 +344,8 @@
           }
         },
         {
-          "id": "VariableID:8008:24081",
-          "name": "text/interactive-accent",
+          "id": "VariableID:5589:23357",
+          "name": "border/negative",
           "resolvedType": "COLOR",
           "valuesByMode": {
             "3302:0": {
@@ -339,18 +372,7 @@
           "valuesByMode": {
             "3302:0": {
               "type": "ALIAS",
-              "id": "VariableID:8008:23739"
-            }
-          }
-        },
-        {
-          "id": "VariableID:8016:51032",
-          "name": "background/interactive-primary",
-          "resolvedType": "COLOR",
-          "valuesByMode": {
-            "3302:0": {
-              "type": "ALIAS",
-              "id": "VariableID:8007:15"
+              "id": "VariableID:5573:3830"
             }
           }
         },
@@ -362,6 +384,17 @@
             "3302:0": {
               "type": "ALIAS",
               "id": "VariableID:8008:23740"
+            }
+          }
+        },
+        {
+          "id": "VariableID:8016:51032",
+          "name": "background/interactive-primary",
+          "resolvedType": "COLOR",
+          "valuesByMode": {
+            "3302:0": {
+              "type": "ALIAS",
+              "id": "VariableID:8007:15"
             }
           }
         },
@@ -410,17 +443,6 @@
           }
         },
         {
-          "id": "VariableID:3302:20849",
-          "name": "border/focus",
-          "resolvedType": "COLOR",
-          "valuesByMode": {
-            "3302:0": {
-              "type": "ALIAS",
-              "id": "VariableID:8007:17"
-            }
-          }
-        },
-        {
           "id": "VariableID:8016:51334",
           "name": "background/interactive-negative-hovered",
           "resolvedType": "COLOR",
@@ -428,6 +450,17 @@
             "3302:0": {
               "type": "ALIAS",
               "id": "VariableID:8007:8"
+            }
+          }
+        },
+        {
+          "id": "VariableID:3302:20849",
+          "name": "border/focus",
+          "resolvedType": "COLOR",
+          "valuesByMode": {
+            "3302:0": {
+              "type": "ALIAS",
+              "id": "VariableID:8007:17"
             }
           }
         }
@@ -493,9 +526,9 @@
           "valuesByMode": {
             "3302:2": {
               "type": "COLOR",
-              "r": 0,
-              "g": 0,
-              "b": 0,
+              "r": 1,
+              "g": 1,
+              "b": 1,
               "a": 1
             }
           }
@@ -543,20 +576,6 @@
           }
         },
         {
-          "id": "VariableID:8007:17",
-          "name": "blue/bold",
-          "resolvedType": "COLOR",
-          "valuesByMode": {
-            "3302:2": {
-              "type": "COLOR",
-              "r": 0.1921568661928177,
-              "g": 0.23137255012989044,
-              "b": 0.9843137264251709,
-              "a": 1
-            }
-          }
-        },
-        {
           "id": "VariableID:8008:23740",
           "name": "ink/20",
           "resolvedType": "COLOR",
@@ -567,6 +586,20 @@
               "g": 0.08235294371843338,
               "b": 0.16862745583057404,
               "a": 0.20000000298023224
+            }
+          }
+        },
+        {
+          "id": "VariableID:8007:17",
+          "name": "blue/bold",
+          "resolvedType": "COLOR",
+          "valuesByMode": {
+            "3302:2": {
+              "type": "COLOR",
+              "r": 0.1921568661928177,
+              "g": 0.23137255012989044,
+              "b": 0.9843137264251709,
+              "a": 1
             }
           }
         },
@@ -1090,28 +1123,28 @@
         },
         {
           "id": "VariableID:3308:31857",
-          "name": "layout/viewport-width",
+          "name": "layout/_viewport-width",
           "resolvedType": "FLOAT",
           "valuesByMode": {
             "3304:1": {
-              "type": "FLOAT",
-              "value": 400
+              "type": "ALIAS",
+              "id": "VariableID:8606:38386"
             },
             "3304:2": {
-              "type": "FLOAT",
-              "value": 768
+              "type": "ALIAS",
+              "id": "VariableID:8606:38370"
             },
             "3304:3": {
-              "type": "FLOAT",
-              "value": 1024
+              "type": "ALIAS",
+              "id": "VariableID:8606:38354"
             },
             "3336:0": {
-              "type": "FLOAT",
-              "value": 1440
+              "type": "ALIAS",
+              "id": "VariableID:8594:32022"
             },
             "5399:0": {
-              "type": "FLOAT",
-              "value": 1920
+              "type": "ALIAS",
+              "id": "VariableID:8606:39651"
             }
           }
         },
@@ -1495,7 +1528,7 @@
         },
         {
           "id": "VariableID:5045:7427",
-          "name": "layout/viewport-height",
+          "name": "layout/_viewport-height",
           "resolvedType": "FLOAT",
           "valuesByMode": {
             "3304:1": {
@@ -1526,24 +1559,24 @@
           "resolvedType": "FLOAT",
           "valuesByMode": {
             "3304:1": {
-              "type": "FLOAT",
-              "value": 12
+              "type": "ALIAS",
+              "id": "VariableID:8606:38387"
             },
             "3304:2": {
-              "type": "FLOAT",
-              "value": 12
+              "type": "ALIAS",
+              "id": "VariableID:8606:38371"
             },
             "3304:3": {
-              "type": "FLOAT",
-              "value": 12
+              "type": "ALIAS",
+              "id": "VariableID:8606:38355"
             },
             "3336:0": {
-              "type": "FLOAT",
-              "value": 12
+              "type": "ALIAS",
+              "id": "VariableID:8594:32023"
             },
             "5399:0": {
-              "type": "FLOAT",
-              "value": 12
+              "type": "ALIAS",
+              "id": "VariableID:8606:39652"
             }
           }
         },
@@ -1553,24 +1586,24 @@
           "resolvedType": "FLOAT",
           "valuesByMode": {
             "3304:1": {
-              "type": "FLOAT",
-              "value": 16
+              "type": "ALIAS",
+              "id": "VariableID:8606:38389"
             },
             "3304:2": {
-              "type": "FLOAT",
-              "value": 24
+              "type": "ALIAS",
+              "id": "VariableID:8606:38373"
             },
             "3304:3": {
-              "type": "FLOAT",
-              "value": 24
+              "type": "ALIAS",
+              "id": "VariableID:8606:38357"
             },
             "3336:0": {
-              "type": "FLOAT",
-              "value": 24
+              "type": "ALIAS",
+              "id": "VariableID:8594:32025"
             },
             "5399:0": {
-              "type": "FLOAT",
-              "value": 32
+              "type": "ALIAS",
+              "id": "VariableID:8606:39654"
             }
           }
         },
@@ -1580,24 +1613,24 @@
           "resolvedType": "FLOAT",
           "valuesByMode": {
             "3304:1": {
-              "type": "FLOAT",
-              "value": 16
+              "type": "ALIAS",
+              "id": "VariableID:8606:38388"
             },
             "3304:2": {
-              "type": "FLOAT",
-              "value": 24
+              "type": "ALIAS",
+              "id": "VariableID:8606:38372"
             },
             "3304:3": {
-              "type": "FLOAT",
-              "value": 24
+              "type": "ALIAS",
+              "id": "VariableID:8606:38356"
             },
             "3336:0": {
-              "type": "FLOAT",
-              "value": 24
+              "type": "ALIAS",
+              "id": "VariableID:8594:32024"
             },
             "5399:0": {
-              "type": "FLOAT",
-              "value": 32
+              "type": "ALIAS",
+              "id": "VariableID:8606:39653"
             }
           }
         },
@@ -1607,24 +1640,24 @@
           "resolvedType": "FLOAT",
           "valuesByMode": {
             "3304:1": {
-              "type": "FLOAT",
-              "value": 368
+              "type": "ALIAS",
+              "id": "VariableID:8606:38401"
             },
             "3304:2": {
-              "type": "FLOAT",
-              "value": 596
+              "type": "ALIAS",
+              "id": "VariableID:8606:38383"
             },
             "3304:3": {
-              "type": "FLOAT",
-              "value": 640
+              "type": "ALIAS",
+              "id": "VariableID:8606:38365"
             },
             "3336:0": {
-              "type": "FLOAT",
-              "value": 684
+              "type": "ALIAS",
+              "id": "VariableID:8594:32031"
             },
             "5399:0": {
-              "type": "FLOAT",
-              "value": 910
+              "type": "ALIAS",
+              "id": "VariableID:8606:39660"
             }
           }
         },
@@ -1634,24 +1667,24 @@
           "resolvedType": "FLOAT",
           "valuesByMode": {
             "3304:1": {
-              "type": "FLOAT",
-              "value": 368
+              "type": "ALIAS",
+              "id": "VariableID:8606:38401"
             },
             "3304:2": {
-              "type": "FLOAT",
-              "value": 720
+              "type": "ALIAS",
+              "id": "VariableID:8606:38385"
             },
             "3304:3": {
-              "type": "FLOAT",
-              "value": 806
+              "type": "ALIAS",
+              "id": "VariableID:8606:38367"
             },
             "3336:0": {
-              "type": "FLOAT",
-              "value": 1156
+              "type": "ALIAS",
+              "id": "VariableID:8594:32035"
             },
             "5399:0": {
-              "type": "FLOAT",
-              "value": 1538
+              "type": "ALIAS",
+              "id": "VariableID:8606:39664"
             }
           }
         },
@@ -1661,24 +1694,24 @@
           "resolvedType": "FLOAT",
           "valuesByMode": {
             "3304:1": {
-              "type": "FLOAT",
-              "value": 368
+              "type": "ALIAS",
+              "id": "VariableID:8606:38401"
             },
             "3304:2": {
-              "type": "FLOAT",
-              "value": 720
+              "type": "ALIAS",
+              "id": "VariableID:8606:38385"
             },
             "3304:3": {
-              "type": "FLOAT",
-              "value": 972
+              "type": "ALIAS",
+              "id": "VariableID:8606:38369"
             },
             "3336:0": {
-              "type": "FLOAT",
-              "value": 1392
+              "type": "ALIAS",
+              "id": "VariableID:8594:32037"
             },
             "5399:0": {
-              "type": "FLOAT",
-              "value": 1852
+              "type": "ALIAS",
+              "id": "VariableID:8606:39666"
             }
           }
         },
@@ -1809,7 +1842,7 @@
             },
             "3336:0": {
               "type": "ALIAS",
-              "id": "VariableID:5612:30084"
+              "id": "VariableID:5612:30085"
             },
             "5399:0": {
               "type": "ALIAS",
@@ -1917,7 +1950,7 @@
             },
             "3336:0": {
               "type": "ALIAS",
-              "id": "VariableID:5612:30084"
+              "id": "VariableID:5612:30085"
             },
             "5399:0": {
               "type": "ALIAS",
@@ -2013,7 +2046,7 @@
           "valuesByMode": {
             "3304:1": {
               "type": "ALIAS",
-              "id": "VariableID:5612:30080"
+              "id": "VariableID:5612:30079"
             },
             "3304:2": {
               "type": "ALIAS",
@@ -2154,6 +2187,17 @@
       ],
       "defaultModeId": "5553:0",
       "variables": [
+        {
+          "id": "VariableID:9015:48910",
+          "name": "size/2",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "5553:0": {
+              "type": "FLOAT",
+              "value": 2
+            }
+          }
+        },
         {
           "id": "VariableID:5609:13582",
           "name": "size/4",
@@ -3132,7 +3176,7 @@
     },
     {
       "id": "VariableCollectionId:2688:130353",
-      "name": ".utility",
+      "name": "_utility",
       "modes": [
         {
           "modeId": "2688:0",
@@ -3143,7 +3187,7 @@
       "variables": [
         {
           "id": "VariableID:4194:12645",
-          "name": "color/component-bg",
+          "name": "color/background-component",
           "resolvedType": "COLOR",
           "valuesByMode": {
             "2688:0": {
@@ -3153,22 +3197,8 @@
           }
         },
         {
-          "id": "VariableID:4380:7821",
-          "name": "color/component-border",
-          "resolvedType": "COLOR",
-          "valuesByMode": {
-            "2688:0": {
-              "type": "COLOR",
-              "r": 0.5921568870544434,
-              "g": 0.27843138575553894,
-              "b": 1,
-              "a": 1
-            }
-          }
-        },
-        {
           "id": "VariableID:4232:27534",
-          "name": "color/spec-bg",
+          "name": "color/background-spec",
           "resolvedType": "COLOR",
           "valuesByMode": {
             "2688:0": {
@@ -3181,6 +3211,372 @@
           }
         },
         {
+          "id": "VariableID:4380:7821",
+          "name": "color/border-component",
+          "resolvedType": "COLOR",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "COLOR",
+              "r": 0.5921568870544434,
+              "g": 0.27843138575553894,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38386",
+          "name": "grid/sm/viewport",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 400
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38387",
+          "name": "grid/sm/columns",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 12
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38388",
+          "name": "grid/sm/margin",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 16
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38389",
+          "name": "grid/sm/gutter",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 16
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38390",
+          "name": "grid/sm/col-1",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 16
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38391",
+          "name": "grid/sm/col-2",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 48
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38392",
+          "name": "grid/sm/col-3",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 80
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38393",
+          "name": "grid/sm/col-4",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 112
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38394",
+          "name": "grid/sm/col-5",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 144
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38395",
+          "name": "grid/sm/col-6",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 176
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38396",
+          "name": "grid/sm/col-7",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 208
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38397",
+          "name": "grid/sm/col-8",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 240
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38398",
+          "name": "grid/sm/col-9",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 272
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38399",
+          "name": "grid/sm/col-10",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 304
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38400",
+          "name": "grid/sm/col-11",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 336
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38401",
+          "name": "grid/sm/col-12",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 368
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38370",
+          "name": "grid/md/viewport",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 764
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38371",
+          "name": "grid/md/columns",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 12
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38372",
+          "name": "grid/md/margin",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 24
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38373",
+          "name": "grid/md/gutter",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 16
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38374",
+          "name": "grid/md/col-1",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 45
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38375",
+          "name": "grid/md/col-2",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 106
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38376",
+          "name": "grid/md/col-3",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 167
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38377",
+          "name": "grid/md/col-4",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 228
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38378",
+          "name": "grid/md/col-5",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 289
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38379",
+          "name": "grid/md/col-6",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 350
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38380",
+          "name": "grid/md/col-7",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 411
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38381",
+          "name": "grid/md/col-8",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 472
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38382",
+          "name": "grid/md/col-9",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 533
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38383",
+          "name": "grid/md/col-10",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 594
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38384",
+          "name": "grid/md/col-11",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 655
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38385",
+          "name": "grid/md/col-12",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 716
+            }
+          }
+        },
+        {
           "id": "VariableID:2688:130380",
           "name": "character count/25",
           "resolvedType": "STRING",
@@ -3188,6 +3584,534 @@
             "2688:0": {
               "type": "STRING",
               "value": "Twenty five char loremips"
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38354",
+          "name": "grid/lg/viewport",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1024
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38355",
+          "name": "grid/lg/columns",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 12
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38356",
+          "name": "grid/lg/margin",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 32
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38357",
+          "name": "grid/lg/gutter",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 24
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38358",
+          "name": "grid/lg/col-1",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 58
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38359",
+          "name": "grid/lg/col-2",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 140
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38360",
+          "name": "grid/lg/col-3",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 222
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38361",
+          "name": "grid/lg/col-4",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 304
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38362",
+          "name": "grid/lg/col-5",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 386
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38363",
+          "name": "grid/lg/col-6",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 468
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38364",
+          "name": "grid/lg/col-7",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 550
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38365",
+          "name": "grid/lg/col-8",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 632
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38366",
+          "name": "grid/lg/col-9",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 714
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38367",
+          "name": "grid/lg/col-10",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 796
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38368",
+          "name": "grid/lg/col-11",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 878
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:38369",
+          "name": "grid/lg/col-12",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 960
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32022",
+          "name": "grid/xl/viewport",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1444
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39651",
+          "name": "grid/xxl/viewport",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1920
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39652",
+          "name": "grid/xxl/columns",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 12
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39653",
+          "name": "grid/xxl/margin",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 40
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39654",
+          "name": "grid/xxl/gutter",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 32
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39655",
+          "name": "grid/xxl/col-1",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 124
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39656",
+          "name": "grid/xxl/col-2",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 280
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39657",
+          "name": "grid/xxl/col-3",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 436
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39658",
+          "name": "grid/xxl/col-4",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 592
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39659",
+          "name": "grid/xxl/col-5",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 748
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39660",
+          "name": "grid/xxl/col-6",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 904
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39661",
+          "name": "grid/xxl/col-7",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1060
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39662",
+          "name": "grid/xxl/col-8",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1216
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39663",
+          "name": "grid/xxl/col-9",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1372
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39664",
+          "name": "grid/xxl/col-10",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1528
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39665",
+          "name": "grid/xxl/col-11",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1684
+            }
+          }
+        },
+        {
+          "id": "VariableID:8606:39666",
+          "name": "grid/xxl/col-12",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1840
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32023",
+          "name": "grid/xl/columns",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 12
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32024",
+          "name": "grid/xl/margin",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 32
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32025",
+          "name": "grid/xl/gutter",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 24
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32026",
+          "name": "grid/xl/col-1",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 93
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32027",
+          "name": "grid/xl/col-2",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 210
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32028",
+          "name": "grid/xl/col-3",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 327
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32029",
+          "name": "grid/xl/col-4",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 444
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32030",
+          "name": "grid/xl/col-5",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 561
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32031",
+          "name": "grid/xl/col-6",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 678
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32032",
+          "name": "grid/xl/col-7",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 795
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32033",
+          "name": "grid/xl/col-8",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 912
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32034",
+          "name": "grid/xl/col-9",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1029
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32035",
+          "name": "grid/xl/col-10",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1146
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32036",
+          "name": "grid/xl/col-11",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1263
+            }
+          }
+        },
+        {
+          "id": "VariableID:8594:32037",
+          "name": "grid/xl/col-12",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "2688:0": {
+              "type": "FLOAT",
+              "value": 1380
             }
           }
         },
@@ -3287,6 +4211,140 @@
             "2688:0": {
               "type": "STRING",
               "value": "Six hundred and fifty characters tincidunt phasellus lobortis lorem et massa morbi elit vitae bibendum libero gravida lectuscras nulla vitae leo congue auctor ultrices eget non porttitor non malesuada nunc duis eu malesuada in mi senectus pretium ac nisi dolor libero lacus phasellus pretiumid sedvarius ut ultraicies quisque tincidunt nulla eu sit morbi mauris pretium risus dignissim sed nunc curaabitur volutpat placerat tortor nibh semper amet egestas at cond imentum risus dolor urna interdum facilisis velit vitae sem non dolor a sagittis semper pelle ntesque faucibus aliqauam risus bibendum etiam mauris scelerisque nisi feugiat volutpat ids."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "VariableCollectionId:9039:18645",
+      "name": "size",
+      "modes": [
+        {
+          "modeId": "9039:0",
+          "name": "Mode 1"
+        }
+      ],
+      "defaultModeId": "9039:0",
+      "variables": [
+        {
+          "id": "VariableID:9039:18646",
+          "name": "icon/xs",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "FLOAT",
+              "value": 12
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:18647",
+          "name": "icon/sm",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "FLOAT",
+              "value": 16
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:18648",
+          "name": "icon/md",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "FLOAT",
+              "value": 20
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:18649",
+          "name": "icon/lg",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "FLOAT",
+              "value": 24
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:25691",
+          "name": "_interactive 🚧/height-2xs",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "ALIAS",
+              "id": "VariableID:5609:13586"
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:26304",
+          "name": "_interactive 🚧/height-xs",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "ALIAS",
+              "id": "VariableID:5609:13587"
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:25695",
+          "name": "_interactive 🚧/height-sm",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "ALIAS",
+              "id": "VariableID:5609:13588"
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:25692",
+          "name": "_interactive 🚧/height-md",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "ALIAS",
+              "id": "VariableID:5609:13589"
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:25693",
+          "name": "_interactive 🚧/height-lg",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "ALIAS",
+              "id": "VariableID:5609:13590"
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:25694",
+          "name": "_interactive 🚧/height-xl",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "ALIAS",
+              "id": "VariableID:5610:13767"
+            }
+          }
+        },
+        {
+          "id": "VariableID:9039:25720",
+          "name": "tooltip/max-width",
+          "resolvedType": "FLOAT",
+          "valuesByMode": {
+            "9039:0": {
+              "type": "FLOAT",
+              "value": 180
             }
           }
         }
@@ -3589,7 +4647,7 @@
         "family": "GT America",
         "style": "Light"
       },
-      "fontSize": 16,
+      "fontSize": 14,
       "lineHeight": {
         "unit": "PERCENT",
         "value": 150
@@ -3613,7 +4671,7 @@
         "family": "GT America",
         "style": "Bold"
       },
-      "fontSize": 16,
+      "fontSize": 14,
       "lineHeight": {
         "unit": "PERCENT",
         "value": 150
