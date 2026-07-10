@@ -31,18 +31,18 @@
   },
   "layout": {
     "$type": "dimension",
-    "viewport-width": {
+    "_viewport-width": {
       "$extensions": {
         "ds.modes": {
-          "md": "768px",
-          "lg": "1024px",
-          "xl": "1440px",
-          "2xl": "1920px"
+          "md": "{grid.md.viewport}",
+          "lg": "{grid.lg.viewport}",
+          "xl": "{grid.xl.viewport}",
+          "2xl": "{grid.xxl.viewport}"
         }
       },
-      "$value": "400px"
+      "$value": "{grid.sm.viewport}"
     },
-    "viewport-height": {
+    "_viewport-height": {
       "$extensions": {
         "ds.modes": {
           "md": "1024px",
@@ -54,25 +54,37 @@
       "$value": "840px"
     },
     "columns": {
-      "$value": 12
+      "$extensions": {
+        "ds.modes": {
+          "md": "{grid.md.columns}",
+          "lg": "{grid.lg.columns}",
+          "xl": "{grid.xl.columns}",
+          "2xl": "{grid.xxl.columns}"
+        }
+      },
+      "$value": "{grid.sm.columns}"
     },
     "gutter": {
       "$extensions": {
         "ds.modes": {
-          "md": "24px",
-          "2xl": "32px"
+          "md": "{grid.md.gutter}",
+          "lg": "{grid.lg.gutter}",
+          "xl": "{grid.xl.gutter}",
+          "2xl": "{grid.xxl.gutter}"
         }
       },
-      "$value": "16px"
+      "$value": "{grid.sm.gutter}"
     },
     "margin": {
       "$extensions": {
         "ds.modes": {
-          "md": "24px",
-          "2xl": "32px"
+          "md": "{grid.md.margin}",
+          "lg": "{grid.lg.margin}",
+          "xl": "{grid.xl.margin}",
+          "2xl": "{grid.xxl.margin}"
         }
       },
-      "$value": "16px"
+      "$value": "{grid.sm.margin}"
     }
   },
   "space": {
@@ -204,35 +216,35 @@
     "narrow": {
       "$extensions": {
         "ds.modes": {
-          "md": "596px",
-          "lg": "640px",
-          "xl": "684px",
-          "2xl": "910px"
+          "md": "{grid.md.col-10}",
+          "lg": "{grid.lg.col-8}",
+          "xl": "{grid.xl.col-6}",
+          "2xl": "{grid.xxl.col-6}"
         }
       },
-      "$value": "368px"
+      "$value": "{grid.sm.col-12}"
     },
     "standard": {
       "$extensions": {
         "ds.modes": {
-          "md": "720px",
-          "lg": "806px",
-          "xl": "1156px",
-          "2xl": "1538px"
+          "md": "{grid.md.col-12}",
+          "lg": "{grid.lg.col-10}",
+          "xl": "{grid.xl.col-10}",
+          "2xl": "{grid.xxl.col-10}"
         }
       },
-      "$value": "368px"
+      "$value": "{grid.sm.col-12}"
     },
     "wide": {
       "$extensions": {
         "ds.modes": {
-          "md": "720px",
-          "lg": "972px",
-          "xl": "1392px",
-          "2xl": "1852px"
+          "md": "{grid.md.col-12}",
+          "lg": "{grid.lg.col-12}",
+          "xl": "{grid.xl.col-12}",
+          "2xl": "{grid.xxl.col-12}"
         }
       },
-      "$value": "368px"
+      "$value": "{grid.sm.col-12}"
     }
   },
   "interactive": {
